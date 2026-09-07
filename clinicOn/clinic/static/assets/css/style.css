@@ -1,0 +1,546 @@
+/* ==========================================================================
+   Clinic On - Premium 2026 Healthcare SaaS Design System
+   Visual Palette: Electric Indigo + Emerald Green Accent (2026 SaaS System)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* 2026 Electric Indigo & Emerald Color Tokens */
+  --primary: #6366F1;
+  --primary-dark: #4F46E5;
+  --secondary: #10B981;
+  --secondary-dark: #059669;
+  --primary-teal: #10B981;
+  --primary-gradient: linear-gradient(135deg, #6366F1 0%, #10B981 100%);
+  --accent-cyan: #06B6D4;
+
+  /* Soft Pastel Containers */
+  --soft-indigo: #EEF2FF;
+  --soft-blue: #EEF2FF;
+  --soft-teal: #ECFDF5;
+  --soft-emerald: #ECFDF5;
+  --soft-cyan: #ECFEFF;
+  --soft-mint: #ECFDF5;
+  --soft-purple: #F5F3FF;
+  --soft-orange: #FFFBEB;
+  --soft-amber: #FFFBEB;
+  --soft-pink: #FFF1F2;
+  --soft-rose: #FFF1F2;
+
+  /* Base Neutral System (Linear/shadcn Clean Base) */
+  --background: #F8FAFC;
+  --surface: #FFFFFF;
+  --surface-hover: #F1F5F9;
+  --border: #E2E8F0;
+  --border-subtle: #F1F5F9;
+
+  /* Typography Colors */
+  --foreground: #111827;
+  --muted: #64748B;
+  --muted-light: #94A3B8;
+
+  /* Functional Badges */
+  --success: #10B981;
+  --success-bg: #ECFDF5;
+  --warning: #F59E0B;
+  --warning-bg: #FFFBEB;
+  --danger: #EF4444;
+  --danger-bg: #FEF2F2;
+
+  /* Typography Font Family */
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Radius Tokens */
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 9999px;
+
+  /* Elevation Shadows */
+  --shadow-subtle: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-card: 0 4px 12px rgba(15, 23, 42, 0.06);
+  --shadow-floating: 0 12px 32px -4px rgba(15, 23, 42, 0.10);
+  --shadow-glow: 0 10px 30px -5px rgba(99, 102, 241, 0.28);
+
+  --transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================================================
+   Dark Mode SaaS Palette Overrides
+   ========================================================================== */
+[data-theme="dark"] {
+  --background: #0B1020;
+  --surface: #111827;
+  --surface-hover: #172033;
+  --border: #263247;
+  --border-subtle: #1E293B;
+
+  --foreground: #F8FAFC;
+  --muted: #94A3B8;
+  --muted-light: #64748B;
+
+  --soft-indigo: rgba(99, 102, 241, 0.14);
+  --soft-blue: rgba(99, 102, 241, 0.14);
+  --soft-teal: rgba(16, 185, 129, 0.14);
+  --soft-emerald: rgba(16, 185, 129, 0.14);
+  --soft-cyan: rgba(6, 182, 212, 0.14);
+  --soft-mint: rgba(16, 185, 129, 0.14);
+  --soft-purple: rgba(139, 92, 246, 0.14);
+  --soft-orange: rgba(245, 158, 11, 0.14);
+  --soft-amber: rgba(245, 158, 11, 0.14);
+  --soft-pink: rgba(239, 68, 68, 0.14);
+  --soft-rose: rgba(239, 68, 68, 0.14);
+
+  --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
+  --shadow-floating: 0 12px 32px -4px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 10px 25px -5px rgba(99, 102, 241, 0.20);
+}
+
+/* ==========================================================================
+   Reset & Base Typography
+   ========================================================================== */
+body {
+  font-family: var(--font-sans);
+  background-color: var(--background);
+  color: var(--foreground);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--foreground);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Gradient Emphasis Text */
+.gradient-text {
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* Brand Logo Styling */
+.brand-logo-text {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--foreground);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.brand-icon-box {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
+  background: var(--primary-gradient);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  box-shadow: var(--shadow-glow);
+}
+
+.brand-gradient-part {
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+
+/* ==========================================================================
+   Buttons & Theme Toggle Button (Circular Fixed)
+   ========================================================================== */
+.btn {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  padding: 0.55rem 1.25rem;
+  font-size: 0.875rem;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+/* Primary Gradient CTA Button */
+.btn-primary, .btn-primary-gradient {
+  background: var(--primary-gradient);
+  border: none;
+  color: #ffffff !important;
+  box-shadow: var(--shadow-glow);
+}
+
+.btn-primary:hover, .btn-primary-gradient:hover {
+  opacity: 0.95;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px -4px rgba(99, 102, 241, 0.38);
+}
+
+.btn-outline-primary {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--foreground);
+}
+
+.btn-outline-primary:hover {
+  background: var(--surface-hover);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--muted);
+}
+
+.btn-ghost:hover {
+  background: var(--surface-hover);
+  color: var(--foreground);
+}
+
+/* Sleek Circular Dark/Light Mode Switcher Button */
+.theme-toggle-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  width: 38px;
+  height: 38px;
+  border-radius: 50% !important; /* Perfect circular shape */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow-subtle);
+}
+
+.theme-toggle-btn:hover {
+  background-color: var(--surface-hover);
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   Public Sticky SaaS Navbar
+   ========================================================================== */
+.sticky-top-nav {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0.85rem 0;
+  transition: var(--transition);
+}
+
+[data-theme="dark"] .sticky-top-nav {
+  background: rgba(15, 23, 42, 0.85);
+}
+
+.navbar-nav .nav-link {
+  color: var(--muted);
+  font-weight: 500;
+  font-size: 0.9rem;
+  padding: 0.45rem 0.9rem !important;
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+}
+
+.navbar-nav .nav-link:hover {
+  color: var(--foreground);
+}
+
+.navbar-nav .nav-link.active {
+  color: var(--primary);
+  background: var(--soft-blue);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   Hero Section & Floating Visual Composition
+   ========================================================================== */
+.hero-section {
+  padding: 4.5rem 0 6rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-title {
+  font-size: 3.25rem;
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.hero-subtitle {
+  color: var(--muted);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 520px;
+}
+
+/* Ambient Glow Behind Hero Visual */
+.hero-visual-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ambient-gradient-glow {
+  position: absolute;
+  width: 380px;
+  height: 380px;
+  background: var(--primary-gradient);
+  filter: blur(90px);
+  opacity: 0.25;
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.hero-main-img {
+  position: relative;
+  z-index: 1;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-floating);
+  border: 4px solid var(--surface);
+  max-height: 460px;
+  object-fit: cover;
+}
+
+/* Hero Floating Metric Cards */
+.floating-hero-card {
+  position: absolute;
+  z-index: 2;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  box-shadow: var(--shadow-floating);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  animation: floatAnim 4s ease-in-out infinite alternate;
+}
+
+.floating-hero-card.card-pos-1 { top: 12%; left: -8%; }
+.floating-hero-card.card-pos-2 { bottom: 15%; left: -6%; animation-delay: 1s; }
+.floating-hero-card.card-pos-3 { top: 20%; right: -6%; animation-delay: 2s; }
+.floating-hero-card.card-pos-4 { bottom: 12%; right: -4%; animation-delay: 1.5s; }
+
+@keyframes floatAnim {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-8px); }
+}
+
+.floating-card-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+}
+
+/* Overlapping Feature Strip Container */
+.hero-feature-strip {
+  margin-top: -3.5rem;
+  position: relative;
+  z-index: 10;
+}
+
+.feature-strip-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-card);
+  transition: var(--transition);
+  height: 100%;
+}
+
+.feature-strip-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-floating);
+}
+
+.pastel-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+/* Background Utility Helpers */
+.bg-pastel-blue { background-color: var(--soft-blue); color: var(--primary); }
+.bg-pastel-teal { background-color: var(--soft-teal); color: var(--primary-teal); }
+.bg-pastel-cyan { background-color: var(--soft-cyan); color: var(--accent-cyan); }
+.bg-pastel-mint { background-color: var(--soft-mint); color: var(--success); }
+.bg-pastel-purple { background-color: var(--soft-purple); color: #8B5CF6; }
+.bg-pastel-orange { background-color: var(--soft-orange); color: var(--warning); }
+.bg-pastel-pink { background-color: var(--soft-pink); color: var(--danger); }
+
+/* Overlapping Avatars */
+.avatar-group {
+  display: flex;
+  align-items: center;
+}
+
+.avatar-group img {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid var(--surface);
+  margin-left: -8px;
+}
+
+.avatar-group img:first-child {
+  margin-left: 0;
+}
+
+/* ==========================================================================
+   Command Palette Modal (Ctrl + K)
+   ========================================================================== */
+.command-palette-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 2000;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 100px;
+  opacity: 0;
+  pointer-events: none;
+  transition: var(--transition);
+}
+
+.command-palette-backdrop.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.command-palette-modal {
+  width: 100%;
+  max-width: 580px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-floating);
+  overflow: hidden;
+}
+
+.command-search-header {
+  display: flex;
+  align-items: center;
+  padding: 0.85rem 1.15rem;
+  border-bottom: 1px solid var(--border);
+  gap: 0.75rem;
+}
+
+.command-search-header input {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--foreground);
+  font-size: 1rem;
+  flex-grow: 1;
+}
+
+.command-results-list {
+  max-height: 340px;
+  overflow-y: auto;
+  padding: 0.5rem;
+}
+
+.command-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: var(--foreground);
+  transition: var(--transition);
+}
+
+.command-item:hover {
+  background-color: var(--surface-hover);
+}
+
+/* ==========================================================================
+   Cards & Data Tables
+   ========================================================================== */
+.card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-subtle);
+}
+
+.card-hover {
+  transition: var(--transition);
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
+}
+
+.badge-info-custom { background: var(--soft-blue); color: var(--primary); }
+.badge-confirmed { background: var(--success-bg); color: var(--success); }
+.badge-pending { background: var(--warning-bg); color: var(--warning); }
+.badge-cancelled { background: var(--danger-bg); color: var(--danger); }
+
+/* Footer Styling */
+footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 4rem 0 2rem 0;
+  color: var(--muted);
+}
+
+footer h5 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--foreground);
+  margin-bottom: 1.25rem;
+}
+
+footer a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+footer a:hover {
+  color: var(--primary);
+}
+
+.footer-bottom {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 1.5rem;
+  margin-top: 3rem;
+}

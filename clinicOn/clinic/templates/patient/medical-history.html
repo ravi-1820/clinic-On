@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Medical History - Patient Portal - Clinic On{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'assets/css/dashboard.css' %}">
+{% endblock %}
+
+{% block navbar %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block content %}
+  <div class="dashboard-container">
+    {% include 'includes/sidebar.html' with role='patient' %}
+
+    <div class="main-wrapper">
+      {% include 'includes/topbar.html' %}
+
+      <main class="dashboard-body">
+        <div class="page-title-box">
+          <div>
+            <h3>Diagnostic Timeline &amp; Records</h3>
+            <p>Chronological history of diagnoses, symptoms, treatments, and medical entries.</p>
+          </div>
+        </div>
+
+        <div class="card p-4 shadow-sm">
+          <div class="timeline" id="patientMedicalTimeline">
+            <!-- Timeline items rendered dynamically -->
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_js %}
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof Auth !== 'undefined' && Auth.checkRouteGuard) {
+        Auth.checkRouteGuard('patient');
+      }
+      const records = ClinicStore.getMedicalRecords();
+      const timeline = document.getElementById('patientMedicalTimeline');
+      if (timeline) {
+        if (records.length === 0) {
+          timeline.innerHTML = `<div class="text-muted py-3">No past medical records on file.</div>`;
+        } else {
+          timeline.innerHTML = records.map(r => `
+            <div class="timeline-item">
+              <div class="timeline-marker"></div>
+              <div class="d-flex justify-content-between align-items-start mb-1">
+                <h6 class="fw-bold mb-0">${r.diagnosis} (${r.id})</h6>
+                <span class="badge bg-light text-muted border">${r.date}</span>
+              </div>
+              <small class="text-primary fw-semibold d-block mb-2">Doctor: ${r.doctorName}</small>
+              <p class="text-muted fs-7 mb-1"><strong>Symptoms:</strong> ${r.symptoms || 'None recorded'}</p>
+              <p class="text-muted fs-7 mb-2"><strong>Treatment Summary:</strong> ${r.treatment || 'Consultation completed'}</p>
+              ${r.attachments ? `<span class="badge bg-primary-subtle text-primary border border-primary fs-8"><i class="bi bi-paperclip me-1"></i>${r.attachments}</span>` : ''}
+            </div>
+          `).join('');
+        }
+      }
+    });
+  </script>
+{% endblock %}

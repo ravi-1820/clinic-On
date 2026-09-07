@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Book Appointment - Clinic On{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'assets/css/dashboard.css' %}">
+{% endblock %}
+
+{% block navbar %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block content %}
+  <div class="dashboard-container">
+    {% include 'includes/sidebar.html' with role='patient' %}
+
+    <div class="main-wrapper">
+      {% include 'includes/topbar.html' %}
+
+      <main class="dashboard-body">
+        <div class="page-title-box">
+          <div>
+            <h3>Book Specialist Appointment</h3>
+            <p>Select department, specialist doctor, date, and open time slot.</p>
+          </div>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-lg-9">
+            <div class="card p-4 shadow-sm">
+              <form id="bookAppointmentForm" novalidate>
+                
+                <!-- Step 1 & 2 -->
+                <h6 class="fw-bold mb-3 text-primary"><i class="bi bi-1-circle me-1"></i>Department &amp; Doctor</h6>
+                <div class="row g-3 mb-4">
+                  <div class="col-md-6">
+                    <label class="form-label fs-7 fw-semibold">Department</label>
+                    <select class="form-select" id="bookDeptSelect" required>
+                      <!-- Options rendered via JS -->
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fs-7 fw-semibold">Doctor</label>
+                    <select class="form-select" id="bookDocSelect" required>
+                      <!-- Options rendered via JS -->
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Step 3 -->
+                <h6 class="fw-bold mb-3 text-primary"><i class="bi bi-2-circle me-1"></i>Date Selection</h6>
+                <div class="row mb-4">
+                  <div class="col-md-6">
+                    <label class="form-label fs-7 fw-semibold">Consultation Date</label>
+                    <input type="date" class="form-control" id="bookDateInput" required>
+                  </div>
+                </div>
+
+                <!-- Step 4 -->
+                <h6 class="fw-bold mb-3 text-primary"><i class="bi bi-3-circle me-1"></i>Select Open Time Slot</h6>
+                <div class="row g-2 mb-4" id="bookTimeSlotsContainer">
+                  <!-- Dynamic slot button pills rendered via JS -->
+                </div>
+
+                <!-- Step 5 -->
+                <h6 class="fw-bold mb-3 text-primary"><i class="bi bi-4-circle me-1"></i>Consultation Details</h6>
+                <div class="mb-4">
+                  <label class="form-label fs-7 fw-semibold">Reason for Visit</label>
+                  <textarea class="form-control" id="bookReasonInput" rows="3" placeholder="Brief description of symptoms..." required></textarea>
+                </div>
+
+                <div class="border-top pt-3 text-end">
+                  <a href="appointments.html" class="btn btn-ghost me-2">Cancel</a>
+                  <button type="submit" class="btn btn-primary"><i class="bi bi-check-circle me-1"></i>Confirm Appointment</button>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'assets/js/patient.js' %}"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof Patient !== 'undefined' && Patient.initBookingPage) {
+        Patient.initBookingPage();
+      }
+    });
+  </script>
+{% endblock %}

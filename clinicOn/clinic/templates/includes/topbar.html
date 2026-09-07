@@ -1,0 +1,40 @@
+{% load static %}
+<!-- Modern Topbar -->
+<header class="topbar">
+  <div class="d-flex align-items-center gap-3">
+    <button type="button" class="sidebar-toggle-btn"><i class="bi bi-list"></i></button>
+    
+    <button type="button" class="command-palette-trigger">
+      <i class="bi bi-search"></i>
+      <span>Search patients, doctors...</span>
+    </button>
+  </div>
+
+  <div class="topbar-actions">
+    <button type="button" class="theme-toggle-btn" title="Toggle Theme"><i class="bi bi-moon-stars"></i></button>
+
+    <div class="dropdown">
+      <button class="btn btn-ghost p-1 position-relative" data-bs-toggle="dropdown">
+        <i class="bi bi-bell fs-5"></i>
+        <span class="position-absolute top-0 start-100 translate-middle p-1 bg-primary border border-light rounded-circle"></span>
+      </button>
+      <div class="dropdown-menu dropdown-menu-end p-3 shadow" style="width:280px;">
+        <h6 class="fw-bold mb-2 fs-7">Notifications</h6>
+        <div class="fs-8 text-muted border-bottom pb-2 mb-2"><i class="bi bi-calendar-event me-1 text-primary"></i>3 New Appointments Reserved</div>
+        <div class="fs-8 text-muted"><i class="bi bi-person-plus me-1 text-success"></i>1 New Doctor Account Active</div>
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <div class="user-profile-menu" data-bs-toggle="dropdown">
+        <div class="avatar user-display-avatar">A</div>
+        <i class="bi bi-chevron-down fs-8 text-muted"></i>
+      </div>
+      <ul class="dropdown-menu dropdown-menu-end shadow">
+        <li><a class="dropdown-item fs-7" href="settings.html"><i class="bi bi-gear me-2"></i>Settings</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item fs-7 text-danger btn-logout" href="#"><i class="bi bi-box-arrow-right me-2"></i>Sign Out</a></li>
+      </ul>
+    </div>
+  </div>
+</header>

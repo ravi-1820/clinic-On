@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Reports & Analytics - Admin - Clinic On{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'assets/css/dashboard.css' %}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
+{% block navbar %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block content %}
+  <div class="dashboard-container">
+    {% include 'includes/sidebar.html' with role='admin' %}
+
+    <div class="main-wrapper">
+      {% include 'includes/topbar.html' %}
+
+      <main class="dashboard-body">
+        <div class="page-title-box">
+          <div>
+            <h3>Analytics &amp; Performance Summary</h3>
+            <p>Breakdown of patient registration growth and fulfillment.</p>
+          </div>
+          <button class="btn btn-outline-primary" onclick="window.print()"><i class="bi bi-printer me-1"></i>Print Report</button>
+        </div>
+
+        <div class="row g-4 mb-4">
+          <div class="col-md-6">
+            <div class="card p-3 shadow-sm">
+              <h6 class="fw-bold mb-3">Monthly Patient Registration Growth</h6>
+              <canvas id="growthChart" height="150"></canvas>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card p-3 shadow-sm">
+              <h6 class="fw-bold mb-3">Appointment Fulfillment Status</h6>
+              <canvas id="statusChart" height="150"></canvas>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_js %}
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof Auth !== 'undefined' && Auth.checkRouteGuard) {
+        Auth.checkRouteGuard('admin');
+      }
+      if (window.Chart) {
+        const growthEl = document.getElementById('growthChart');
+        if (growthEl) {
+          new Chart(growthEl, {
+            type: 'bar',
+            data: {
+              labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+              datasets: [{ label: 'New Patients', data: [120, 190, 300, 250, 280, 320, 410, 480], backgroundColor: '#6366F1' }]
+            }
+          });
+        }
+
+        const statusEl = document.getElementById('statusChart');
+        if (statusEl) {
+          new Chart(statusEl, {
+            type: 'pie',
+            data: {
+              labels: ['Confirmed', 'Pending', 'Completed', 'Cancelled'],
+              datasets: [{ data: [55, 20, 18, 7], backgroundColor: ['#10B981', '#F59E0B', '#6366F1', '#EF4444'] }]
+            }
+          });
+        }
+      }
+    });
+  </script>
+{% endblock %}

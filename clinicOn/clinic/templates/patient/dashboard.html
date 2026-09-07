@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Patient Dashboard - Clinic On{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'assets/css/dashboard.css' %}">
+{% endblock %}
+
+{% block navbar %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block content %}
+  <div class="dashboard-container">
+    {% include 'includes/sidebar.html' with role='patient' %}
+
+    <div class="main-wrapper">
+      {% include 'includes/topbar.html' %}
+
+      <main class="dashboard-body">
+        <div class="page-title-box">
+          <div>
+            <h3>Welcome, <span class="user-display-name text-primary">Sarah</span></h3>
+            <p>How are you feeling today? Overview of your next visit and health summary.</p>
+          </div>
+          <a href="book-appointment.html" class="btn btn-primary"><i class="bi bi-calendar-plus me-1"></i>Book Consultation</a>
+        </div>
+
+        <!-- Metric Blocks -->
+        <div class="row g-3 mb-4">
+          <div class="col-sm-6 col-xl-4">
+            <div class="metric-card">
+              <div class="metric-info">
+                <h6>Upcoming Visits</h6>
+                <h3 id="patStatUpcomingCount">0</h3>
+                <span class="metric-trend up"><i class="bi bi-calendar-event"></i> Active</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-xl-4">
+            <div class="metric-card">
+              <div class="metric-info">
+                <h6>Past Consultations</h6>
+                <h3 id="patStatCompletedCount">0</h3>
+                <span class="metric-trend neutral"><i class="bi bi-check-circle"></i> Completed</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-xl-4">
+            <div class="metric-card">
+              <div class="metric-info">
+                <h6>Digital Prescriptions</h6>
+                <h3 id="patStatRxCount">0</h3>
+                <span class="metric-trend neutral"><i class="bi bi-prescription2"></i> Available</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Next Scheduled Visit Widget -->
+        <div class="row g-4 mb-4">
+          <div class="col-lg-6">
+            <div class="card p-3 shadow-sm h-100">
+              <div class="card-header border-0 pb-0">
+                <h6 class="fw-bold mb-0"><i class="bi bi-clock-history text-primary me-2"></i>Next Scheduled Visit</h6>
+              </div>
+              <div class="card-body" id="patNextApptCard">
+                <!-- Rendered dynamically -->
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="card p-3 shadow-sm h-100">
+              <div class="card-header border-0 pb-0">
+                <h6 class="fw-bold mb-0"><i class="bi bi-lightning-charge text-warning me-2"></i>Quick Actions</h6>
+              </div>
+              <div class="card-body d-flex flex-column justify-content-center gap-2.5">
+                <a href="book-appointment.html" class="btn btn-outline-primary py-2.5 text-start d-flex align-items-center gap-3">
+                  <i class="bi bi-calendar-plus fs-4 text-primary"></i>
+                  <div>
+                    <div class="fw-semibold text-foreground fs-7">Book Doctor Consultation</div>
+                    <small class="text-muted">Choose department, doctor, and date time slot</small>
+                  </div>
+                </a>
+                <a href="prescriptions.html" class="btn btn-outline-primary py-2.5 text-start d-flex align-items-center gap-3">
+                  <i class="bi bi-prescription2 fs-4 text-secondary"></i>
+                  <div>
+                    <div class="fw-semibold text-foreground fs-7">View &amp; Print Prescriptions</div>
+                    <small class="text-muted">Access electronic prescriptions issued by doctors</small>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'assets/js/patient.js' %}"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof Patient !== 'undefined' && Patient.initDashboard) {
+        Patient.initDashboard();
+      }
+    });
+  </script>
+{% endblock %}

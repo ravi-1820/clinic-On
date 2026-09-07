@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Appointments - Patient - Clinic On{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'assets/css/dashboard.css' %}">
+{% endblock %}
+
+{% block navbar %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block content %}
+  <div class="dashboard-container">
+    {% include 'includes/sidebar.html' with role='patient' %}
+
+    <div class="main-wrapper">
+      {% include 'includes/topbar.html' %}
+
+      <main class="dashboard-body">
+        <div class="page-title-box">
+          <div>
+            <h3>My Appointments</h3>
+            <p>Track upcoming scheduled visits, completed consultations, and cancellations.</p>
+          </div>
+          <a href="book-appointment.html" class="btn btn-primary"><i class="bi bi-plus-lg me-1"></i>Book New Consultation</a>
+        </div>
+
+        <ul class="nav nav-tabs mb-4" id="apptStatusTabs" role="tablist">
+          <li class="nav-item">
+            <button class="nav-link active fw-bold" id="upcoming-tab" data-bs-toggle="tab" data-bs-target="#upcoming-pane">Upcoming Visits</button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link fw-bold" id="completed-tab" data-bs-toggle="tab" data-bs-target="#completed-pane">Completed</button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link fw-bold" id="cancelled-tab" data-bs-toggle="tab" data-bs-target="#cancelled-pane">Cancelled</button>
+          </li>
+        </ul>
+
+        <div class="tab-content" id="apptStatusTabContent">
+          <div class="tab-pane fade show active" id="upcoming-pane">
+            <div id="upcomingApptContainer">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <div class="tab-pane fade" id="completed-pane">
+            <div id="completedApptContainer">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <div class="tab-pane fade" id="cancelled-pane">
+            <div id="cancelledApptContainer">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'assets/js/patient.js' %}"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof Patient !== 'undefined' && Patient.initAppointmentsPage) {
+        Patient.initAppointmentsPage();
+      }
+    });
+  </script>
+{% endblock %}

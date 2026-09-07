@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Login - Clinic On{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'assets/css/auth.css' %}?v=2.1">
+<style>
+  .auth-split-form-area {
+    position: relative !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    padding-top: 5rem !important;
+  }
+  .auth-back-btn {
+    position: absolute !important;
+    top: 1.5rem !important;
+    left: 2rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    padding: 0.45rem 1.15rem !important;
+    font-size: 0.875rem !important;
+    font-weight: 600 !important;
+    color: var(--muted, #475569) !important;
+    background-color: var(--surface, #ffffff) !important;
+    border: 1px solid var(--border, #e2e8f0) !important;
+    border-radius: 50px !important;
+    text-decoration: none !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05) !important;
+    transition: all 0.2s ease !important;
+    z-index: 99 !important;
+  }
+  .auth-back-btn:hover {
+    color: var(--primary, #0284c7) !important;
+    border-color: var(--primary, #0284c7) !important;
+    transform: translateX(-3px) !important;
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.15) !important;
+  }
+  .auth-card {
+    margin: auto 0 !important;
+  }
+  @media (max-width: 991.98px) {
+    .auth-back-btn {
+      top: 1rem !important;
+      left: 1rem !important;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block navbar %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block content %}
+<div class="position-fixed top-0 end-0 p-3" style="z-index:1000;">
+  <button type="button" class="theme-toggle-btn"><i class="bi bi-moon-stars"></i></button>
+</div>
+
+<div class="auth-split-wrapper">
+  <!-- Left Visual Panel -->
+  <div class="auth-split-banner">
+    <a class="brand-logo-text text-white text-decoration-none" href="">
+      <span class="brand-icon-box" style="background:#ffffff; color:var(--primary);"><i
+          class="bi bi-heart-pulse-fill"></i></span>
+      <span>Clinic <span style="color:#ffffff;">On</span></span>
+    </a>
+
+    <div class="auth-banner-quote">
+      <h2>Next-generation healthcare management at your fingertips.</h2>
+      <p>Book online appointments, manage patient care records, and access digital prescriptions seamlessly.</p>
+    </div>
+
+    <div class="d-flex align-items-center gap-2 fs-7 text-white-50">
+      <i class="bi bi-shield-check text-white"></i> 256-bit Encrypted Health Data &amp; HIPAA Compliant Security
+    </div>
+  </div>
+
+  <!-- Right Form Area -->
+  <div class="auth-split-form-area">
+    <a href="{% url 'index' %}" class="auth-back-btn">
+      <i class="bi bi-arrow-left"></i>
+      <span>Back</span>
+    </a>
+
+    <div class="auth-card">
+      <div class="auth-header">
+        <h4 class="fw-bold mb-1">Sign in to Clinic On</h4>
+        <p class="text-muted mb-0">Enter your credentials to sign in</p>
+      </div>
+
+      <!-- Form -->
+      <form id="loginForm" novalidate>
+        <div class="mb-3">
+          <label class="form-label fs-7 fw-semibold">Email Address</label>
+          <input type="email" class="form-control" id="loginEmail" placeholder="Enter Email" required>
+          <div class="invalid-feedback">Please enter a valid email address.</div>
+        </div>
+
+        <div class="mb-3">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <label class="form-label fs-7 fw-semibold mb-0">Password</label>
+            <a href="#" class="text-primary text-decoration-none fs-8 fw-semibold"
+              id="forgotPasswordBtn">Forgot-Password?</a>
+          </div>
+          <div class="position-relative">
+            <input type="password" class="form-control" id="loginPassword" placeholder="Enter Password" required>
+            <button type="button"
+              class="btn btn-ghost position-absolute end-0 top-50 translate-middle-y p-1 me-2 text-muted"
+              id="togglePasswordBtn">
+              <i class="bi bi-eye"></i>
+            </button>
+          </div>
+          <div class="invalid-feedback">Password is required.</div>
+        </div>
+
+        <div class="form-check mb-4 fs-7">
+          <input class="form-check-input" type="checkbox" id="rememberMe" checked>
+          <label class="form-check-label text-muted" for="rememberMe">Remember session</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary-gradient w-100 py-2 fs-6 mb-3">
+          <i class="bi bi-box-arrow-in-right me-1"></i>Sign In
+        </button>
+
+        <p class="text-center text-muted fs-7 mb-0">
+          Don't have an account? <a href="register.html"
+            class="text-primary fw-semibold text-decoration-none">Register</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const emailInput = document.getElementById('loginEmail');
+    const passwordInput = document.getElementById('loginPassword');
+
+    const togglePasswordBtn = document.getElementById('togglePasswordBtn');
+    if (togglePasswordBtn) {
+      togglePasswordBtn.addEventListener('click', () => {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        togglePasswordBtn.innerHTML = type === 'password' ? '<i class="bi bi-eye"></i>' : '<i class="bi bi-eye-slash"></i>';
+      });
+    }
+
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+      loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (!loginForm.checkValidity()) {
+          loginForm.classList.add('was-validated');
+          return;
+        }
+        Auth.login(emailInput.value.trim(), passwordInput.value.trim(), document.getElementById('rememberMe').checked);
+      });
+    }
+
+    const forgotBtn = document.getElementById('forgotPasswordBtn');
+    if (forgotBtn) {
+      forgotBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        ClinicApp.toast('Demo Passwords: "patient123" or "doctor123"', 'info');
+      });
+    }
+  });
+</script>
+{% endblock %}

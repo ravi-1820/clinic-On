@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Doctor Patients - Clinic On{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'assets/css/dashboard.css' %}">
+{% endblock %}
+
+{% block navbar %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block content %}
+  <div class="dashboard-container">
+    {% include 'includes/sidebar.html' with role='doctor' %}
+
+    <div class="main-wrapper">
+      {% include 'includes/topbar.html' %}
+
+      <main class="dashboard-body">
+        <div class="page-title-box">
+          <div>
+            <h3>Assigned Patients Roster</h3>
+            <p>Access complete patient charts, medical history, and clinical diagnosis logs.</p>
+          </div>
+        </div>
+
+        <div class="table-custom-container">
+          <div class="table-responsive">
+            <table class="table table-custom align-middle">
+              <thead>
+                <tr>
+                  <th>Patient ID</th>
+                  <th>Name &amp; Email</th>
+                  <th>Age / Gender</th>
+                  <th>Blood Group</th>
+                  <th>Phone</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="doctorPatientsTbody">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'assets/js/doctor.js' %}"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof Doctor !== 'undefined' && Doctor.initPatientsPage) {
+        Doctor.initPatientsPage();
+      }
+    });
+  </script>
+{% endblock %}

@@ -1,0 +1,259 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Register - Clinic On{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'assets/css/auth.css' %}?v=2.1">
+<style>
+  .auth-split-form-area {
+    position: relative !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    padding-top: 5rem !important;
+  }
+  .auth-back-btn {
+    position: absolute !important;
+    top: 1.5rem !important;
+    left: 2rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    padding: 0.45rem 1.15rem !important;
+    font-size: 0.875rem !important;
+    font-weight: 600 !important;
+    color: var(--muted, #475569) !important;
+    background-color: var(--surface, #ffffff) !important;
+    border: 1px solid var(--border, #e2e8f0) !important;
+    border-radius: 50px !important;
+    text-decoration: none !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05) !important;
+    transition: all 0.2s ease !important;
+    z-index: 99 !important;
+  }
+  .auth-back-btn:hover {
+    color: var(--primary, #0284c7) !important;
+    border-color: var(--primary, #0284c7) !important;
+    transform: translateX(-3px) !important;
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.15) !important;
+  }
+  .auth-card {
+    margin: 0 auto !important;
+  }
+  @media (max-width: 991.98px) {
+    .auth-back-btn {
+      top: 1rem !important;
+      left: 1rem !important;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block navbar %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block content %}
+<div class="position-fixed top-0 end-0 p-3" style="z-index:1000;">
+  <button type="button" class="theme-toggle-btn"><i class="bi bi-moon-stars"></i></button>
+</div>
+
+<div class="auth-split-wrapper">
+  <!-- Left Visual Panel -->
+  <div class="auth-split-banner">
+    <a class="brand-logo-text text-white text-decoration-none" href="#">
+      <span class="brand-icon-box" style="background:#ffffff; color:var(--primary);"><i
+          class="bi bi-heart-pulse-fill"></i></span>
+      <span>Clinic <span style="color:#ffffff;">On</span></span>
+    </a>
+
+    <div class="auth-banner-quote">
+      <h2>Join thousands of patients &amp; specialists today.</h2>
+      <p>Create your Clinic On account to book specialist appointments, access medical records, and consult doctors
+        online.</p>
+    </div>
+
+    <div class="d-flex align-items-center gap-2 fs-7 text-white-50">
+      <i class="bi bi-shield-check text-white"></i> Instant Digital Account Activation
+    </div>
+  </div>
+
+  <!-- Right Form Area -->
+  <div class="auth-split-form-area">
+    <a href="{% url 'index' %}" class="auth-back-btn">
+      <i class="bi bi-arrow-left"></i>
+      <span>Back</span>
+    </a>
+
+    <div class="auth-card" style="max-width: 560px;">
+      <div class="auth-header">
+        <h4 class="fw-bold mb-1">Create your Account</h4>
+        <p class="text-muted mb-0">Fill in details to get started with Clinic On</p>
+      </div>
+
+      {% if msg %}
+      <div class="alert alert-danger py-2 fs-7 mb-3" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ msg }}
+      </div>
+      {% endif %}
+      {% if msg1 %}
+      <div class="alert alert-success py-2 fs-7 mb-3" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i>{{ msg1 }}
+      </div>
+      {% endif %}
+
+      <form id="registerForm" method="POST" action="" novalidate>
+        {% csrf_token %}
+        <div class="row g-3">
+          <div class="col-12">
+            <label class="form-label fs-7 fw-semibold">Account Type</label>
+            <div class="role-selector" id="regRoleSelector">
+              <button type="button" class="role-btn active" data-role="patient">Patient Account</button>
+              <button type="button" class="role-btn" data-role="doctor">Doctor Account</button>
+            </div>
+            <input type="hidden" id="regRole" name="role" value="patient">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label fs-7 fw-semibold">Full Name</label>
+            <input type="text" class="form-control" id="regName" name="full_name" placeholder="Enter Name" required>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label fs-7 fw-semibold">Email Address</label>
+            <input type="email" class="form-control" id="regEmail" name="email" placeholder="Enter Email Address"
+              required>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label fs-7 fw-semibold">Phone Number</label>
+            <input type="tel" class="form-control" id="regPhone" name="phone" placeholder="Enter Phone Number" required>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label fs-7 fw-semibold">Date of Birth</label>
+            <input type="date" class="form-control" id="regDob" name="date_of_birth" required>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label fs-7 fw-semibold">Gender</label>
+            <select class="form-select" id="regGender" name="gender" required>
+              <option value="male" selected>Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label fs-7 fw-semibold">Blood Group</label>
+            <select class="form-select" id="regBloodGroup" name="blood_group">
+              <option value="O+">O+</option>
+              <option value="A+">A+</option>
+              <option value="B+">B+</option>
+              <option value="AB+">AB+</option>
+              <option value="O-">O-</option>
+            </select>
+          </div>
+
+          <div class="col-12">
+            <label class="form-label fs-7 fw-semibold">Address</label>
+            <input type="text" class="form-control" id="regAddress" name="address" placeholder="Enter Address" required>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label fs-7 fw-semibold">Password</label>
+            <div class="position-relative">
+              <input type="password" class="form-control" id="regPassword" name="password" placeholder="Enter Password"
+                required minlength="6">
+              <button type="button"
+                class="btn btn-ghost position-absolute end-0 top-50 translate-middle-y p-1 me-2 text-muted toggle-password-btn"
+                data-target="regPassword">
+                <i class="bi bi-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label fs-7 fw-semibold">Confirm Password</label>
+            <div class="position-relative">
+              <input type="password" class="form-control" id="regConfirmPassword" name="confirm_password"
+                placeholder="Enter Password" required minlength="6">
+              <button type="button"
+                class="btn btn-ghost position-absolute end-0 top-50 translate-middle-y p-1 me-2 text-muted toggle-password-btn"
+                data-target="regConfirmPassword">
+                <i class="bi bi-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="form-check fs-7">
+              <input class="form-check-input" type="checkbox" id="termsCheck" required>
+              <label class="form-check-label text-muted" for="termsCheck">
+                I agree to the Terms of Service &amp; Privacy Policy
+              </label>
+            </div>
+          </div>
+
+          <div class="col-12 mt-3">
+            <button type="submit" class="btn btn-primary-gradient w-100 py-2 fs-6">Create Account</button>
+          </div>
+        </div>
+      </form>
+
+      <p class="text-center text-muted fs-7 mt-3 mb-0">
+        Already registered? <a href="{% url 'login' %}" class="text-primary fw-semibold text-decoration-none">Sign
+          In</a>
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const regRoleBtns = document.querySelectorAll('#regRoleSelector .role-btn');
+    const regRoleInput = document.getElementById('regRole');
+
+    regRoleBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        regRoleBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        regRoleInput.value = btn.dataset.role;
+      });
+    });
+
+    document.querySelectorAll('.toggle-password-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.dataset.target;
+        const targetInput = document.getElementById(targetId);
+        if (targetInput) {
+          const isPass = targetInput.getAttribute('type') === 'password';
+          targetInput.setAttribute('type', isPass ? 'text' : 'password');
+          btn.innerHTML = isPass ? '<i class="bi bi-eye-slash"></i>' : '<i class="bi bi-eye"></i>';
+        }
+      });
+    });
+
+    const registerForm = document.getElementById('registerForm');
+    if (registerForm) {
+      registerForm.addEventListener('submit', (e) => {
+        const pass = document.getElementById('regPassword').value;
+        const confirmPass = document.getElementById('regConfirmPassword').value;
+
+        if (pass !== confirmPass) {
+          e.preventDefault();
+          ClinicApp.toast('Passwords do not match.', 'danger');
+          return;
+        }
+
+        if (!registerForm.checkValidity()) {
+          e.preventDefault();
+          registerForm.classList.add('was-validated');
+        }
+      });
+    }
+  });
+</script>
+{% endblock %}

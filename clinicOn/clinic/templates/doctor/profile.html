@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Doctor Profile - Clinic On{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'assets/css/dashboard.css' %}">
+{% endblock %}
+
+{% block navbar %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block content %}
+  <div class="dashboard-container">
+    {% include 'includes/sidebar.html' with role='doctor' %}
+
+    <div class="main-wrapper">
+      {% include 'includes/topbar.html' %}
+
+      <main class="dashboard-body">
+        <div class="page-title-box">
+          <div>
+            <h3>Doctor Profile &amp; Settings</h3>
+            <p>Update your consultation hours, fee structure, and qualifications.</p>
+          </div>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="card p-4 shadow-sm">
+              <form id="docProfileForm">
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label fs-7 fw-semibold">Doctor Name</label>
+                    <input type="text" class="form-control" id="docProfileName" value="Dr. John Smith">
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fs-7 fw-semibold">Specialization</label>
+                    <input type="text" class="form-control" value="Senior Cardiologist">
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fs-7 fw-semibold">Department</label>
+                    <input type="text" class="form-control" value="Cardiology" readonly>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fs-7 fw-semibold">Consultation Fee</label>
+                    <input type="text" class="form-control" value="$150">
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label fs-7 fw-semibold">Available Hours</label>
+                    <input type="text" class="form-control" value="09:00 AM - 04:00 PM">
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label fs-7 fw-semibold">Qualifications &amp; Education</label>
+                    <textarea class="form-control" rows="2">MD - Cardiology, Harvard Medical School</textarea>
+                  </div>
+                  <div class="col-12">
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-check2-circle me-1"></i>Save Profile</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_js %}
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof Auth !== 'undefined' && Auth.checkRouteGuard) {
+        Auth.checkRouteGuard('doctor');
+      }
+      const profileForm = document.getElementById('docProfileForm');
+      if (profileForm) {
+        profileForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          ClinicApp.toast('Doctor profile updated!', 'success');
+        });
+      }
+    });
+  </script>
+{% endblock %}

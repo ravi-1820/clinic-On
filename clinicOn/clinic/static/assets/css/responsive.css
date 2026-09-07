@@ -1,0 +1,78 @@
+/* ==========================================================================
+   Clinic On - Responsive Media Queries & Mobile Navigation Overrides
+   ========================================================================== */
+
+@media (max-width: 991.98px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .sidebar.show {
+    transform: translateX(0);
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .main-wrapper {
+    margin-left: 0;
+  }
+
+  .sidebar-toggle-btn {
+    display: block;
+  }
+
+  .command-palette-trigger {
+    width: 180px;
+  }
+
+  .hero-title {
+    font-size: 2.25rem;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .topbar {
+    padding: 0 1rem;
+  }
+
+  .command-palette-trigger span {
+    display: none; /* Hide text on small screens, keep icon */
+  }
+
+  .command-palette-trigger {
+    width: 40px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .dashboard-body {
+    padding: 1.25rem 1rem;
+  }
+
+  .page-title-box h3 {
+    font-size: 1.35rem;
+  }
+
+  .hero-title {
+    font-size: 1.85rem;
+  }
+}
+
+/* Sidebar Backdrop Overlay */
+.sidebar-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(2px);
+  z-index: 1035;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.sidebar-backdrop.show {
+  opacity: 1;
+  pointer-events: auto;
+}

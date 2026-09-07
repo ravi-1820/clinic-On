@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Admin Dashboard - Clinic On{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'assets/css/dashboard.css' %}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
+{% block navbar %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block content %}
+  <div class="dashboard-container">
+    {% include 'includes/sidebar.html' with role='admin' %}
+
+    <div class="main-wrapper">
+      {% include 'includes/topbar.html' %}
+
+      <!-- Content Body -->
+      <main class="dashboard-body">
+        <div class="page-title-box">
+          <div>
+            <h3>Hospital Operations Overview</h3>
+            <p>Good morning! Here is what's happening today across all clinical departments.</p>
+          </div>
+          <div class="d-flex gap-2">
+            <button class="btn btn-outline-primary" onclick="window.print()"><i class="bi bi-download me-1"></i>Export</button>
+            <a href="doctors.html" class="btn btn-primary"><i class="bi bi-plus-lg me-1"></i>New Doctor</a>
+          </div>
+        </div>
+
+        <!-- Minimal Metric Blocks -->
+        <div class="row g-3 mb-4">
+          <div class="col-sm-6 col-xl-3">
+            <div class="metric-card">
+              <div class="metric-info">
+                <h6>Active Doctors</h6>
+                <h3 id="adminStatDoctors">0</h3>
+                <span class="metric-trend up"><i class="bi bi-arrow-up-short"></i> +4.1% vs last month</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-xl-3">
+            <div class="metric-card">
+              <div class="metric-info">
+                <h6>Registered Patients</h6>
+                <h3 id="adminStatPatients">0</h3>
+                <span class="metric-trend up"><i class="bi bi-arrow-up-short"></i> +8.2% vs last month</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-xl-3">
+            <div class="metric-card">
+              <div class="metric-info">
+                <h6>Total Appointments</h6>
+                <h3 id="adminStatTodayAppts">0</h3>
+                <span class="metric-trend up"><i class="bi bi-arrow-up-short"></i> +12.4% vs last month</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-xl-3">
+            <div class="metric-card">
+              <div class="metric-info">
+                <h6>Pending Approval</h6>
+                <h3 id="adminStatPendingAppts">0</h3>
+                <span class="metric-trend neutral"><i class="bi bi-dash"></i> Steady</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="row g-4 mb-4">
+          <div class="col-lg-8">
+            <div class="card p-3 shadow-sm h-100">
+              <div class="card-header border-0 d-flex justify-content-between align-items-center">
+                <h6 class="fw-bold mb-0">Appointment Trends</h6>
+                <span class="badge bg-light text-muted border fs-8">This Week</span>
+              </div>
+              <div class="card-body">
+                <canvas id="appointmentChart" height="110"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="card p-3 shadow-sm h-100">
+              <div class="card-header border-0">
+                <h6 class="fw-bold mb-0">Department Split</h6>
+              </div>
+              <div class="card-body">
+                <canvas id="deptChart" height="200"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Data Table with '•••' dropdown -->
+        <div class="table-custom-container">
+          <div class="p-3 border-bottom d-flex justify-content-between align-items-center">
+            <h6 class="fw-bold mb-0">Recent Hospital Consultations</h6>
+            <a href="appointments.html" class="btn btn-ghost btn-sm text-primary">View All <i class="bi bi-chevron-right ms-1"></i></a>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-custom align-middle">
+              <thead>
+                <tr>
+                  <th>Appt ID</th>
+                  <th>Patient</th>
+                  <th>Doctor</th>
+                  <th>Department</th>
+                  <th>Date &amp; Time</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="adminRecentAppointmentsTbody">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'assets/js/admin.js' %}"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof Admin !== 'undefined' && Admin.initDashboard) {
+        Admin.initDashboard();
+      }
+    });
+  </script>
+{% endblock %}

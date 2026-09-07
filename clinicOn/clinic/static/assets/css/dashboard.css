@@ -1,0 +1,397 @@
+/* ==========================================================================
+   Clinic On - Modern SaaS Dashboard Layout (Linear / shadcn Inspired)
+   ========================================================================== */
+
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--background);
+}
+
+/* Compact Modern Sidebar */
+.sidebar {
+  width: 240px;
+  background-color: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1040;
+  transition: var(--transition);
+}
+
+.sidebar-header {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 1.25rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.sidebar-menu {
+  padding: 1rem 0.75rem;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.sidebar-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-top: 1rem;
+  margin-bottom: 0.4rem;
+  padding: 0 0.6rem;
+}
+
+.nav-sidebar {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-sidebar .nav-item {
+  margin-bottom: 0.2rem;
+}
+
+.nav-sidebar .nav-link-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.875rem;
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+}
+
+.nav-sidebar .nav-link-item i {
+  font-size: 1.05rem;
+  color: var(--muted);
+  transition: var(--transition);
+}
+
+.nav-sidebar .nav-link-item:hover {
+  color: var(--foreground);
+  background-color: var(--surface-hover);
+}
+
+.nav-sidebar .nav-link-item.active {
+  color: var(--primary);
+  background-color: var(--soft-indigo);
+  font-weight: 600;
+}
+
+.nav-sidebar .nav-link-item.active i {
+  color: var(--primary);
+}
+
+.sidebar-footer {
+  padding: 0.85rem 1rem;
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Main Dashboard Content Wrapper */
+.main-wrapper {
+  flex-grow: 1;
+  margin-left: 240px;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  transition: var(--transition);
+}
+
+/* SaaS Topbar Header */
+.topbar {
+  height: 64px;
+  background-color: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.75rem;
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+}
+
+.sidebar-toggle-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  font-size: 1.35rem;
+  color: var(--foreground);
+  cursor: pointer;
+}
+
+/* Command Search Trigger Button (Ctrl+K) */
+.command-palette-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background-color: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.45rem 0.85rem;
+  color: var(--muted);
+  font-size: 0.825rem;
+  cursor: pointer;
+  width: 260px;
+  transition: var(--transition);
+}
+
+.command-palette-trigger:hover {
+  border-color: var(--muted);
+  color: var(--foreground);
+}
+
+.command-palette-trigger kbd {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.1rem 0.35rem;
+  font-size: 0.7rem;
+  font-family: inherit;
+  margin-left: auto;
+  color: var(--muted);
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.theme-toggle-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.theme-toggle-btn:hover {
+  background-color: var(--surface-hover);
+}
+
+.user-profile-menu {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.3rem 0.5rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.user-profile-menu:hover {
+  background-color: var(--surface-hover);
+}
+
+.avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--soft-indigo);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+/* Dashboard Body */
+.dashboard-body {
+  padding: 1.75rem 2rem;
+  flex-grow: 1;
+}
+
+.page-title-box {
+  margin-bottom: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.page-title-box h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.2rem;
+}
+
+.page-title-box p {
+  color: var(--muted);
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+/* Minimal Metric Blocks */
+.metric-card {
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-subtle);
+}
+
+.metric-info h6 {
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.35rem;
+}
+
+.metric-info h3 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-bottom: 0.25rem;
+}
+
+.metric-trend {
+  font-size: 0.775rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.metric-trend.up { color: var(--success); }
+.metric-trend.neutral { color: var(--muted); }
+
+/* Data Tables */
+.table-custom-container {
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  box-shadow: var(--shadow-subtle);
+}
+
+.table-custom {
+  width: 100%;
+  margin-bottom: 0;
+  color: var(--foreground);
+}
+
+.table-custom th {
+  background-color: var(--background);
+  font-weight: 600;
+  font-size: 0.775rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.table-custom td {
+  padding: 0.85rem 1rem;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: 0.875rem;
+}
+
+.table-custom tbody tr:hover {
+  background-color: var(--surface-hover);
+}
+
+/* Action Dropdown '•••' Button */
+.btn-action-more {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.btn-action-more:hover {
+  background-color: var(--surface-hover);
+  border-color: var(--border);
+  color: var(--foreground);
+}
+
+/* Timeline Component */
+.timeline {
+  position: relative;
+  padding-left: 1.75rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 4px;
+  bottom: 4px;
+  width: 2px;
+  background: var(--border);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.timeline-marker {
+  position: absolute;
+  left: -1.75rem;
+  top: 4px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 3px solid var(--surface);
+  box-shadow: 0 0 0 1px var(--primary);
+}
+
+/* A4 Printable Prescription Document */
+.prescription-print-container {
+  background: #ffffff !important;
+  color: #101828 !important;
+  padding: 2.5rem;
+  border-radius: 8px;
+  max-width: 780px;
+  margin: 0 auto;
+  font-family: var(--font-sans);
+}
+
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+  #printablePrescriptionArea, #printablePrescriptionArea * {
+    visibility: visible !important;
+  }
+  #printablePrescriptionArea {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+  }
+  .modal-header, .modal-footer {
+    display: none !important;
+  }
+}

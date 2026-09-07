@@ -1,0 +1,172 @@
+/* ==========================================================================
+   Clinic On - Split-Screen SaaS Authentication Layout
+   ========================================================================== */
+
+.auth-split-wrapper {
+  min-height: 100vh;
+  display: flex;
+  background-color: var(--background);
+}
+
+/* Left Visual Branding Panel */
+.auth-split-banner {
+  flex: 1;
+  background: var(--primary-gradient);
+  padding: 3.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  color: #ffffff;
+}
+
+.auth-split-banner::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 400px;
+  height: 400px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+}
+
+.auth-banner-quote h2 {
+  font-size: 2.25rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.auth-banner-quote p {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1.05rem;
+  max-width: 480px;
+}
+
+/* Right Authentication Card Area */
+.auth-split-form-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 4.5rem 1.5rem 2.5rem;
+  overflow-y: auto;
+  position: relative;
+  min-height: 100vh;
+}
+
+.auth-back-btn {
+  position: absolute;
+  top: 1.5rem;
+  left: 2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 1.1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted, #64748b);
+  background-color: var(--surface, #ffffff);
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: 50px;
+  text-decoration: none !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: var(--transition, all 0.2s ease);
+  z-index: 50;
+}
+
+.auth-back-btn:hover {
+  color: var(--primary, #0284c7);
+  border-color: var(--primary, #0284c7);
+  background-color: var(--surface, #ffffff);
+  transform: translateX(-3px);
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.15);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+  background-color: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border);
+  padding: 2.25rem 2rem;
+  margin: auto 0;
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 1.75rem;
+}
+
+.auth-header p {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+/* Segmented Control Pill Bar */
+.role-selector {
+  display: flex;
+  background-color: var(--background);
+  padding: 4px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border);
+  gap: 4px;
+}
+
+.role-btn {
+  flex: 1;
+  text-align: center;
+  padding: 0.45rem 0.5rem;
+  font-size: 0.825rem;
+  font-weight: 600;
+  color: var(--muted);
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.role-btn.active {
+  background-color: var(--surface);
+  color: var(--foreground);
+  box-shadow: var(--shadow-subtle);
+}
+
+.demo-credentials-box {
+  background-color: var(--background);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  padding: 0.85rem 1rem;
+  margin-top: 1.5rem;
+  font-size: 0.825rem;
+}
+
+.demo-credentials-box .btn-demo-fill {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.demo-credentials-box .btn-demo-fill:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+@media (max-width: 991.98px) {
+  .auth-split-banner {
+    display: none;
+  }
+}

@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Doctors Directory - Patient Portal - Clinic On{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'assets/css/dashboard.css' %}">
+{% endblock %}
+
+{% block navbar %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block content %}
+  <div class="dashboard-container">
+    {% include 'includes/sidebar.html' with role='patient' %}
+
+    <div class="main-wrapper">
+      {% include 'includes/topbar.html' %}
+
+      <main class="dashboard-body">
+        <div class="page-title-box">
+          <div>
+            <h3>Doctors Directory</h3>
+            <p>Find doctors by department, view availability hours, and book consultation slots.</p>
+          </div>
+        </div>
+
+        <div class="card p-3 mb-4 shadow-sm">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <input type="text" class="form-control" id="patDocSearch" placeholder="Search doctor by name or specialization...">
+            </div>
+            <div class="col-md-4">
+              <select class="form-select" id="patDocDept">
+                <option value="">All Departments</option>
+                <option value="Cardiology">Cardiology</option>
+                <option value="Neurology">Neurology</option>
+                <option value="Orthopedics">Orthopedics</option>
+                <option value="Pediatrics">Pediatrics</option>
+                <option value="Dermatology">Dermatology</option>
+                <option value="General Medicine">General Medicine</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-4" id="patientDoctorsGrid">
+          <!-- Rendered dynamically -->
+        </div>
+      </main>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_js %}
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof Auth !== 'undefined' && Auth.checkRouteGuard) {
+        Auth.checkRouteGuard('patient');
+      }
+      const searchInput = document.getElementById('patDocSearch');
+      const deptSelect = document.getElementById('patDocDept');
+      const grid = document.getElementById('patientDoctorsGrid');
+
+      function renderGrid() {
+        if (!searchInput || !deptSelect || !grid) return;
+        const search = searchInput.value.toLowerCase().trim();
+        const dept = deptSelect.value;
+        const doctors = ClinicStore.getDoctors().filter(d => {
+          const mSearch = d.name.toLowerCase().includes(search) || d.specialization.toLowerCase().includes(search);
+          const mDept = !dept || d.department === dept;
+          return mSearch && mDept;
+        });
+
+        if (doctors.length === 0) {
+          grid.innerHTML = `<div class="col-12 text-center py-5 text-muted">No doctors found matching criteria.</div>`;
+          return;
+        }
+
+        grid.innerHTML = doctors.map(doc => `
+          <div class="col-md-6 col-lg-4">
+            <div class="card card-hover h-100">
+              <img src="${doc.image}" alt="${doc.name}" style="height:180px; object-fit:cover;" class="card-img-top">
+              <div class="card-body d-flex flex-column">
+                <h6 class="fw-bold mb-1">${doc.name}</h6>
+                <span class="badge badge-info-custom mb-2 align-self-start">${doc.specialization}</span>
+                <p class="text-muted fs-7 mb-1"><i class="bi bi-clock me-1"></i>${doc.hours}</p>
+                <p class="text-muted fs-7 mb-3"><i class="bi bi-cash me-1"></i>Fee: <strong class="text-success">${doc.fee}</strong></p>
+                <div class="mt-auto">
+                  <a href="book-appointment.html?docId=${doc.id}" class="btn btn-primary btn-sm w-100"><i class="bi bi-calendar-plus me-1"></i>Book Appointment</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      if (searchInput && deptSelect && grid) {
+        searchInput.addEventListener('input', renderGrid);
+        deptSelect.addEventListener('change', renderGrid);
+        renderGrid();
+      }
+    });
+  </script>
+{% endblock %}

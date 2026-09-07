@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Patient Clinical Profile - Doctor Portal - Clinic On{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'assets/css/dashboard.css' %}">
+{% endblock %}
+
+{% block navbar %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block content %}
+  <div class="dashboard-container">
+    {% include 'includes/sidebar.html' with role='doctor' %}
+
+    <div class="main-wrapper">
+      {% include 'includes/topbar.html' %}
+
+      <main class="dashboard-body">
+        <div class="card p-4 shadow-sm mb-4">
+          <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+            <div class="d-flex align-items-center gap-3">
+              <div class="avatar bg-primary text-white fs-4" style="width:52px; height:52px;">SJ</div>
+              <div>
+                <h4 class="fw-bold mb-1" id="patNameDisplay">Sarah Jenkins</h4>
+                <p class="text-muted mb-0 fs-7" id="patAgeGenderDisplay">34 Years, Female | O+</p>
+              </div>
+            </div>
+            <div class="d-flex gap-2">
+              <button class="btn btn-outline-primary" onclick="Doctor.openPrescriptionModal('', 'pat_1', 'Sarah Jenkins')"><i class="bi bi-prescription2 me-1"></i>New Prescription</button>
+            </div>
+          </div>
+          <hr>
+          <div class="row g-3 fs-7">
+            <div class="col-md-4"><span class="text-muted">Phone:</span> <strong id="patPhoneDisplay">+1 (555) 987-6543</strong></div>
+            <div class="col-md-4"><span class="text-muted">Email:</span> <strong id="patEmailDisplay">patient@example.com</strong></div>
+            <div class="col-md-4"><span class="text-muted">Address:</span> <strong>742 Evergreen Terrace</strong></div>
+          </div>
+        </div>
+
+        <ul class="nav nav-tabs mb-4" id="patientChartTabs" role="tablist">
+          <li class="nav-item">
+            <button class="nav-link active fw-bold" id="appts-tab" data-bs-toggle="tab" data-bs-target="#appts-pane">Consultation Visits</button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link fw-bold" id="rx-tab" data-bs-toggle="tab" data-bs-target="#rx-pane">Prescriptions</button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link fw-bold" id="history-tab" data-bs-toggle="tab" data-bs-target="#history-pane">Diagnostic Timeline</button>
+          </li>
+        </ul>
+
+        <div class="tab-content" id="patientChartTabContent">
+          <div class="tab-pane fade show active" id="appts-pane">
+            <div class="table-custom-container">
+              <div class="table-responsive">
+                <table class="table table-custom align-middle">
+                  <thead>
+                    <tr>
+                      <th>Appt ID</th>
+                      <th>Date &amp; Time</th>
+                      <th>Doctor</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="patHistoryApptTbody">
+                    <!-- Rendered via JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane fade" id="rx-pane">
+            <div id="patHistoryRxContainer">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <div class="tab-pane fade" id="history-pane">
+            <div class="card p-4 shadow-sm">
+              <div class="timeline">
+                <div class="timeline-item">
+                  <div class="timeline-marker"></div>
+                  <h6 class="fw-bold mb-1">Essential Hypertension</h6>
+                  <small class="text-muted d-block mb-2">25 August 2026 - Dr. John Smith</small>
+                  <p class="text-muted fs-7 mb-0">Patient registered mild dizziness. BP recorded 135/88. Amlodipine 5mg once daily.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Prescription Creator Modal -->
+  <div class="modal fade" id="prescriptionModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold"><i class="bi bi-prescription2 me-2 text-primary"></i>Create Digital Prescription</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <form id="createPrescriptionForm" onsubmit="Doctor.savePrescriptionSubmit(event)">
+          <div class="modal-body">
+            <input type="hidden" id="rxAptId">
+            <input type="hidden" id="rxPatId">
+
+            <div class="alert alert-info py-2 mb-3 fs-7">
+              Patient: <strong id="rxPatNameDisplay">Sarah Jenkins</strong>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label fs-7 fw-bold">Diagnosis / Clinical Finding</label>
+              <input type="text" class="form-control" id="rxDiagnosisInput" placeholder="e.g. Essential Hypertension" required>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <label class="form-label fs-7 fw-bold mb-0">Prescribed Medications</label>
+              <button type="button" class="btn btn-sm btn-outline-primary" onclick="Doctor.addMedicineRow()"><i class="bi bi-plus-lg me-1"></i>Add Medicine</button>
+            </div>
+
+            <div id="medicineRowsContainer">
+              <!-- Rendered rows -->
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label fs-7 fw-bold">Doctor Advice &amp; Notes</label>
+              <textarea class="form-control" id="rxNotesInput" rows="2" placeholder="e.g. Rest, increase fluid intake..."></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-ghost" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary"><i class="bi bi-check2-circle me-1"></i>Save &amp; Generate RX</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Printable Prescription Modal -->
+  <div class="modal fade" id="prescriptionPrintModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold">Prescription Preview &amp; Print</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="printablePrescriptionArea">
+          <!-- Rendered dynamically -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="window.print()"><i class="bi bi-printer me-1"></i>Print A4 Document</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'assets/js/doctor.js' %}"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof Doctor !== 'undefined' && Doctor.initPatientDetailsPage) {
+        Doctor.initPatientDetailsPage();
+      }
+    });
+  </script>
+{% endblock %}

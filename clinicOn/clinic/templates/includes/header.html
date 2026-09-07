@@ -1,0 +1,33 @@
+{% load static %}
+<!-- Sticky SaaS Public Header -->
+<header class="navbar navbar-expand-lg sticky-top-nav">
+  <div class="container">
+    <a class="brand-logo-text" href="{% url 'index' %}">
+      <span class="brand-icon-box"><i class="bi bi-heart-pulse-fill"></i></span>
+      <span>Clinic <span class="brand-gradient-part">On</span></span>
+    </a>
+
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarMain">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link {% if request.resolver_match.url_name == 'index' or request.resolver_match.url_name == 'index_alt' %}active{% endif %}" href="{% url 'index' %}">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="doctors.html">Doctors</a></li>
+        <li class="nav-item"><a class="nav-link" href="departments.html">Departments</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+      </ul>
+
+      <div class="d-flex align-items-center gap-2" id="navAuthArea">
+        <button type="button" class="theme-toggle-btn me-1" title="Toggle Theme"><i class="bi bi-moon-stars"></i></button>
+        <button type="button" class="btn btn-outline-primary command-palette-trigger me-1" style="width:auto; padding:0.4rem 0.75rem;">
+          <i class="bi bi-search me-1"></i> Search
+        </button>
+        <a href="login.html" class="btn btn-ghost">Login</a>
+        <a href="patient/book-appointment.html" class="btn btn-primary-gradient"><i class="bi bi-calendar-plus me-1"></i>Book Appointment</a>
+      </div>
+    </div>
+  </div>
+</header>

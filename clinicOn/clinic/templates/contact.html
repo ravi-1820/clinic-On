@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact Us - Clinic On{% endblock %}
+
+{% block content %}
+  <section class="py-5">
+    <div class="container">
+      <div class="row g-5">
+        <div class="col-lg-5">
+          <h3 class="fw-bold mb-3">Get in Touch with Clinic On</h3>
+          <p class="text-muted mb-4">Have questions about clinical consultations, digital health records, or technical support? Our helpline team is ready to assist you.</p>
+
+          <div class="d-flex gap-3 mb-4">
+            <div class="pastel-icon-box bg-pastel-blue m-0"><i class="bi bi-telephone"></i></div>
+            <div>
+              <h6 class="fw-bold mb-0">Helpline Phone</h6>
+              <span class="text-muted fs-7">+1 (800) 555-CLINIC</span>
+            </div>
+          </div>
+
+          <div class="d-flex gap-3 mb-4">
+            <div class="pastel-icon-box bg-pastel-purple m-0"><i class="bi bi-envelope"></i></div>
+            <div>
+              <h6 class="fw-bold mb-0">Email Inquiry</h6>
+              <span class="text-muted fs-7">support@clinicon.org</span>
+            </div>
+          </div>
+
+          <div class="d-flex gap-3">
+            <div class="pastel-icon-box bg-pastel-mint m-0"><i class="bi bi-geo-alt"></i></div>
+            <div>
+              <h6 class="fw-bold mb-0">Clinic Headquarters</h6>
+              <span class="text-muted fs-7">100 Health Avenue, Medical District</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-7">
+          <div class="card p-4 shadow-sm">
+            <h5 class="fw-bold mb-3">Send a Direct Message</h5>
+            <form id="contactForm">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label fs-7 fw-semibold">Your Name</label>
+                  <input type="text" class="form-control" required placeholder="John Doe">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label fs-7 fw-semibold">Email Address</label>
+                  <input type="email" class="form-control" required placeholder="name@example.com">
+                </div>
+                <div class="col-12">
+                  <label class="form-label fs-7 fw-semibold">Subject</label>
+                  <input type="text" class="form-control" required placeholder="General inquiry / Feedback">
+                </div>
+                <div class="col-12">
+                  <label class="form-label fs-7 fw-semibold">Message</label>
+                  <textarea class="form-control" rows="4" required placeholder="Type your message here..."></textarea>
+                </div>
+                <div class="col-12">
+                  <button type="submit" class="btn btn-primary-gradient"><i class="bi bi-send me-1"></i>Send Message</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block extra_js %}
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('contactForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        ClinicApp.toast('Thank you! Your message has been sent.', 'success');
+        e.target.reset();
+      });
+    });
+  </script>
+{% endblock %}
