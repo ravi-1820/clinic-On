@@ -513,7 +513,7 @@ const CommandPalette = {
       html += `<div class="sidebar-label px-2 my-1">Doctors</div>`;
       doctors.slice(0, 3).forEach(d => {
         html += `
-          <div class="command-item" onclick="window.location.href='${this.getRelativePrefix()}doctors.html?dept=${encodeURIComponent(d.department)}'">
+          <div class="command-item" onclick="window.location.href='/doctors/?dept=${encodeURIComponent(d.department)}'">
             <div>
               <i class="bi bi-person-badge text-primary me-2"></i>
               <strong>${d.name}</strong> <small class="text-muted">(${d.specialization})</small>
@@ -528,7 +528,7 @@ const CommandPalette = {
       html += `<div class="sidebar-label px-2 my-1">Patients</div>`;
       patients.slice(0, 3).forEach(p => {
         html += `
-          <div class="command-item" onclick="window.location.href='${this.getRelativePrefix()}admin/patients.html'">
+          <div class="command-item" onclick="window.location.href='/admin/patients/'">
             <div>
               <i class="bi bi-person text-success me-2"></i>
               <strong>${p.name}</strong> <small class="text-muted">(${p.phone})</small>
@@ -543,7 +543,7 @@ const CommandPalette = {
       html += `<div class="sidebar-label px-2 my-1">Appointments</div>`;
       appts.slice(0, 3).forEach(a => {
         html += `
-          <div class="command-item" onclick="window.location.href='${this.getRelativePrefix()}admin/appointments.html'">
+          <div class="command-item" onclick="window.location.href='/admin/appointments/'">
             <div>
               <i class="bi bi-calendar-event text-warning me-2"></i>
               <strong>${a.id}</strong> - ${a.patientName} with ${a.doctorName}
@@ -628,8 +628,11 @@ const ClinicApp = {
     const links = document.querySelectorAll('.nav-link, .nav-link-item');
     links.forEach(link => {
       const href = link.getAttribute('href');
-      if (href && (currentPath.endsWith(href) || currentPath.includes(href.replace('../', '')))) {
-        link.classList.add('active');
+      if (href) {
+        const cleanHref = href.split('?')[0];
+        if (cleanHref === currentPath || (cleanHref !== '/' && cleanHref !== '' && currentPath.startsWith(cleanHref))) {
+          link.classList.add('active');
+        }
       }
     });
   }

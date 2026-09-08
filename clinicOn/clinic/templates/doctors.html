@@ -4,21 +4,43 @@
 {% block title %}Doctors Directory - Clinic On{% endblock %}
 
 {% block content %}
-  <section class="py-5">
-    <div class="container">
-      <div class="mb-4">
-        <h3 class="fw-bold mb-1">Find Medical Specialists</h3>
-        <p class="text-muted fs-7">Browse board-certified medical doctors, view available slots, and book instant consultations.</p>
-      </div>
+  <!-- Gradient Hero Banner -->
+  <section class="page-hero-banner text-center">
+    <div class="hero-geometric-bg">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 400" fill="none" preserveAspectRatio="xMidYMid slice">
+        <circle cx="200" cy="120" r="160" stroke="#ffffff" opacity="0.08" stroke-width="1.2"/>
+        <circle cx="1240" cy="220" r="240" stroke="#ffffff" opacity="0.08" stroke-width="1.2"/>
+      </svg>
+    </div>
 
-      <div class="card p-3 mb-4 shadow-sm">
-        <div class="row g-3">
-          <div class="col-md-6">
-            <input type="text" class="form-control" id="publicDocSearch" placeholder="Search doctor by name or specialization...">
+    <div class="container position-relative z-2">
+      <div class="glass-badge mb-3">
+        <i class="bi bi-people"></i>
+        <span>Specialist Directory</span>
+      </div>
+      <h1 class="page-hero-title">Find the right doctor for you.</h1>
+      <p class="page-hero-subtitle">
+        Browse board-certified medical specialists, check live consultation availability, and book instant appointments.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-4">
+    <div class="container">
+      <!-- Modern Search & Filter Panel -->
+      <div class="modern-card p-3.5 mb-5">
+        <div class="row g-3 align-items-center">
+          <div class="col-md-7">
+            <div class="input-group">
+              <span class="input-group-text bg-transparent border-end-0 text-muted ps-3">
+                <i class="bi bi-search"></i>
+              </span>
+              <input type="text" class="form-control border-start-0 ps-2 py-2 fs-7" id="publicDocSearch" placeholder="Search doctor by name, qualification, or clinical specialty...">
+            </div>
           </div>
-          <div class="col-md-4">
-            <select class="form-select" id="publicDocDeptFilter">
-              <option value="">All Departments</option>
+          <div class="col-md-5">
+            <select class="form-select py-2 fs-7" id="publicDocDeptFilter">
+              <option value="">All Medical Departments</option>
               <option value="Cardiology">Cardiology</option>
               <option value="Neurology">Neurology</option>
               <option value="Orthopedics">Orthopedics</option>
@@ -30,8 +52,9 @@
         </div>
       </div>
 
+      <!-- Doctors Grid -->
       <div class="row g-4" id="publicDoctorsGrid">
-        <!-- Rendered via JS -->
+        <!-- Rendered via JavaScript -->
       </div>
     </div>
   </section>
@@ -58,27 +81,40 @@
         });
 
         if (doctors.length === 0) {
-          grid.innerHTML = `<div class="col-12 text-center py-5 text-muted">No doctors found matching criteria.</div>`;
+          grid.innerHTML = `
+            <div class="col-12 text-center py-5">
+              <div class="pastel-icon-box bg-pastel-blue mx-auto mb-3" style="width:56px; height:56px; font-size:1.6rem;">
+                <i class="bi bi-person-x"></i>
+              </div>
+              <h5 class="fw-bold mb-1">No Doctors Found</h5>
+              <p class="text-muted fs-7">Try adjusting your search criteria or select another medical department.</p>
+            </div>
+          `;
           return;
         }
 
-        grid.innerHTML = doctors.map(doc => `
+        grid.innerHTML = doctors.map(d => `
           <div class="col-md-6 col-lg-4">
-            <div class="card card-hover h-100">
-              <img src="${doc.image}" alt="${doc.name}" style="height:200px; object-fit:cover;" class="card-img-top">
-              <div class="card-body d-flex flex-column">
-                <div class="d-flex justify-content-between align-items-start mb-2">
-                  <div>
-                    <h6 class="fw-bold mb-1">${doc.name}</h6>
-                    <span class="badge badge-info-custom">${doc.specialization}</span>
-                  </div>
-                  <div class="fs-7 text-warning fw-bold"><i class="bi bi-star-fill"></i> ${doc.rating}</div>
+            <div class="card card-hover h-100 overflow-hidden border-0 shadow-sm">
+              <div class="position-relative">
+                <img src="${d.image}" alt="${d.name}" class="card-img-top" style="height:220px; object-fit:cover; width:100%;">
+                <span class="position-absolute top-0 end-0 m-3 badge bg-white text-dark shadow-sm fs-8 fw-bold">
+                  <i class="bi bi-star-fill text-warning me-1"></i>${d.rating} (${d.reviewsCount})
+                </span>
+                <span class="position-absolute bottom-0 start-0 m-3 badge badge-info-custom shadow-sm">
+                  ${d.department}
+                </span>
+              </div>
+              <div class="card-body d-flex flex-column p-4">
+                <h5 class="fw-bold mb-1 fs-6">${d.name}</h5>
+                <p class="text-muted fs-7 mb-2">${d.specialization}</p>
+                <div class="d-flex justify-content-between align-items-center fs-7 mb-3 text-muted">
+                  <span><i class="bi bi-briefcase me-1 text-teal"></i>${d.experience} Exp</span>
+                  <span class="text-success fw-bold">${d.fee} / Visit</span>
                 </div>
-                <p class="text-muted fs-7 mb-1"><i class="bi bi-briefcase me-1"></i>${doc.experience} Experience</p>
-                <p class="text-muted fs-7 mb-3"><i class="bi bi-cash me-1"></i>Consultation Fee: <strong class="text-success">${doc.fee}</strong></p>
                 <div class="mt-auto d-flex gap-2">
-                  <a href="doctor-details.html?id=${doc.id}" class="btn btn-outline-primary btn-sm flex-grow-1">View Profile</a>
-                  <a href="patient/book-appointment.html?docId=${doc.id}" class="btn btn-primary-gradient btn-sm flex-grow-1">Book Slot</a>
+                  <a href="/doctor-details/?id=${d.id}" class="btn btn-outline-primary btn-sm flex-grow-1 rounded-pill">View Details</a>
+                  <a href="/patient/book-appointment/?docId=${d.id}" class="btn btn-emerald-pill btn-sm flex-grow-1">Book Slot</a>
                 </div>
               </div>
             </div>

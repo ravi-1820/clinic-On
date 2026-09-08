@@ -1,32 +1,59 @@
 {% load static %}
-<!-- Sticky SaaS Public Header -->
-<header class="navbar navbar-expand-lg sticky-top-nav">
+<!-- Sticky Frosted Glass Public Header -->
+<header class="navbar navbar-expand-lg glass-navbar sticky-top-nav">
   <div class="container">
+    <!-- Brand Logo Matching Login/Register -->
     <a class="brand-logo-text" href="{% url 'index' %}">
-      <span class="brand-icon-box"><i class="bi bi-heart-pulse-fill"></i></span>
+      <span class="brand-icon-box">
+        <i class="bi bi-heart-pulse-fill"></i>
+      </span>
       <span>Clinic <span class="brand-gradient-part">On</span></span>
     </a>
 
-    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
-      <span class="navbar-toggler-icon"></span>
+    <!-- Mobile Menu Hamburger Toggler -->
+    <button class="navbar-toggler border-0 shadow-none p-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="bi bi-list fs-2 text-foreground"></i>
     </button>
 
+    <!-- Collapsible Navigation Menu -->
     <div class="collapse navbar-collapse" id="navbarMain">
-      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-        <li class="nav-item"><a class="nav-link {% if request.resolver_match.url_name == 'index' or request.resolver_match.url_name == 'index_alt' %}active{% endif %}" href="{% url 'index' %}">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-        <li class="nav-item"><a class="nav-link" href="doctors.html">Doctors</a></li>
-        <li class="nav-item"><a class="nav-link" href="departments.html">Departments</a></li>
-        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-1 me-lg-3 align-items-lg-center">
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}" href="{% url 'index' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}" href="{% url 'about' %}">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'doctors' or request.resolver_match.url_name == 'doctor_details' %}active{% endif %}" href="{% url 'doctors' %}">Doctors</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'departments' %}active{% endif %}" href="{% url 'departments' %}">Departments</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}" href="{% url 'contact' %}">Contact</a>
+        </li>
       </ul>
 
-      <div class="d-flex align-items-center gap-2" id="navAuthArea">
-        <button type="button" class="theme-toggle-btn me-1" title="Toggle Theme"><i class="bi bi-moon-stars"></i></button>
-        <button type="button" class="btn btn-outline-primary command-palette-trigger me-1" style="width:auto; padding:0.4rem 0.75rem;">
-          <i class="bi bi-search me-1"></i> Search
+      <!-- Right Action Area -->
+      <div class="d-flex align-items-center gap-2 flex-wrap" id="navAuthArea">
+        <!-- Theme Switcher -->
+        <button type="button" class="theme-toggle-btn me-1" title="Toggle Light/Dark Theme">
+          <i class="bi bi-moon-stars"></i>
         </button>
-        <a href="login.html" class="btn btn-ghost">Login</a>
-        <a href="patient/book-appointment.html" class="btn btn-primary-gradient"><i class="bi bi-calendar-plus me-1"></i>Book Appointment</a>
+
+        <!-- Command Palette Trigger -->
+        <button type="button" class="btn btn-outline-primary command-palette-trigger me-1 py-1.5 px-3 rounded-pill fs-8">
+          <i class="bi bi-search me-1"></i> <span>Search</span>
+        </button>
+
+        <!-- Login Link -->
+        <a href="{% url 'login' %}" class="btn btn-ghost px-3 fw-semibold">Login</a>
+
+        <!-- Emerald Pill CTA -->
+        <a href="{% url 'patient_book_appointment' %}" class="btn btn-emerald-pill">
+          <i class="bi bi-calendar-plus me-1"></i> Book Appointment
+        </a>
       </div>
     </div>
   </div>

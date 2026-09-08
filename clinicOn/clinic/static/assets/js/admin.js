@@ -120,9 +120,9 @@ const Admin = {
     ClinicStore.updateAppointment(id, { status: newStatus });
     ClinicApp.toast(`Appointment ${id} updated to ${newStatus}.`, 'success');
     
-    if (window.location.pathname.includes('dashboard.html')) {
+    if (window.location.pathname.includes('dashboard')) {
       this.initDashboard();
-    } else if (window.location.pathname.includes('appointments.html')) {
+    } else if (window.location.pathname.includes('appointments')) {
       this.initAppointmentsPage();
     }
   },

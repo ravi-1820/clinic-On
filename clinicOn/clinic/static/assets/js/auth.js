@@ -81,28 +81,19 @@ const Auth = {
     ClinicStore.clearSession();
     ClinicApp.toast('You have been logged out.', 'info');
     setTimeout(() => {
-      // Determine relative path based on location
-      const path = window.location.pathname;
-      if (path.includes('/admin/') || path.includes('/doctor/') || path.includes('/patient/')) {
-        window.location.href = '../login.html';
-      } else {
-        window.location.href = 'login.html';
-      }
+      window.location.href = '/login/';
     }, 400);
   },
 
   redirectToRoleDashboard(role) {
-    const isSubdir = window.location.pathname.includes('/admin/') || window.location.pathname.includes('/doctor/') || window.location.pathname.includes('/patient/');
-    const prefix = isSubdir ? '../' : './';
-    
     if (role === 'admin') {
-      window.location.href = prefix + 'admin/dashboard.html';
+      window.location.href = '/admin/dashboard/';
     } else if (role === 'doctor') {
-      window.location.href = prefix + 'doctor/dashboard.html';
+      window.location.href = '/doctor/dashboard/';
     } else if (role === 'patient') {
-      window.location.href = prefix + 'patient/dashboard.html';
+      window.location.href = '/patient/dashboard/';
     } else {
-      window.location.href = prefix + 'index.html';
+      window.location.href = '/';
     }
   },
 
@@ -113,19 +104,19 @@ const Auth = {
     // Auth route guards for protected areas
     if (currentPath.includes('/admin/') && (!session || session.role !== 'admin')) {
       ClinicApp.toast('Access denied. Admin privileges required.', 'danger');
-      window.location.href = '../login.html';
+      window.location.href = '/login/';
       return false;
     }
 
     if (currentPath.includes('/doctor/') && (!session || session.role !== 'doctor')) {
       ClinicApp.toast('Access denied. Doctor login required.', 'danger');
-      window.location.href = '../login.html';
+      window.location.href = '/login/';
       return false;
     }
 
     if (currentPath.includes('/patient/') && (!session || session.role !== 'patient')) {
       ClinicApp.toast('Access denied. Patient login required.', 'danger');
-      window.location.href = '../login.html';
+      window.location.href = '/login/';
       return false;
     }
 

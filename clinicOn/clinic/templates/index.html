@@ -1,301 +1,510 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Clinic On - Premium Healthcare SaaS Platform{% endblock %}
+{% block title %}Clinic On - Next-Gen Healthcare SaaS Platform{% endblock %}
 
 {% block content %}
-  <!-- Hero Section with Visual Composition & Ambient Glow -->
-  <section class="hero-section">
-    <div class="container">
-      <div class="row align-items-center g-5">
-        
-        <!-- Left Hero Content -->
-        <div class="col-lg-6">
-          <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill border bg-surface text-muted fs-8 fw-semibold mb-3">
-            <span class="badge bg-primary rounded-circle p-1"></span> 2026 Next-Gen Healthcare SaaS Platform
+
+<section class="hero-gradient-section">
+
+  <div class="hero-geometric-bg">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" fill="none" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="heroGlow" cx="80%" cy="30%" r="60%">
+          <stop offset="0%" stop-color="#14b8a6" stop-opacity="0.35" />
+          <stop offset="100%" stop-color="#14b8a6" stop-opacity="0" />
+        </radialGradient>
+      </defs>
+
+      <rect width="100%" height="100%" fill="url(#heroGlow)" />
+
+      <!-- Faint circular geometric line contours -->
+      <g stroke="#ffffff" opacity="0.08" stroke-width="1.2">
+        <circle cx="200" cy="180" r="160" stroke-dasharray="3 5" />
+        <circle cx="200" cy="180" r="320" />
+        <circle cx="200" cy="180" r="500" stroke-dasharray="6 8" />
+        <circle cx="200" cy="180" r="700" />
+
+        <circle cx="1120" cy="420" r="200" stroke-dasharray="4 6" />
+        <circle cx="1120" cy="420" r="360" />
+        <circle cx="1120" cy="420" r="540" stroke-dasharray="8 8" />
+        <circle cx="1120" cy="420" r="740" />
+      </g>
+
+      <!-- Smooth subtle flow lines -->
+      <g opacity="0.06" stroke="#ffffff" stroke-width="1.5">
+        <path d="M-100,580 C280,480 460,720 840,620 C1220,520 1340,680 1600,580" fill="none" />
+        <path d="M-100,620 C280,520 460,760 840,660 C1220,560 1340,720 1600,620" fill="none" />
+        <path d="M-100,660 C280,560 460,800 840,700 C1220,600 1340,760 1600,660" fill="none" />
+      </g>
+    </svg>
+  </div>
+
+  <div class="container hero-content-relative">
+    <div class="row align-items-center g-4 g-xl-5">
+
+      <!-- Left Hero Copy -->
+      <div class="col-lg-6">
+        <!-- Glass Badge -->
+        <div class="glass-badge mb-3">
+          <i class="bi bi-shield-check"></i>
+          <span>2026 Next-Gen Healthcare Platform</span>
+        </div>
+
+        <h1 class="hero-title mb-3">
+          Better Care. <br>
+          <span class="gradient-text-emerald">Better Every Day.</span>
+        </h1>
+
+        <p class="hero-subtitle mb-4">
+          Book appointments, connect with trusted specialists, manage medical records, and access digital prescriptions
+          — all in one place.
+        </p>
+
+        <div class="d-flex flex-wrap gap-3 mb-4">
+          <a href="{% url 'patient_book_appointment' %}" class="btn btn-emerald-pill btn-lg px-4 py-2.5">
+            <i class="bi bi-calendar-check me-2"></i>Book Appointment
+          </a>
+          <a href="{% url 'doctors' %}" class="btn btn-glass btn-lg px-4 py-2.5">
+            <i class="bi bi-search me-2"></i>Find a Doctor
+          </a>
+        </div>
+
+        <!-- Trust Indicators -->
+        <div class="d-flex align-items-center gap-3 pt-3 border-top border-white border-opacity-10">
+          <div class="avatar-group">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80"
+              alt="Patient">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80"
+              alt="Patient">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80"
+              alt="Patient">
+          </div>
+          <div>
+            <div class="d-flex text-warning fs-8 mb-0.5">
+              <i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i
+                class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill"></i>
+            </div>
+            <span class="text-white-50 fs-8"><strong>4.9/5 Rating</strong> by over 10,000+ patients</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Hero Visual Composition with 4 Options Outside Image -->
+      <div class="col-lg-6">
+        <div class="hero-visual-stage">
+          <!-- Doctor Image Frame (Completely Clean & Unblocked) -->
+          <div class="hero-main-frame mb-3">
+            <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&auto=format&fit=crop&q=80"
+              alt="Doctor Consultation" class="hero-main-img img-fluid">
           </div>
 
-          <h1 class="hero-title mb-3">
-            Better care. <br>
-            <span class="gradient-text">Better every day.</span>
-          </h1>
+          <!-- 4 Options Placed Completely OUTSIDE the Image in a Sleek 2x2 Frosted Glass Grid -->
+          <div class="row g-3 w-100 hero-features-outside-grid mx-auto">
+            <!-- Option 1: 24/7 Support -->
+            <div class="col-sm-6">
+              <div class="hero-outside-card">
+                <div class="hero-outside-icon bg-pastel-mint"><i class="bi bi-headset"></i></div>
+                <div>
+                  <div class="fw-bold fs-7 mb-0 text-white">24/7 Support</div>
+                  <small class="text-white-50 fs-8">Always here for care</small>
+                </div>
+              </div>
+            </div>
 
-          <p class="hero-subtitle mb-4">
-            Book appointments, consult expert doctors, access digital medical records, and get prescriptions — all in one secure, unified platform.
+            <!-- Option 2: 100+ Doctors -->
+            <div class="col-sm-6">
+              <div class="hero-outside-card">
+                <div class="hero-outside-icon bg-pastel-blue"><i class="bi bi-award"></i></div>
+                <div>
+                  <div class="fw-bold fs-7 mb-0 text-white">100+ Doctors</div>
+                  <small class="text-white-50 fs-8">Verified specialists</small>
+                </div>
+              </div>
+            </div>
+
+            <!-- Option 3: 10K+ Patients -->
+            <div class="col-sm-6">
+              <div class="hero-outside-card">
+                <div class="hero-outside-icon bg-pastel-cyan"><i class="bi bi-people"></i></div>
+                <div>
+                  <div class="fw-bold fs-7 mb-0 text-white">10K+ Patients</div>
+                  <small class="text-white-50 fs-8">Happy patient reviews</small>
+                </div>
+              </div>
+            </div>
+
+            <!-- Option 4: Digital Records -->
+            <div class="col-sm-6">
+              <div class="hero-outside-card">
+                <div class="hero-outside-icon bg-pastel-purple"><i class="bi bi-file-earmark-medical"></i></div>
+                <div>
+                  <div class="fw-bold fs-7 mb-0 text-white">Digital Records</div>
+                  <small class="text-white-50 fs-8">Instant RX &amp; reports</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+       2. Overlapping Feature Cards Section
+       ========================================================================== -->
+<section class="hero-feature-overlap mb-5">
+  <div class="container">
+    <div class="row g-4">
+      <!-- Feature 1 -->
+      <div class="col-md-6 col-lg-3">
+        <div class="glass-feature-box">
+          <div class="pastel-icon-box bg-pastel-blue"><i class="bi bi-calendar-event"></i></div>
+          <h6 class="fw-bold mb-1.5">Easy Appointments</h6>
+          <p class="text-muted fs-7 mb-0">Book specialist appointments in just a few clicks with instant live
+            confirmations.</p>
+        </div>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="col-md-6 col-lg-3">
+        <div class="glass-feature-box">
+          <div class="pastel-icon-box bg-pastel-teal"><i class="bi bi-person-badge"></i></div>
+          <h6 class="fw-bold mb-1.5">Expert Doctors</h6>
+          <p class="text-muted fs-7 mb-0">Consult with highly qualified, board-certified medical doctors and surgeons.
           </p>
-
-          <div class="d-flex flex-wrap gap-3 mb-4">
-            <a href="patient/book-appointment.html" class="btn btn-primary-gradient btn-lg"><i class="bi bi-calendar-check me-1"></i>Book Appointment</a>
-            <a href="doctors.html" class="btn btn-outline-primary btn-lg"><i class="bi bi-search me-1"></i>Find a Doctor</a>
-          </div>
-
-          <!-- Rating & Overlapping Avatars -->
-          <div class="d-flex align-items-center gap-3 pt-2 fs-7 text-muted border-top border-subtle">
-            <div class="avatar-group">
-              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" alt="Patient">
-              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80" alt="Patient">
-              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80" alt="Patient">
-            </div>
-            <div>
-              <div class="d-flex text-warning fs-8">
-                <i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill"></i>
-              </div>
-              <span><strong>4.9/5 Rating</strong> by over 10,000+ patients</span>
-            </div>
-          </div>
         </div>
-
-        <!-- Right Hero Visual Composition with Floating Cards -->
-        <div class="col-lg-6">
-          <div class="hero-visual-wrapper">
-            <div class="ambient-gradient-glow"></div>
-            
-            <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&auto=format&fit=crop&q=80" alt="Doctor Consultation" class="hero-main-img img-fluid">
-
-            <!-- Floating Hero Cards -->
-            <div class="floating-hero-card card-pos-1">
-              <div class="floating-card-icon bg-pastel-purple"><i class="bi bi-headset"></i></div>
-              <div>
-                <div class="fw-bold fs-7 mb-0">24/7 Support</div>
-                <small class="text-muted fs-8">Always here for care</small>
-              </div>
-            </div>
-
-            <div class="floating-hero-card card-pos-2">
-              <div class="floating-card-icon bg-pastel-mint"><i class="bi bi-people"></i></div>
-              <div>
-                <div class="fw-bold fs-7 mb-0">10K+ Patients</div>
-                <small class="text-muted fs-8">Happy patient reviews</small>
-              </div>
-            </div>
-
-            <div class="floating-hero-card card-pos-3">
-              <div class="floating-card-icon bg-pastel-blue"><i class="bi bi-award"></i></div>
-              <div>
-                <div class="fw-bold fs-7 mb-0">Expert Doctors</div>
-                <small class="text-muted fs-8">Verified specialists</small>
-              </div>
-            </div>
-
-            <div class="floating-hero-card card-pos-4">
-              <div class="floating-card-icon bg-pastel-pink"><i class="bi bi-file-earmark-medical"></i></div>
-              <div>
-                <div class="fw-bold fs-7 mb-0">Digital Records</div>
-                <small class="text-muted fs-8">Instant RX &amp; reports</small>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
       </div>
-    </div>
-  </section>
 
-  <!-- Overlapping Feature Strip Section -->
-  <section class="hero-feature-strip">
-    <div class="container">
-      <div class="row g-4">
-        <div class="col-md-6 col-lg-3">
-          <div class="feature-strip-card">
-            <div class="pastel-icon-box bg-pastel-blue"><i class="bi bi-calendar-event"></i></div>
-            <h6 class="fw-bold mb-1">Easy Appointment</h6>
-            <p class="text-muted fs-7 mb-0">Book specialist appointments in just a few clicks with instant confirmation.</p>
-          </div>
+      <!-- Feature 3 -->
+      <div class="col-md-6 col-lg-3">
+        <div class="glass-feature-box">
+          <div class="pastel-icon-box bg-pastel-cyan"><i class="bi bi-prescription2"></i></div>
+          <h6 class="fw-bold mb-1.5">Digital Prescriptions</h6>
+          <p class="text-muted fs-7 mb-0">Access and download digital prescriptions generated directly by your
+            physician.</p>
         </div>
+      </div>
 
-        <div class="col-md-6 col-lg-3">
-          <div class="feature-strip-card">
-            <div class="pastel-icon-box bg-pastel-purple"><i class="bi bi-person-badge"></i></div>
-            <h6 class="fw-bold mb-1">Top Specialists</h6>
-            <p class="text-muted fs-7 mb-0">Consult with highly qualified, board-certified medical doctors.</p>
-          </div>
-        </div>
-
-        <div class="col-md-6 col-lg-3">
-          <div class="feature-strip-card">
-            <div class="pastel-icon-box bg-pastel-pink"><i class="bi bi-prescription2"></i></div>
-            <h6 class="fw-bold mb-1">Digital Prescriptions</h6>
-            <p class="text-muted fs-7 mb-0">Access and print digital prescriptions generated directly by your physician.</p>
-          </div>
-        </div>
-
-        <div class="col-md-6 col-lg-3">
-          <div class="feature-strip-card">
-            <div class="pastel-icon-box bg-pastel-mint"><i class="bi bi-shield-check"></i></div>
-            <h6 class="fw-bold mb-1">Secure &amp; Private</h6>
-            <p class="text-muted fs-7 mb-0">Your medical data and consultation history stay completely protected.</p>
-          </div>
+      <!-- Feature 4 -->
+      <div class="col-md-6 col-lg-3">
+        <div class="glass-feature-box">
+          <div class="pastel-icon-box bg-pastel-mint"><i class="bi bi-shield-check"></i></div>
+          <h6 class="fw-bold mb-1.5">Secure Medical Records</h6>
+          <p class="text-muted fs-7 mb-0">HIPAA compliant 256-bit encrypted medical data and confidential consultation
+            history.</p>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Statistics Section -->
-  <section class="py-5 my-4 border-top border-bottom">
-    <div class="container">
-      <div class="row g-4 text-center">
-        <div class="col-6 col-md-3">
-          <h2 class="fw-extrabold mb-1 gradient-text">100+</h2>
-          <p class="text-muted fs-7 mb-0">Board-Certified Doctors</p>
+<!-- ==========================================================================
+       3. Statistics Section
+       ========================================================================== -->
+<section class="py-4 my-3">
+  <div class="container">
+    <div class="stats-strip-container">
+      <div class="row g-4 text-center align-items-center">
+        <div class="col-6 col-md-3 stat-divider">
+          <div class="modern-stat-number">100+</div>
+          <div class="text-muted fs-7 fw-semibold">Expert Doctors</div>
+        </div>
+        <div class="col-6 col-md-3 stat-divider">
+          <div class="modern-stat-number">10K+</div>
+          <div class="text-muted fs-7 fw-semibold">Patients Served</div>
+        </div>
+        <div class="col-6 col-md-3 stat-divider">
+          <div class="modern-stat-number">25+</div>
+          <div class="text-muted fs-7 fw-semibold">Medical Departments</div>
         </div>
         <div class="col-6 col-md-3">
-          <h2 class="fw-extrabold mb-1 gradient-text">10K+</h2>
-          <p class="text-muted fs-7 mb-0">Active Patients Served</p>
-        </div>
-        <div class="col-6 col-md-3">
-          <h2 class="fw-extrabold mb-1 gradient-text">25+</h2>
-          <p class="text-muted fs-7 mb-0">Specialized Units</p>
-        </div>
-        <div class="col-6 col-md-3">
-          <h2 class="fw-extrabold mb-1 gradient-text">99.9%</h2>
-          <p class="text-muted fs-7 mb-0">Reliability Rate</p>
+          <div class="modern-stat-number">99.9%</div>
+          <div class="text-muted fs-7 fw-semibold">Reliable Platform</div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Specialized Departments -->
-  <section class="py-5">
-    <div class="container">
-      <div class="mb-4 text-center">
-        <h3 class="fw-bold mb-1">Comprehensive Care Across Specialties</h3>
-        <p class="text-muted fs-7">Expert healthcare support across every stage of your health journey.</p>
-      </div>
-
-      <div class="row g-4" id="homeDepartmentsContainer">
-        <!-- Rendered dynamically -->
-      </div>
+<!-- ==========================================================================
+       4. Medical Departments Section
+       ========================================================================== -->
+<section class="py-5">
+  <div class="container">
+    <div class="mb-5 text-center">
+      <span class="section-label">Comprehensive Specialties</span>
+      <h2 class="fw-bold mb-2">Care Across Medical Specialties</h2>
+      <p class="text-muted fs-7 max-w-600 mx-auto">Expert healthcare support across every stage of your personal health
+        journey.</p>
     </div>
-  </section>
 
-  <!-- Featured Doctors -->
-  <section class="py-5 bg-surface border-top border-bottom">
-    <div class="container">
-      <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
-        <div>
-          <h3 class="fw-bold mb-1">Featured Specialists</h3>
-          <p class="text-muted fs-7 mb-0">Consult with leading clinical experts.</p>
-        </div>
-        <a href="doctors.html" class="btn btn-outline-primary btn-sm">Explore All Doctors <i class="bi bi-arrow-right ms-1"></i></a>
-      </div>
-
-      <div class="row g-4" id="homeFeaturedDoctorsContainer">
-        <!-- Rendered dynamically -->
-      </div>
+    <div class="row g-4" id="homeDepartmentsContainer">
+      <!-- Rendered dynamically via JavaScript -->
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- How It Works Section -->
-  <section class="py-5">
-    <div class="container">
-      <div class="mb-5 text-center">
-        <h3 class="fw-bold mb-1">How Clinic On Works</h3>
-        <p class="text-muted fs-7">Get medical care in 4 simple steps.</p>
+<!-- ==========================================================================
+       5. Featured Doctors Section
+       ========================================================================== -->
+<section class="py-5 bg-surface border-top border-bottom border-subtle">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between mb-5 flex-wrap gap-2">
+      <div>
+        <span class="section-label">Verified Specialists</span>
+        <h2 class="fw-bold mb-1">Featured Clinical Experts</h2>
+        <p class="text-muted fs-7 mb-0">Consult with leading clinical experts and specialists.</p>
       </div>
+      <a href="{% url 'doctors' %}" class="btn btn-outline-primary rounded-pill px-3">
+        Explore All Doctors <i class="bi bi-arrow-right ms-1"></i>
+      </a>
+    </div>
 
-      <div class="row g-4 text-center">
-        <div class="col-md-3">
+    <div class="row g-4" id="homeFeaturedDoctorsContainer">
+      <!-- Rendered dynamically via JavaScript -->
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+       6. How It Works Section
+       ========================================================================== -->
+<section class="py-5 my-3">
+  <div class="container">
+    <div class="mb-5 text-center">
+      <span class="section-label">Simple Process</span>
+      <h2 class="fw-bold mb-2">How Clinic On Works</h2>
+      <p class="text-muted fs-7">Connect with world-class medical care in 4 easy steps.</p>
+    </div>
+
+    <div class="row g-4 text-center">
+      <!-- Step 1 -->
+      <div class="col-md-6 col-lg-3">
+        <div class="modern-card p-4 h-100">
           <div class="pastel-icon-box bg-pastel-blue mx-auto"><i class="bi bi-search"></i></div>
-          <h6 class="fw-bold mb-1">01. Find a Doctor</h6>
-          <p class="text-muted fs-7">Browse specialists by medical department or rating.</p>
-        </div>
-        <div class="col-md-3">
-          <div class="pastel-icon-box bg-pastel-purple mx-auto"><i class="bi bi-clock"></i></div>
-          <h6 class="fw-bold mb-1">02. Choose a Time</h6>
-          <p class="text-muted fs-7">Select an open consultation time slot that suits you.</p>
-        </div>
-        <div class="col-md-3">
-          <div class="pastel-icon-box bg-pastel-pink mx-auto"><i class="bi bi-calendar-check"></i></div>
-          <h6 class="fw-bold mb-1">03. Book Appointment</h6>
-          <p class="text-muted fs-7">Confirm reservation instantly on your patient dashboard.</p>
-        </div>
-        <div class="col-md-3">
-          <div class="pastel-icon-box bg-pastel-mint mx-auto"><i class="bi bi-heart-pulse"></i></div>
-          <h6 class="fw-bold mb-1">04. Get Care</h6>
-          <p class="text-muted fs-7">Receive clinical care and instant digital prescriptions.</p>
+          <div class="badge bg-light text-muted border mb-2 fs-8 fw-bold">STEP 01</div>
+          <h6 class="fw-bold mb-1.5">Find a Doctor</h6>
+          <p class="text-muted fs-7 mb-0">Browse specialists by medical department, rating, or consultation
+            availability.</p>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- CTA Banner -->
-  <section class="py-5 my-4">
-    <div class="container">
-      <div class="p-5 rounded-4 text-center text-white" style="background: var(--primary-gradient);">
-        <h2 class="fw-extrabold mb-2 text-white">Ready to take better care of your health?</h2>
-        <p class="mb-4 text-white-50">Book your next consultation with trusted doctors in just a few clicks.</p>
-        <a href="patient/book-appointment.html" class="btn btn-light btn-lg text-primary fw-bold"><i class="bi bi-calendar-check me-1"></i>Book your Appointment</a>
+      <!-- Step 2 -->
+      <div class="col-md-6 col-lg-3">
+        <div class="modern-card p-4 h-100">
+          <div class="pastel-icon-box bg-pastel-purple mx-auto"><i class="bi bi-clock"></i></div>
+          <div class="badge bg-light text-muted border mb-2 fs-8 fw-bold">STEP 02</div>
+          <h6 class="fw-bold mb-1.5">Choose a Time</h6>
+          <p class="text-muted fs-7 mb-0">Select an open consultation slot that matches your schedule perfectly.</p>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="col-md-6 col-lg-3">
+        <div class="modern-card p-4 h-100">
+          <div class="pastel-icon-box bg-pastel-cyan mx-auto"><i class="bi bi-calendar-check"></i></div>
+          <div class="badge bg-light text-muted border mb-2 fs-8 fw-bold">STEP 03</div>
+          <h6 class="fw-bold mb-1.5">Book Appointment</h6>
+          <p class="text-muted fs-7 mb-0">Confirm your reservation with instant live SMS &amp; email notification.</p>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="col-md-6 col-lg-3">
+        <div class="modern-card p-4 h-100">
+          <div class="pastel-icon-box bg-pastel-mint mx-auto"><i class="bi bi-heart-pulse"></i></div>
+          <div class="badge bg-light text-muted border mb-2 fs-8 fw-bold">STEP 04</div>
+          <h6 class="fw-bold mb-1.5">Get Care</h6>
+          <p class="text-muted fs-7 mb-0">Receive clinical consultation, treatment plans, and digital prescriptions.</p>
+        </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
+
+<!-- ==========================================================================
+       7. Testimonials Section
+       ========================================================================== -->
+<section class="py-5 bg-surface border-top border-bottom border-subtle">
+  <div class="container">
+    <div class="mb-5 text-center">
+      <span class="section-label">Patient Stories</span>
+      <h2 class="fw-bold mb-2">Trusted by Over 10,000+ Patients</h2>
+      <p class="text-muted fs-7">Real feedback from patients who booked specialists through Clinic On.</p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="modern-card p-4 h-100 d-flex flex-column">
+          <div class="d-flex text-warning fs-8 mb-3">
+            <i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i
+              class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill"></i>
+          </div>
+          <p class="text-muted fs-7 mb-4 flex-grow-1">"Booking a cardiologist was effortless. The digital prescription
+            and report access saved hours of hospital queues."</p>
+          <div class="d-flex align-items-center gap-3 pt-3 border-top">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&auto=format&fit=crop&q=80"
+              alt="Patient" class="rounded-circle" style="width:40px; height:40px; object-fit:cover;">
+            <div>
+              <h6 class="fw-bold mb-0 fs-7">Sarah Jenkins</h6>
+              <small class="text-muted fs-8">Cardiology Patient</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="modern-card p-4 h-100 d-flex flex-column">
+          <div class="d-flex text-warning fs-8 mb-3">
+            <i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i
+              class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill"></i>
+          </div>
+          <p class="text-muted fs-7 mb-4 flex-grow-1">"The platform feels sleek, clean, and modern. Dr. Wong diagnosed
+            my child quickly and the follow-up care was top-notch."</p>
+          <div class="d-flex align-items-center gap-3 pt-3 border-top">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80"
+              alt="Patient" class="rounded-circle" style="width:40px; height:40px; object-fit:cover;">
+            <div>
+              <h6 class="fw-bold mb-0 fs-7">Michael Chang</h6>
+              <small class="text-muted fs-8">Pediatrics Parent</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="modern-card p-4 h-100 d-flex flex-column">
+          <div class="d-flex text-warning fs-8 mb-3">
+            <i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i
+              class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill"></i>
+          </div>
+          <p class="text-muted fs-7 mb-4 flex-grow-1">"Fantastic UI experience! I scheduled a neurology consult within 2
+            minutes. The HIPAA compliance and security gave me peace of mind."</p>
+          <div class="d-flex align-items-center gap-3 pt-3 border-top">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&auto=format&fit=crop&q=80"
+              alt="Patient" class="rounded-circle" style="width:40px; height:40px; object-fit:cover;">
+            <div>
+              <h6 class="fw-bold mb-0 fs-7">Elena Rostova</h6>
+              <small class="text-muted fs-8">Neurology Patient</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+       8. Strong Gradient Call-to-Action Section
+       ========================================================================== -->
+<section class="py-5 my-4">
+  <div class="container">
+    <div class="p-5 rounded-4 text-center text-white position-relative overflow-hidden"
+      style="background: var(--auth-bg-gradient); box-shadow: 0 20px 50px -10px rgba(18, 41, 108, 0.4);">
+      <!-- Subtle Vector Mesh Overlay inside banner -->
+      <div class="position-absolute top-0 start-0 w-100 h-100 opacity-10 pointer-events-none">
+        <svg width="100%" height="100%" viewBox="0 0 1000 300" fill="none">
+          <circle cx="200" cy="150" r="140" stroke="#ffffff" stroke-width="2" />
+          <circle cx="800" cy="150" r="180" stroke="#ffffff" stroke-width="2" />
+        </svg>
+      </div>
+
+      <div class="position-relative z-2 max-w-700 mx-auto">
+        <div class="glass-badge mb-3">
+          <i class="bi bi-heart-pulse"></i>
+          <span>Experience Modern Healthcare</span>
+        </div>
+        <h2 class="display-6 fw-bold mb-3 text-white">Your health deserves simpler care.</h2>
+        <p class="mb-4 text-white-50 fs-6">Connect with trusted doctors and manage your healthcare journey from one
+          place.</p>
+        <div class="d-flex justify-content-center flex-wrap gap-3">
+          <a href="{% url 'patient_book_appointment' %}" class="btn btn-emerald-pill btn-lg px-4 py-2.5">
+            <i class="bi bi-calendar-check me-2"></i>Book Appointment
+          </a>
+          <a href="{% url 'register' %}" class="btn btn-glass btn-lg px-4 py-2.5">
+            <i class="bi bi-person-plus me-2"></i>Create Account
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock %}
 
 {% block extra_js %}
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const doctors = ClinicStore.getDoctors().slice(0, 3);
-      const docContainer = document.getElementById('homeFeaturedDoctorsContainer');
-      if (docContainer) {
-        docContainer.innerHTML = doctors.map(doc => `
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Render Featured Doctors
+    const doctors = ClinicStore.getDoctors().slice(0, 3);
+    const docContainer = document.getElementById('homeFeaturedDoctorsContainer');
+    if (docContainer) {
+      docContainer.innerHTML = doctors.map(doc => `
           <div class="col-md-6 col-lg-4">
-            <div class="card card-hover h-100">
-              <img src="${doc.image}" alt="${doc.name}" style="height:200px; object-fit:cover;" class="card-img-top">
-              <div class="card-body d-flex flex-column">
-                <div class="d-flex justify-content-between align-items-start mb-2">
-                  <div>
-                    <h6 class="fw-bold mb-1">${doc.name}</h6>
-                    <span class="badge badge-info-custom">${doc.specialization}</span>
-                  </div>
-                  <div class="fs-7 text-warning fw-bold"><i class="bi bi-star-fill"></i> ${doc.rating}</div>
+            <div class="card card-hover h-100 overflow-hidden border-0 shadow-sm">
+              <div class="position-relative">
+                <img src="${doc.image}" alt="${doc.name}" style="height:210px; object-fit:cover; width:100%;" class="card-img-top">
+                <span class="position-absolute top-0 end-0 m-3 badge bg-white text-dark shadow-sm fs-8 fw-bold">
+                  <i class="bi bi-star-fill text-warning me-1"></i>${doc.rating}
+                </span>
+              </div>
+              <div class="card-body d-flex flex-column p-3.5">
+                <div class="mb-2">
+                  <span class="badge badge-info-custom mb-1">${doc.specialization}</span>
+                  <h5 class="fw-bold mb-0">${doc.name}</h5>
                 </div>
-                <p class="text-muted fs-7 mb-3"><i class="bi bi-briefcase me-1"></i>${doc.experience} Experience</p>
+                <p class="text-muted fs-7 mb-3"><i class="bi bi-briefcase me-1 text-teal"></i>${doc.experience} Clinical Experience</p>
                 <div class="mt-auto d-flex gap-2">
-                  <a href="doctor-details.html?id=${doc.id}" class="btn btn-outline-primary btn-sm flex-grow-1">View Profile</a>
-                  <a href="patient/book-appointment.html?docId=${doc.id}" class="btn btn-primary-gradient btn-sm flex-grow-1">Book Slot</a>
+                  <a href="/doctor-details/?id=${doc.id}" class="btn btn-outline-primary btn-sm flex-grow-1 rounded-pill">View Profile</a>
+                  <a href="/patient/book-appointment/?docId=${doc.id}" class="btn btn-emerald-pill btn-sm flex-grow-1">Book Slot</a>
                 </div>
               </div>
             </div>
           </div>
         `).join('');
-      }
+    }
 
-      const depts = ClinicStore.getDepartments().slice(0, 6);
-      const deptContainer = document.getElementById('homeDepartmentsContainer');
-      if (deptContainer) {
-        deptContainer.innerHTML = depts.map(d => `
+    // Render Departments
+    const depts = ClinicStore.getDepartments().slice(0, 6);
+    const deptContainer = document.getElementById('homeDepartmentsContainer');
+    if (deptContainer) {
+      deptContainer.innerHTML = depts.map(d => `
           <div class="col-md-6 col-lg-4">
-            <div class="card card-hover h-100 p-3">
-              <div class="d-flex align-items-center gap-3 mb-2">
-                <div class="pastel-icon-box bg-pastel-blue m-0" style="width:40px; height:40px; font-size:1.2rem;">
+            <div class="modern-card h-100 p-4 d-flex flex-column">
+              <div class="d-flex align-items-center gap-3 mb-3">
+                <div class="pastel-icon-box bg-pastel-teal m-0" style="width:44px; height:44px; font-size:1.3rem;">
                   <i class="bi ${d.icon}"></i>
                 </div>
                 <div>
-                  <h6 class="fw-bold mb-0">${d.name}</h6>
-                  <small class="text-primary fw-semibold">${d.doctorsCount} Specialists</small>
+                  <h5 class="fw-bold mb-0 fs-6">${d.name}</h5>
+                  <small class="text-success fw-semibold fs-8">${d.doctorsCount} Specialists</small>
                 </div>
               </div>
-              <p class="text-muted fs-7 mb-3">${d.desc}</p>
-              <a href="doctors.html?dept=${encodeURIComponent(d.name)}" class="text-primary fw-semibold text-decoration-none fs-7">
-                Explore Doctors <i class="bi bi-chevron-right ms-1"></i>
+              <p class="text-muted fs-7 mb-3 flex-grow-1">${d.desc}</p>
+              <a href="/doctors/?dept=${encodeURIComponent(d.name)}" class="text-teal fw-bold text-decoration-none fs-7 mt-auto d-inline-flex align-items-center">
+                Explore Doctors <i class="bi bi-arrow-right ms-1"></i>
               </a>
             </div>
           </div>
         `).join('');
-      }
+    }
 
-      const session = ClinicStore.getSession();
-      if (session) {
-        const navAuthArea = document.getElementById('navAuthArea');
-        if (navAuthArea) {
-          const dashUrl = session.role === 'admin' ? 'admin/dashboard.html' : session.role === 'doctor' ? 'doctor/dashboard.html' : 'patient/dashboard.html';
-          navAuthArea.innerHTML = `
+    // Session auth check
+    const session = ClinicStore.getSession();
+    if (session) {
+      const navAuthArea = document.getElementById('navAuthArea');
+      if (navAuthArea) {
+        const dashUrl = session.role === 'admin' ? '/admin/dashboard/' : session.role === 'doctor' ? '/doctor/dashboard/' : '/patient/dashboard/';
+        navAuthArea.innerHTML = `
             <button type="button" class="theme-toggle-btn me-1"><i class="bi bi-moon-stars"></i></button>
-            <a href="${dashUrl}" class="btn btn-primary-gradient"><i class="bi bi-speedometer2 me-1"></i>Dashboard</a>
+            <a href="${dashUrl}" class="btn btn-emerald-pill"><i class="bi bi-speedometer2 me-1"></i>Dashboard</a>
             <button class="btn btn-ghost text-danger btn-logout"><i class="bi bi-box-arrow-right"></i></button>
           `;
-        }
       }
-    });
-  </script>
+    }
+  });
+</script>
 {% endblock %}

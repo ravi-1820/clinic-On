@@ -56,7 +56,7 @@ const Doctor = {
         <td><span class="badge-${a.status.toLowerCase()}">${a.status}</span></td>
         <td>
           <div class="d-flex gap-1">
-            <a href="patient-details.html?patId=${a.patientId}" class="btn btn-sm btn-outline-primary"><i class="bi bi-person me-1"></i>Patient</a>
+            <a href="/doctor/patient-details/?patId=${a.patientId}" class="btn btn-sm btn-outline-primary"><i class="bi bi-person me-1"></i>Patient</a>
             <button class="btn btn-sm btn-primary" onclick="Doctor.openPrescriptionModal('${a.id}', '${a.patientId}', '${a.patientName}')"><i class="bi bi-prescription2 me-1"></i>Prescribe</button>
           </div>
         </td>
@@ -130,7 +130,7 @@ const Doctor = {
         <td><span class="badge bg-danger-subtle text-danger fw-bold">${p.bloodGroup}</span></td>
         <td>${p.phone}</td>
         <td>
-          <a href="patient-details.html?patId=${p.id}" class="btn btn-sm btn-outline-primary"><i class="bi bi-folder2-open me-1"></i>Medical Chart</a>
+          <a href="/doctor/patient-details/?patId=${p.id}" class="btn btn-sm btn-outline-primary"><i class="bi bi-folder2-open me-1"></i>Medical Chart</a>
         </td>
       </tr>
     `).join('');

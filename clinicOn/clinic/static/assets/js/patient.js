@@ -39,7 +39,7 @@ const Patient = {
             <i class="bi bi-calendar-x text-muted fs-1 mb-2"></i>
             <h6 class="fw-bold">No Upcoming Appointments</h6>
             <p class="text-muted fs-7 mb-3">You don't have any scheduled appointments.</p>
-            <a href="book-appointment.html" class="btn btn-primary btn-sm"><i class="bi bi-calendar-plus me-1"></i>Book New Appointment</a>
+            <a href="/patient/book-appointment/" class="btn btn-primary btn-sm"><i class="bi bi-calendar-plus me-1"></i>Book New Appointment</a>
           </div>
         `;
       } else {
@@ -57,7 +57,7 @@ const Patient = {
             <div><i class="bi bi-clock me-2 text-primary"></i><strong>Time:</strong> ${next.time}</div>
           </div>
           <div class="d-flex gap-2">
-            <a href="appointments.html" class="btn btn-outline-primary btn-sm flex-grow-1">View Details</a>
+            <a href="/patient/appointments/" class="btn btn-outline-primary btn-sm flex-grow-1">View Details</a>
             <button class="btn btn-outline-danger btn-sm" onclick="Patient.cancelAppointment('${next.id}')">Cancel</button>
           </div>
         `;
@@ -201,7 +201,7 @@ const Patient = {
       ClinicApp.toast(`Appointment ${newApt.id} successfully booked!`, 'success');
 
       setTimeout(() => {
-        window.location.href = 'appointments.html';
+        window.location.href = '/patient/appointments/';
       }, 700);
     });
   },
@@ -267,7 +267,7 @@ const Patient = {
       ClinicStore.updateAppointment(id, { status: 'Cancelled' });
       ClinicApp.toast('Appointment cancelled.', 'info');
       
-      if (window.location.pathname.includes('dashboard.html')) {
+      if (window.location.pathname.includes('dashboard')) {
         this.initDashboard();
       } else {
         this.renderPatientAppointments();

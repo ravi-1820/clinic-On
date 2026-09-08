@@ -4,15 +4,31 @@
 {% block title %}Medical Departments - Clinic On{% endblock %}
 
 {% block content %}
-  <section class="py-5">
-    <div class="container">
-      <div class="mb-4 text-center">
-        <h3 class="fw-bold mb-1">Medical Departments</h3>
-        <p class="text-muted fs-7">Specialized clinical care across key health departments.</p>
-      </div>
+  <!-- Gradient Hero Banner -->
+  <section class="page-hero-banner text-center">
+    <div class="hero-geometric-bg">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 400" fill="none" preserveAspectRatio="xMidYMid slice">
+        <circle cx="200" cy="120" r="160" stroke="#ffffff" opacity="0.08" stroke-width="1.2"/>
+        <circle cx="1240" cy="220" r="240" stroke="#ffffff" opacity="0.08" stroke-width="1.2"/>
+      </svg>
+    </div>
 
+    <div class="container position-relative z-2">
+      <div class="glass-badge mb-3">
+        <i class="bi bi-hospital"></i>
+        <span>Clinical Specialties</span>
+      </div>
+      <h1 class="page-hero-title">Medical Departments &amp; Specialized Care</h1>
+      <p class="page-hero-subtitle">
+        Discover specialized medical departments equipped with clinical diagnostics, treatment facilities, and experienced physicians.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-4 mb-5">
+    <div class="container">
       <div class="row g-4" id="publicDeptsGrid">
-        <!-- Rendered via JS -->
+        <!-- Rendered via JavaScript -->
       </div>
     </div>
   </section>
@@ -26,15 +42,21 @@
       if (grid) {
         grid.innerHTML = depts.map(d => `
           <div class="col-md-6 col-lg-4">
-            <div class="card card-hover h-100 p-4">
-              <div class="pastel-icon-box bg-pastel-blue mb-3" style="width:44px; height:44px; font-size:1.25rem;">
-                <i class="bi ${d.icon}"></i>
+            <div class="modern-card h-100 p-4 d-flex flex-column">
+              <div class="d-flex align-items-center justify-content-between mb-3">
+                <div class="pastel-icon-box bg-pastel-teal m-0" style="width:48px; height:48px; font-size:1.35rem;">
+                  <i class="bi ${d.icon}"></i>
+                </div>
+                <span class="badge badge-info-custom">${d.doctorsCount || 4} Doctors</span>
               </div>
-              <h5 class="fw-bold mb-1">${d.name}</h5>
-              <p class="text-muted fs-7 mb-3">${d.desc}</p>
-              <div class="mt-auto d-flex justify-content-between align-items-center border-top pt-2">
-                <small class="text-muted">Head: ${d.head}</small>
-                <a href="doctors.html?dept=${encodeURIComponent(d.name)}" class="btn btn-outline-primary btn-sm">Explore Doctors</a>
+              <h5 class="fw-bold mb-1.5 fs-5">${d.name}</h5>
+              <p class="text-muted fs-7 mb-4 flex-grow-1">${d.desc}</p>
+              
+              <div class="mt-auto d-flex justify-content-between align-items-center border-top pt-3">
+                <small class="text-muted fs-8">Head: <strong>${d.head || 'Lead Specialist'}</strong></small>
+                <a href="/doctors/?dept=${encodeURIComponent(d.name)}" class="btn btn-outline-primary btn-sm rounded-pill px-3">
+                  Explore Doctors <i class="bi bi-arrow-right ms-1"></i>
+                </a>
               </div>
             </div>
           </div>

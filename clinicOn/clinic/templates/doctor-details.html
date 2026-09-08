@@ -4,7 +4,22 @@
 {% block title %}Doctor Profile - Clinic On{% endblock %}
 
 {% block content %}
-  <section class="py-5" id="doctorDetailsSection">
+  <!-- Gradient Hero Banner -->
+  <section class="page-hero-banner text-center py-4 mb-4">
+    <div class="hero-geometric-bg">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 250" fill="none" preserveAspectRatio="xMidYMid slice">
+        <circle cx="180" cy="80" r="120" stroke="#ffffff" opacity="0.08" stroke-width="1.2"/>
+        <circle cx="1200" cy="150" r="180" stroke="#ffffff" opacity="0.08" stroke-width="1.2"/>
+      </svg>
+    </div>
+
+    <div class="container position-relative z-2">
+      <h1 class="page-hero-title fs-3 mb-1">Doctor Specialist Profile</h1>
+      <p class="page-hero-subtitle fs-7 mb-0">Verified clinical background, available consulting slots &amp; patient ratings.</p>
+    </div>
+  </section>
+
+  <section class="py-3 mb-5" id="doctorDetailsSection">
     <div class="container">
       <!-- Dynamic details container -->
     </div>
@@ -23,33 +38,89 @@
         container.innerHTML = `
           <div class="container">
             <div class="row g-4">
+              <!-- Left Doctor Profile Card -->
               <div class="col-lg-4">
-                <div class="card p-3 text-center shadow-sm">
-                  <img src="${doctor.image}" alt="${doctor.name}" class="rounded-4 img-fluid mb-3" style="max-height:280px; object-fit:cover;">
-                  <h4 class="fw-bold mb-1">${doctor.name}</h4>
-                  <span class="badge badge-info-custom mb-2">${doctor.specialization}</span>
-                  <div class="text-warning fw-bold mb-3"><i class="bi bi-star-fill"></i> ${doctor.rating} (${doctor.reviewsCount} Patient Reviews)</div>
-                  <a href="patient/book-appointment.html?docId=${doctor.id}" class="btn btn-primary-gradient w-100 py-2"><i class="bi bi-calendar-plus me-1"></i>Book Consultation Slot</a>
+                <div class="modern-card p-4 text-center">
+                  <div class="position-relative mb-3">
+                    <img src="${doctor.image}" alt="${doctor.name}" class="rounded-4 img-fluid shadow-sm" style="max-height:300px; width:100%; object-fit:cover;">
+                    <span class="position-absolute bottom-0 start-50 translate-middle-x mb-2 badge bg-white text-dark shadow-sm fs-8 fw-bold">
+                      <i class="bi bi-star-fill text-warning me-1"></i>${doctor.rating} (${doctor.reviewsCount} Reviews)
+                    </span>
+                  </div>
+                  <h4 class="fw-bold mb-1 fs-5">${doctor.name}</h4>
+                  <span class="badge badge-info-custom mb-3">${doctor.specialization}</span>
+                  
+                  <div class="bg-light p-3 rounded-3 mb-4 text-start fs-7">
+                    <div class="d-flex justify-content-between mb-2">
+                      <span class="text-muted">Experience:</span>
+                      <strong>${doctor.experience}</strong>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                      <span class="text-muted">Consultation Fee:</span>
+                      <strong class="text-success fw-bold">${doctor.fee}</strong>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                      <span class="text-muted">Available Days:</span>
+                      <strong>${doctor.days ? doctor.days.join(', ') : 'Mon - Fri'}</strong>
+                    </div>
+                  </div>
+
+                  <a href="/patient/book-appointment/?docId=${doctor.id}" class="btn btn-emerald-pill w-100 py-2.5">
+                    <i class="bi bi-calendar-plus me-1"></i>Book Consultation Slot
+                  </a>
                 </div>
               </div>
 
+              <!-- Right Detailed Dossier Card -->
               <div class="col-lg-8">
-                <div class="card p-4 shadow-sm h-100">
-                  <h5 class="fw-bold mb-3">About ${doctor.name}</h5>
-                  <p class="text-muted fs-7 mb-4">${doctor.about}</p>
+                <div class="modern-card p-4 h-100">
+                  <h4 class="fw-bold mb-3 fs-5">About ${doctor.name}</h4>
+                  <p class="text-muted fs-7 mb-4 leading-relaxed">${doctor.about}</p>
 
-                  <h6 class="fw-bold mb-2">Education &amp; Credentials</h6>
-                  <p class="text-muted fs-7 mb-4"><i class="bi bi-mortarboard me-2 text-primary"></i>${doctor.education}</p>
-
-                  <h6 class="fw-bold mb-2">Practice Details</h6>
-                  <div class="row g-3 fs-7 mb-4">
-                    <div class="col-md-6"><span class="text-muted">Department:</span> <strong>${doctor.department}</strong></div>
-                    <div class="col-md-6"><span class="text-muted">Experience:</span> <strong>${doctor.experience}</strong></div>
-                    <div class="col-md-6"><span class="text-muted">Consultation Hours:</span> <strong>${doctor.hours}</strong></div>
-                    <div class="col-md-6"><span class="text-muted">Consultation Fee:</span> <strong class="text-success">${doctor.fee}</strong></div>
+                  <h5 class="fw-bold mb-2.5 fs-6">Education &amp; Board Certifications</h5>
+                  <div class="d-flex align-items-center gap-2 p-3 bg-light rounded-3 mb-4 fs-7">
+                    <div class="pastel-icon-box bg-pastel-blue m-0" style="width:36px; height:36px; font-size:1.1rem;">
+                      <i class="bi bi-mortarboard-fill"></i>
+                    </div>
+                    <div>
+                      <strong class="d-block">${doctor.education}</strong>
+                      <small class="text-muted">Certified Board of Clinical Specialties</small>
+                    </div>
                   </div>
 
-                  <a href="doctors.html" class="text-primary fw-semibold text-decoration-none fs-7"><i class="bi bi-arrow-left me-1"></i>Back to Doctors Directory</a>
+                  <h5 class="fw-bold mb-3 fs-6">Practice &amp; Department Details</h5>
+                  <div class="row g-3 fs-7 mb-4">
+                    <div class="col-md-6">
+                      <div class="p-3 border rounded-3">
+                        <span class="text-muted d-block fs-8">Department</span>
+                        <strong class="fs-7">${doctor.department}</strong>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="p-3 border rounded-3">
+                        <span class="text-muted d-block fs-8">Weekly Consultation Hours</span>
+                        <strong class="fs-7">${doctor.hours}</strong>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="p-3 border rounded-3">
+                        <span class="text-muted d-block fs-8">Direct Clinical Helpline</span>
+                        <strong class="fs-7">${doctor.phone}</strong>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="p-3 border rounded-3">
+                        <span class="text-muted d-block fs-8">Electronic Rx &amp; EHR</span>
+                        <strong class="fs-7 text-success">Enabled &amp; Instant</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="pt-2 border-top">
+                    <a href="{% url 'doctors' %}" class="btn btn-outline-primary rounded-pill px-3 fs-7">
+                      <i class="bi bi-arrow-left me-1"></i>Back to Doctors Directory
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>

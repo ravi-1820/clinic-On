@@ -1,50 +1,457 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Login - Clinic On{% endblock %}
+{% block title %}Sign in to Clinic On - Modern Healthcare Platform{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'assets/css/auth.css' %}?v=2.1">
 <style>
-  .auth-split-form-area {
-    position: relative !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-    padding-top: 5rem !important;
+  /* ==========================================================================
+     Clinic On - Clean Glassmorphism Split Healthcare Login Design
+     ========================================================================== */
+  
+  :root {
+    --auth-bg-gradient: linear-gradient(130deg, #12296c 0%, #15388c 25%, #0f588c 55%, #0a848c 85%, #0ea57a 100%);
+    --card-glass-bg: rgba(255, 255, 255, 0.22);
+    --card-glass-border: rgba(255, 255, 255, 0.42);
+    --card-shadow: 0 30px 60px -12px rgba(8, 30, 65, 0.35), 0 10px 25px -5px rgba(0, 0, 0, 0.12), inset 0 1px 1px 0 rgba(255, 255, 255, 0.65);
+    --input-glass-bg: rgba(255, 255, 255, 0.5);
+    --input-glass-border: rgba(255, 255, 255, 0.65);
+    --input-text: #0f172a;
+    --input-placeholder: #64748b;
+    --card-text-title: #0f172a;
+    --card-text-muted: #334155;
+    --green-btn-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    --green-btn-glow: 0 8px 24px -2px rgba(16, 185, 129, 0.55), 0 0 20px rgba(52, 211, 153, 0.4);
+    --green-btn-glow-hover: 0 12px 32px -2px rgba(16, 185, 129, 0.75), 0 0 30px rgba(52, 211, 153, 0.6);
   }
-  .auth-back-btn {
-    position: absolute !important;
-    top: 1.5rem !important;
-    left: 2rem !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 0.5rem !important;
-    padding: 0.45rem 1.15rem !important;
-    font-size: 0.875rem !important;
-    font-weight: 600 !important;
-    color: var(--muted, #475569) !important;
-    background-color: var(--surface, #ffffff) !important;
-    border: 1px solid var(--border, #e2e8f0) !important;
-    border-radius: 50px !important;
+
+  [data-theme="dark"] {
+    --card-glass-bg: rgba(15, 23, 42, 0.55);
+    --card-glass-border: rgba(255, 255, 255, 0.18);
+    --card-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.6), inset 0 1px 1px 0 rgba(255, 255, 255, 0.2);
+    --input-glass-bg: rgba(255, 255, 255, 0.08);
+    --input-glass-border: rgba(255, 255, 255, 0.15);
+    --input-text: #f8fafc;
+    --input-placeholder: #94a3b8;
+    --card-text-title: #ffffff;
+    --card-text-muted: #cbd5e1;
+  }
+
+  body {
+    background: var(--auth-bg-gradient) !important;
+    min-height: 100vh;
+    overflow-x: hidden;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  /* Top Navigation Header for Brand Logo */
+  .auth-top-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 1.75rem 3.5rem;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .brand-logo-hero {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
     text-decoration: none !important;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05) !important;
-    transition: all 0.2s ease !important;
-    z-index: 99 !important;
   }
-  .auth-back-btn:hover {
-    color: var(--primary, #0284c7) !important;
-    border-color: var(--primary, #0284c7) !important;
-    transform: translateX(-3px) !important;
-    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.15) !important;
+
+  .brand-icon-hero {
+    width: 44px;
+    height: 44px;
+    background: #ffffff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transition: transform 0.25s ease;
   }
-  .auth-card {
-    margin: auto 0 !important;
+
+  .brand-icon-hero i {
+    font-size: 1.45rem;
+    background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
+
+  .brand-logo-hero:hover .brand-icon-hero {
+    transform: scale(1.05);
+  }
+
+  .brand-text-hero {
+    font-size: 1.65rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+  }
+
+  .brand-text-highlight {
+    color: #ffffff;
+    opacity: 0.95;
+  }
+
+  .theme-toggle-header-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.32);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.15rem;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .theme-toggle-header-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(15deg) scale(1.06);
+  }
+
+  /* Full Screen Master Wrapper */
+  .auth-hero-page {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6.5rem 2rem 2.5rem;
+    overflow: hidden;
+  }
+
+  /* Background Geometric Contour Circles & Wave Mesh Overlay */
+  .auth-geometric-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .auth-geometric-canvas svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Split Container */
+  .auth-content-container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 1320px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
+  }
+
+  /* Left Hero Branding Section */
+  .auth-left-col {
+    flex: 1 1 52%;
+    max-width: 620px;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem 0;
+  }
+
+  .auth-main-headline {
+    font-size: clamp(2.3rem, 3.8vw, 3.4rem);
+    font-weight: 800;
+    line-height: 1.18;
+    letter-spacing: -0.025em;
+    color: #ffffff;
+    margin-bottom: 1.4rem;
+    text-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+  }
+
+  .auth-main-subtext {
+    font-size: 1.15rem;
+    line-height: 1.68;
+    color: rgba(255, 255, 255, 0.88);
+    max-width: 530px;
+    margin-bottom: 0;
+    font-weight: 400;
+  }
+
+  /* Right Glassmorphism Card Column */
+  .auth-right-col {
+    flex: 1 1 48%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+
+  .glass-card-stage {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+  }
+
+  /* Sleek Frosted Glassmorphism Card */
+  .glass-login-card {
+    position: relative;
+    z-index: 10;
+    background: var(--card-glass-bg);
+    backdrop-filter: blur(32px) saturate(180%);
+    -webkit-backdrop-filter: blur(32px) saturate(180%);
+    border: 1px solid var(--card-glass-border);
+    border-radius: 28px;
+    padding: 2.75rem 2.75rem 2.5rem;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  /* Card Header Row */
+  .card-top-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.75rem;
+  }
+
+  .card-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.925rem;
+    font-weight: 600;
+    color: var(--card-text-muted);
+    text-decoration: none !important;
+    transition: all 0.2s ease;
+  }
+
+  .card-back-btn:hover {
+    color: #0f172a;
+    transform: translateX(-3px);
+  }
+
+  [data-theme="dark"] .card-back-btn:hover {
+    color: #ffffff;
+  }
+
+  /* Card Content & Heading */
+  .card-heading-title {
+    font-size: 1.95rem;
+    font-weight: 800;
+    color: var(--card-text-title);
+    letter-spacing: -0.02em;
+    text-align: center;
+    margin-bottom: 2.25rem;
+  }
+
+  /* Soft Neumorphic Input Fields */
+  .glass-form-group {
+    margin-bottom: 1.45rem;
+  }
+
+  .glass-field-label {
+    font-size: 0.885rem;
+    font-weight: 600;
+    color: var(--card-text-title);
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .forgot-link-btn {
+    font-size: 0.825rem;
+    font-weight: 600;
+    color: var(--card-text-muted);
+    text-decoration: none !important;
+    transition: color 0.2s ease;
+  }
+
+  .forgot-link-btn:hover {
+    color: #059669;
+    text-decoration: underline !important;
+  }
+
+  .glass-input-container {
+    position: relative;
+  }
+
+  .glass-input-field {
+    width: 100%;
+    padding: 0.9rem 1.25rem;
+    font-size: 0.975rem;
+    color: var(--input-text);
+    background: var(--input-glass-bg);
+    border: 1.5px solid var(--input-glass-border);
+    border-radius: 14px;
+    outline: none;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
+    transition: all 0.25s ease;
+  }
+
+  .glass-input-field::placeholder {
+    color: var(--input-placeholder);
+    opacity: 0.85;
+  }
+
+  .glass-input-field:focus {
+    background: rgba(255, 255, 255, 0.85);
+    border-color: #34d399;
+    box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.28), inset 0 1px 2px rgba(0, 0, 0, 0.02);
+  }
+
+  [data-theme="dark"] .glass-input-field:focus {
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .glass-input-field.is-password {
+    padding-right: 2.85rem;
+  }
+
+  .eye-toggle-btn {
+    position: absolute;
+    right: 0.9rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--input-placeholder);
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+
+  .eye-toggle-btn:hover {
+    color: var(--card-text-title);
+  }
+
+  /* Remember Session Checkbox */
+  .glass-remember-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1.85rem;
+    font-size: 0.9rem;
+    color: var(--card-text-muted);
+    font-weight: 500;
+  }
+
+  .glass-checkbox {
+    width: 18px;
+    height: 18px;
+    border-radius: 5px;
+    accent-color: #10b981;
+    cursor: pointer;
+  }
+
+  /* Bright Green Pill Sign In Button with Subtle Outer Glow */
+  .btn-green-pill-signin {
+    width: 100%;
+    padding: 0.95rem 1.5rem;
+    border-radius: 50px;
+    background: var(--green-btn-gradient);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.075rem;
+    letter-spacing: -0.01em;
+    border: none;
+    cursor: pointer;
+    box-shadow: var(--green-btn-glow);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .btn-green-pill-signin:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--green-btn-glow-hover);
+    color: #ffffff;
+  }
+
+  .btn-green-pill-signin:active {
+    transform: translateY(1px);
+  }
+
+  /* Card Bottom Link */
+  .card-bottom-meta {
+    text-align: center;
+    margin-top: 1.65rem;
+    font-size: 0.9rem;
+    color: var(--card-text-muted);
+  }
+
+  .card-register-anchor {
+    color: var(--card-text-title);
+    font-weight: 700;
+    text-decoration: none !important;
+    transition: color 0.2s ease;
+  }
+
+  .card-register-anchor:hover {
+    color: #059669;
+    text-decoration: underline !important;
+  }
+
+  /* Responsive Adjustments */
   @media (max-width: 991.98px) {
-    .auth-back-btn {
-      top: 1rem !important;
-      left: 1rem !important;
+    .auth-top-header {
+      padding: 1.25rem 1.5rem;
+    }
+    .auth-hero-page {
+      padding: 6rem 1.5rem 2rem;
+    }
+    .auth-content-container {
+      flex-direction: column;
+      gap: 2.5rem;
+      padding-top: 0.5rem;
+    }
+    .auth-left-col {
+      max-width: 100%;
+      text-align: center;
+      align-items: center;
+    }
+    .auth-main-subtext {
+      margin-bottom: 2rem;
+    }
+    .glass-card-stage {
+      max-width: 440px;
+    }
+  }
+
+  @media (max-width: 575.98px) {
+    .auth-top-header {
+      padding: 1rem;
+    }
+    .auth-hero-page {
+      padding: 5.5rem 1rem 1.5rem;
+    }
+    .glass-login-card {
+      padding: 2rem 1.5rem;
+      border-radius: 22px;
+    }
+    .auth-main-headline {
+      font-size: 1.9rem;
     }
   }
 </style>
@@ -54,82 +461,138 @@
 {% block footer %}{% endblock %}
 
 {% block content %}
-<div class="position-fixed top-0 end-0 p-3" style="z-index:1000;">
-  <button type="button" class="theme-toggle-btn"><i class="bi bi-moon-stars"></i></button>
-</div>
-
-<div class="auth-split-wrapper">
-  <!-- Left Visual Panel -->
-  <div class="auth-split-banner">
-    <a class="brand-logo-text text-white text-decoration-none" href="">
-      <span class="brand-icon-box" style="background:#ffffff; color:var(--primary);"><i
-          class="bi bi-heart-pulse-fill"></i></span>
-      <span>Clinic <span style="color:#ffffff;">On</span></span>
-    </a>
-
-    <div class="auth-banner-quote">
-      <h2>Next-generation healthcare management at your fingertips.</h2>
-      <p>Book online appointments, manage patient care records, and access digital prescriptions seamlessly.</p>
+<!-- Top Header for Clinic On Logo & Theme Toggle -->
+<header class="auth-top-header">
+  <a class="brand-logo-hero" href="{% url 'index' %}">
+    <div class="brand-icon-hero">
+      <i class="bi bi-heart-pulse-fill"></i>
     </div>
+    <span class="brand-text-hero">Clinic <span class="brand-text-highlight">On</span></span>
+  </a>
 
-    <div class="d-flex align-items-center gap-2 fs-7 text-white-50">
-      <i class="bi bi-shield-check text-white"></i> 256-bit Encrypted Health Data &amp; HIPAA Compliant Security
-    </div>
+  <button type="button" class="theme-toggle-header-btn theme-toggle-btn" title="Toggle Light/Dark Theme">
+    <i class="bi bi-moon-stars"></i>
+  </button>
+</header>
+
+<div class="auth-hero-page">
+  
+  <!-- Subtle Concentric Geometric Circles & Flowing Vector Mesh Background -->
+  <div class="auth-geometric-canvas">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" fill="none" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="meshGlow" cx="80%" cy="30%" r="60%">
+          <stop offset="0%" stop-color="#14b8a6" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#14b8a6" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      
+      <rect width="100%" height="100%" fill="url(#meshGlow)" />
+      
+      <!-- Faint circular geometric line contours -->
+      <g stroke="#ffffff" opacity="0.08" stroke-width="1.2">
+        <circle cx="240" cy="180" r="160" stroke-dasharray="3 5"/>
+        <circle cx="240" cy="180" r="300"/>
+        <circle cx="240" cy="180" r="460" stroke-dasharray="6 8"/>
+        <circle cx="240" cy="180" r="640"/>
+        <circle cx="240" cy="180" r="840"/>
+
+        <circle cx="1080" cy="460" r="190" stroke-dasharray="4 6"/>
+        <circle cx="1080" cy="460" r="340"/>
+        <circle cx="1080" cy="460" r="500" stroke-dasharray="8 8"/>
+        <circle cx="1080" cy="460" r="680"/>
+        <circle cx="1080" cy="460" r="880"/>
+      </g>
+
+      <!-- Smooth subtle flow lines -->
+      <g opacity="0.06" stroke="#ffffff" stroke-width="1.5">
+        <path d="M-100,580 C280,480 460,720 840,620 C1220,520 1340,680 1600,580" fill="none"/>
+        <path d="M-100,620 C280,520 460,760 840,660 C1220,560 1340,720 1600,620" fill="none"/>
+        <path d="M-100,660 C280,560 460,800 840,700 C1220,600 1340,760 1600,660" fill="none"/>
+      </g>
+    </svg>
   </div>
 
-  <!-- Right Form Area -->
-  <div class="auth-split-form-area">
-    <a href="{% url 'index' %}" class="auth-back-btn">
-      <i class="bi bi-arrow-left"></i>
-      <span>Back</span>
-    </a>
-
-    <div class="auth-card">
-      <div class="auth-header">
-        <h4 class="fw-bold mb-1">Sign in to Clinic On</h4>
-        <p class="text-muted mb-0">Enter your credentials to sign in</p>
-      </div>
-
-      <!-- Form -->
-      <form id="loginForm" novalidate>
-        <div class="mb-3">
-          <label class="form-label fs-7 fw-semibold">Email Address</label>
-          <input type="email" class="form-control" id="loginEmail" placeholder="Enter Email" required>
-          <div class="invalid-feedback">Please enter a valid email address.</div>
-        </div>
-
-        <div class="mb-3">
-          <div class="d-flex justify-content-between align-items-center mb-1">
-            <label class="form-label fs-7 fw-semibold mb-0">Password</label>
-            <a href="#" class="text-primary text-decoration-none fs-8 fw-semibold"
-              id="forgotPasswordBtn">Forgot-Password?</a>
-          </div>
-          <div class="position-relative">
-            <input type="password" class="form-control" id="loginPassword" placeholder="Enter Password" required>
-            <button type="button"
-              class="btn btn-ghost position-absolute end-0 top-50 translate-middle-y p-1 me-2 text-muted"
-              id="togglePasswordBtn">
-              <i class="bi bi-eye"></i>
-            </button>
-          </div>
-          <div class="invalid-feedback">Password is required.</div>
-        </div>
-
-        <div class="form-check mb-4 fs-7">
-          <input class="form-check-input" type="checkbox" id="rememberMe" checked>
-          <label class="form-check-label text-muted" for="rememberMe">Remember session</label>
-        </div>
-
-        <button type="submit" class="btn btn-primary-gradient w-100 py-2 fs-6 mb-3">
-          <i class="bi bi-box-arrow-in-right me-1"></i>Sign In
-        </button>
-
-        <p class="text-center text-muted fs-7 mb-0">
-          Don't have an account? <a href="register.html"
-            class="text-primary fw-semibold text-decoration-none">Register</a>
+  <!-- Master Asymmetrical Split Content -->
+  <div class="auth-content-container">
+    
+    <!-- Left Hero Column -->
+    <div class="auth-left-col">
+      <div class="auth-hero-copy">
+        <h1 class="auth-main-headline">
+          Next-generation healthcare management at your fingertips.
+        </h1>
+        <p class="auth-main-subtext">
+          Book online appointments, manage patient care records, and access digital prescriptions seamlessly.
         </p>
-      </form>
+      </div>
     </div>
+
+    <!-- Right Glassmorphism Card Column -->
+    <div class="auth-right-col">
+      <div class="glass-card-stage">
+
+        <!-- Main Frosted Glass Login Card -->
+        <div class="glass-login-card">
+          
+          <!-- Card Top Navigation: Clean Back Link -->
+          <div class="card-top-nav">
+            <a href="{% url 'index' %}" class="card-back-btn">
+              <i class="bi bi-arrow-left"></i>
+              <span>Back</span>
+            </a>
+          </div>
+
+          <!-- Card Heading -->
+          <h2 class="card-heading-title">Sign in to Clinic On</h2>
+
+          <!-- Interactive Login Form -->
+          <form id="loginForm" novalidate>
+            <!-- Email Field -->
+            <div class="glass-form-group">
+              <label class="glass-field-label" for="loginEmail">Email Address</label>
+              <div class="glass-input-container">
+                <input type="email" class="glass-input-field" id="loginEmail" placeholder="Enter Email" required autocomplete="email">
+              </div>
+              <div class="invalid-feedback fs-8 text-danger mt-1">Please enter a valid email address.</div>
+            </div>
+
+            <!-- Password Field -->
+            <div class="glass-form-group">
+              <div class="glass-field-label">
+                <label for="loginPassword" class="mb-0">Password</label>
+                <a href="#" id="forgotPasswordBtn" class="forgot-link-btn">Forgot-Password?</a>
+              </div>
+              <div class="glass-input-container">
+                <input type="password" class="glass-input-field is-password" id="loginPassword" placeholder="Enter Password" required autocomplete="current-password">
+                <button type="button" class="eye-toggle-btn" id="togglePasswordBtn" title="Toggle password visibility">
+                  <i class="bi bi-eye"></i>
+                </button>
+              </div>
+              <div class="invalid-feedback fs-8 text-danger mt-1">Password is required.</div>
+            </div>
+
+            <!-- Remember Session Checkbox -->
+            <div class="glass-remember-row">
+              <input type="checkbox" class="glass-checkbox" id="rememberMe" checked>
+              <label for="rememberMe" class="mb-0 cursor-pointer">Remember session</label>
+            </div>
+
+            <!-- Bright Green Pill 'Sign In' Button with Subtle Outer Glow -->
+            <button type="submit" class="btn-green-pill-signin" id="submitLoginBtn">
+              <span>Sign In</span>
+            </button>
+
+            <!-- Register Footer Link -->
+            <div class="card-bottom-meta">
+              Don't have an account? <a href="{% url 'register' %}" class="card-register-anchor">Register</a>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 {% endblock %}
@@ -139,33 +602,46 @@
   document.addEventListener('DOMContentLoaded', () => {
     const emailInput = document.getElementById('loginEmail');
     const passwordInput = document.getElementById('loginPassword');
-
     const togglePasswordBtn = document.getElementById('togglePasswordBtn');
-    if (togglePasswordBtn) {
+    const loginForm = document.getElementById('loginForm');
+    const forgotBtn = document.getElementById('forgotPasswordBtn');
+
+    // Password visibility toggle
+    if (togglePasswordBtn && passwordInput) {
       togglePasswordBtn.addEventListener('click', () => {
-        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordInput.setAttribute('type', type);
-        togglePasswordBtn.innerHTML = type === 'password' ? '<i class="bi bi-eye"></i>' : '<i class="bi bi-eye-slash"></i>';
+        const isPass = passwordInput.getAttribute('type') === 'password';
+        passwordInput.setAttribute('type', isPass ? 'text' : 'password');
+        togglePasswordBtn.innerHTML = isPass ? '<i class="bi bi-eye-slash"></i>' : '<i class="bi bi-eye"></i>';
       });
     }
 
-    const loginForm = document.getElementById('loginForm');
+    // Login Form Submit
     if (loginForm) {
       loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        if (!loginForm.checkValidity()) {
-          loginForm.classList.add('was-validated');
+        
+        if (!emailInput.value.trim() || !passwordInput.value) {
+          if (!emailInput.value.trim()) emailInput.classList.add('is-invalid');
+          if (!passwordInput.value) passwordInput.classList.add('is-invalid');
           return;
         }
-        Auth.login(emailInput.value.trim(), passwordInput.value.trim(), document.getElementById('rememberMe').checked);
+
+        emailInput.classList.remove('is-invalid');
+        passwordInput.classList.remove('is-invalid');
+
+        const remember = document.getElementById('rememberMe').checked;
+        Auth.login(emailInput.value.trim(), passwordInput.value.trim(), remember);
       });
+
+      emailInput.addEventListener('input', () => emailInput.classList.remove('is-invalid'));
+      passwordInput.addEventListener('input', () => passwordInput.classList.remove('is-invalid'));
     }
 
-    const forgotBtn = document.getElementById('forgotPasswordBtn');
+    // Demo password hint
     if (forgotBtn) {
       forgotBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        ClinicApp.toast('Demo Passwords: "patient123" or "doctor123"', 'info');
+        ClinicApp.toast('Demo accounts: admin@clinicon.org / "admin123", patient@clinicon.org / "patient123"', 'info');
       });
     }
   });

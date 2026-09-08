@@ -1,43 +1,98 @@
 {% load static %}
-<!-- Footer -->
+<!-- Premium Dark Unified Footer -->
 <footer>
   <div class="container">
     <div class="row g-4">
+      <!-- Col 1: Brand & Bio -->
       <div class="col-lg-4">
         <a class="brand-logo-text mb-3 d-inline-flex" href="{% url 'index' %}">
-          <span class="brand-icon-box"><i class="bi bi-heart-pulse-fill"></i></span>
-          <span>Clinic <span class="brand-gradient-part">On</span></span>
+          <span class="brand-icon-box">
+            <i class="bi bi-heart-pulse-fill"></i>
+          </span>
+          <span class="text-white">Clinic <span class="brand-gradient-part">On</span></span>
         </a>
-        <p class="fs-7">Clinic On is a next-generation healthcare SaaS platform designed for clinical workflows and patient care.</p>
+        <p class="fs-7 footer-desc mb-4 max-w-350">
+          Clinic On is a next-generation healthcare SaaS platform connecting patients with verified medical specialists through intuitive clinical workflows.
+        </p>
+
+        <!-- Security & Compliance Pill -->
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill bg-white bg-opacity-10 border border-white border-opacity-10 text-white fs-8">
+          <i class="bi bi-shield-lock-fill text-success"></i>
+          <span>HIPAA Compliant &amp; 256-bit Encrypted</span>
+        </div>
       </div>
 
-      <div class="col-6 col-lg-3">
+      <!-- Col 2: Platform Links -->
+      <div class="col-6 col-lg-2 offset-lg-1">
         <h5>Platform</h5>
         <ul class="list-unstyled fs-7">
-          <li class="mb-2"><a href="doctors.html">Doctors Directory</a></li>
-          <li class="mb-2"><a href="departments.html">Medical Departments</a></li>
-          <li class="mb-2"><a href="patient/book-appointment.html">Book Appointment</a></li>
+          <li class="mb-2.5"><a href="{% url 'index' %}">Home</a></li>
+          <li class="mb-2.5"><a href="{% url 'about' %}">About Us</a></li>
+          <li class="mb-2.5"><a href="{% url 'doctors' %}">Doctors Directory</a></li>
+          <li class="mb-2.5"><a href="{% url 'departments' %}">Medical Departments</a></li>
+          <li class="mb-2.5"><a href="{% url 'contact' %}">Contact &amp; Support</a></li>
         </ul>
       </div>
 
-      <div class="col-6 col-lg-3">
+      <!-- Col 3: Portals -->
+      <div class="col-6 col-lg-2">
         <h5>Portals</h5>
         <ul class="list-unstyled fs-7">
-          <li class="mb-2"><a href="login.html">Patient Login</a></li>
-          <li class="mb-2"><a href="login.html">Doctor Portal</a></li>
-          <li class="mb-2"><a href="login.html">Admin Workspace</a></li>
+          <li class="mb-2.5"><a href="{% url 'login' %}">Patient Sign In</a></li>
+          <li class="mb-2.5"><a href="{% url 'register' %}">Create Account</a></li>
+          <li class="mb-2.5"><a href="{% url 'login' %}">Doctor Portal</a></li>
+          <li class="mb-2.5"><a href="{% url 'patient_book_appointment' %}">Book Appointment</a></li>
+          <li class="mb-2.5"><a href="{% url 'admin_dashboard' %}">Admin Workspace</a></li>
         </ul>
       </div>
 
-      <div class="col-lg-2">
-        <h5>Helpline</h5>
-        <p class="fs-7 mb-1"><i class="bi bi-telephone me-2 text-primary"></i>+1 (800) 555-CLINIC</p>
-        <p class="fs-7"><i class="bi bi-envelope me-2 text-primary"></i>support@clinicon.org</p>
+      <!-- Col 4: Helpline & Emergency Support -->
+      <div class="col-lg-3">
+        <h5>24/7 Helpline</h5>
+        <div class="footer-glass-box">
+          <div class="d-flex align-items-center gap-3 mb-2.5">
+            <div class="pastel-icon-box bg-pastel-mint m-0" style="width:38px; height:38px; font-size:1.15rem;">
+              <i class="bi bi-telephone-fill"></i>
+            </div>
+            <div>
+              <small class="footer-label d-block fs-8">Toll-Free Emergency</small>
+              <strong class="text-white fs-7">+1 (800) 555-CLINIC</strong>
+            </div>
+          </div>
+
+          <div class="d-flex align-items-center gap-3 mb-2.5">
+            <div class="pastel-icon-box bg-pastel-cyan m-0" style="width:38px; height:38px; font-size:1.15rem;">
+              <i class="bi bi-envelope-fill"></i>
+            </div>
+            <div>
+              <small class="footer-label d-block fs-8">Direct Email</small>
+              <span class="text-white fs-7">support@clinicon.org</span>
+            </div>
+          </div>
+
+          <div class="d-flex align-items-center gap-3">
+            <div class="pastel-icon-box bg-pastel-blue m-0" style="width:38px; height:38px; font-size:1.15rem;">
+              <i class="bi bi-geo-alt-fill"></i>
+            </div>
+            <div>
+              <small class="footer-label d-block fs-8">Medical Center</small>
+              <span class="text-white fs-7">100 Health Ave, Medical District</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="footer-bottom text-center fs-7">
-      <p class="mb-0">&copy; 2026 Clinic On Hospital Management System. All rights reserved.</p>
+    <!-- Bottom Bar -->
+    <div class="footer-bottom d-flex flex-wrap justify-content-between align-items-center gap-2 fs-8">
+      <p class="mb-0 text-white-50">&copy; 2026 Clinic On Healthcare SaaS Platform. All rights reserved.</p>
+      <div class="d-flex gap-3">
+        <a href="#" class="footer-bottom-link">Privacy Policy</a>
+        <span class="text-white-50 opacity-50">&bull;</span>
+        <a href="#" class="footer-bottom-link">Terms of Service</a>
+        <span class="text-white-50 opacity-50">&bull;</span>
+        <a href="#" class="footer-bottom-link">Security Standards</a>
+      </div>
     </div>
   </div>
 </footer>

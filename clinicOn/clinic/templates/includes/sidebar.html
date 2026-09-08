@@ -12,59 +12,59 @@
     {% if role == 'doctor' %}
       <div class="sidebar-label">WORKSPACE</div>
       <ul class="nav-sidebar">
-        <li class="nav-item"><a href="dashboard.html" class="nav-link-item active"><i class="bi bi-grid"></i><span>Overview</span></a></li>
-        <li class="nav-item"><a href="appointments.html" class="nav-link-item"><i class="bi bi-calendar-check"></i><span>Appointments</span></a></li>
-        <li class="nav-item"><a href="patients.html" class="nav-link-item"><i class="bi bi-people"></i><span>My Patients</span></a></li>
+        <li class="nav-item"><a href="{% url 'doctor_dashboard' %}" class="nav-link-item {% if request.resolver_match.url_name == 'doctor_dashboard' %}active{% endif %}"><i class="bi bi-grid"></i><span>Overview</span></a></li>
+        <li class="nav-item"><a href="{% url 'doctor_appointments' %}" class="nav-link-item {% if request.resolver_match.url_name == 'doctor_appointments' %}active{% endif %}"><i class="bi bi-calendar-check"></i><span>Appointments</span></a></li>
+        <li class="nav-item"><a href="{% url 'doctor_patients' %}" class="nav-link-item {% if request.resolver_match.url_name == 'doctor_patients' or request.resolver_match.url_name == 'doctor_patient_details' %}active{% endif %}"><i class="bi bi-people"></i><span>My Patients</span></a></li>
       </ul>
 
       <div class="sidebar-label">CLINICAL RECORDS</div>
       <ul class="nav-sidebar">
-        <li class="nav-item"><a href="prescriptions.html" class="nav-link-item"><i class="bi bi-prescription2"></i><span>Prescriptions</span></a></li>
-        <li class="nav-item"><a href="medical-records.html" class="nav-link-item"><i class="bi bi-file-earmark-medical"></i><span>Medical Records</span></a></li>
+        <li class="nav-item"><a href="{% url 'doctor_prescriptions' %}" class="nav-link-item {% if request.resolver_match.url_name == 'doctor_prescriptions' %}active{% endif %}"><i class="bi bi-prescription2"></i><span>Prescriptions</span></a></li>
+        <li class="nav-item"><a href="{% url 'doctor_medical_records' %}" class="nav-link-item {% if request.resolver_match.url_name == 'doctor_medical_records' %}active{% endif %}"><i class="bi bi-file-earmark-medical"></i><span>Medical Records</span></a></li>
       </ul>
 
       <div class="sidebar-label">PROFILE</div>
       <ul class="nav-sidebar">
-        <li class="nav-item"><a href="profile.html" class="nav-link-item"><i class="bi bi-person"></i><span>My Profile</span></a></li>
+        <li class="nav-item"><a href="{% url 'doctor_profile' %}" class="nav-link-item {% if request.resolver_match.url_name == 'doctor_profile' %}active{% endif %}"><i class="bi bi-person"></i><span>My Profile</span></a></li>
       </ul>
     {% elif role == 'patient' %}
       <div class="sidebar-label">PATIENT PORTAL</div>
       <ul class="nav-sidebar">
-        <li class="nav-item"><a href="dashboard.html" class="nav-link-item active"><i class="bi bi-grid"></i><span>Overview</span></a></li>
-        <li class="nav-item"><a href="book-appointment.html" class="nav-link-item"><i class="bi bi-calendar-plus"></i><span>Book Appointment</span></a></li>
-        <li class="nav-item"><a href="appointments.html" class="nav-link-item"><i class="bi bi-calendar-check"></i><span>My Appointments</span></a></li>
-        <li class="nav-item"><a href="doctors.html" class="nav-link-item"><i class="bi bi-person-badge"></i><span>Doctors Directory</span></a></li>
+        <li class="nav-item"><a href="{% url 'patient_dashboard' %}" class="nav-link-item {% if request.resolver_match.url_name == 'patient_dashboard' %}active{% endif %}"><i class="bi bi-grid"></i><span>Overview</span></a></li>
+        <li class="nav-item"><a href="{% url 'patient_book_appointment' %}" class="nav-link-item {% if request.resolver_match.url_name == 'patient_book_appointment' %}active{% endif %}"><i class="bi bi-calendar-plus"></i><span>Book Appointment</span></a></li>
+        <li class="nav-item"><a href="{% url 'patient_appointments' %}" class="nav-link-item {% if request.resolver_match.url_name == 'patient_appointments' %}active{% endif %}"><i class="bi bi-calendar-check"></i><span>My Appointments</span></a></li>
+        <li class="nav-item"><a href="{% url 'patient_doctors' %}" class="nav-link-item {% if request.resolver_match.url_name == 'patient_doctors' %}active{% endif %}"><i class="bi bi-person-badge"></i><span>Doctors Directory</span></a></li>
       </ul>
 
       <div class="sidebar-label">CARE RECORDS</div>
       <ul class="nav-sidebar">
-        <li class="nav-item"><a href="medical-history.html" class="nav-link-item"><i class="bi bi-clock-history"></i><span>Medical History</span></a></li>
-        <li class="nav-item"><a href="prescriptions.html" class="nav-link-item"><i class="bi bi-prescription2"></i><span>Prescriptions</span></a></li>
+        <li class="nav-item"><a href="{% url 'patient_medical_history' %}" class="nav-link-item {% if request.resolver_match.url_name == 'patient_medical_history' %}active{% endif %}"><i class="bi bi-clock-history"></i><span>Medical History</span></a></li>
+        <li class="nav-item"><a href="{% url 'patient_prescriptions' %}" class="nav-link-item {% if request.resolver_match.url_name == 'patient_prescriptions' %}active{% endif %}"><i class="bi bi-prescription2"></i><span>Prescriptions</span></a></li>
       </ul>
 
       <div class="sidebar-label">ACCOUNT</div>
       <ul class="nav-sidebar">
-        <li class="nav-item"><a href="profile.html" class="nav-link-item"><i class="bi bi-person"></i><span>My Profile</span></a></li>
+        <li class="nav-item"><a href="{% url 'patient_profile' %}" class="nav-link-item {% if request.resolver_match.url_name == 'patient_profile' %}active{% endif %}"><i class="bi bi-person"></i><span>My Profile</span></a></li>
       </ul>
     {% else %}
       <!-- Admin Sidebar (Default) -->
       <div class="sidebar-label">MAIN</div>
       <ul class="nav-sidebar">
-        <li class="nav-item"><a href="dashboard.html" class="nav-link-item active"><i class="bi bi-grid"></i><span>Overview</span></a></li>
-        <li class="nav-item"><a href="appointments.html" class="nav-link-item"><i class="bi bi-calendar-check"></i><span>Appointments</span></a></li>
-        <li class="nav-item"><a href="patients.html" class="nav-link-item"><i class="bi bi-people"></i><span>Patients</span></a></li>
-        <li class="nav-item"><a href="doctors.html" class="nav-link-item"><i class="bi bi-person-badge"></i><span>Doctors</span></a></li>
+        <li class="nav-item"><a href="{% url 'admin_dashboard' %}" class="nav-link-item {% if request.resolver_match.url_name == 'admin_dashboard' %}active{% endif %}"><i class="bi bi-grid"></i><span>Overview</span></a></li>
+        <li class="nav-item"><a href="{% url 'admin_appointments' %}" class="nav-link-item {% if request.resolver_match.url_name == 'admin_appointments' %}active{% endif %}"><i class="bi bi-calendar-check"></i><span>Appointments</span></a></li>
+        <li class="nav-item"><a href="{% url 'admin_patients' %}" class="nav-link-item {% if request.resolver_match.url_name == 'admin_patients' %}active{% endif %}"><i class="bi bi-people"></i><span>Patients</span></a></li>
+        <li class="nav-item"><a href="{% url 'admin_doctors' %}" class="nav-link-item {% if request.resolver_match.url_name == 'admin_doctors' %}active{% endif %}"><i class="bi bi-person-badge"></i><span>Doctors</span></a></li>
       </ul>
 
       <div class="sidebar-label">CLINICAL</div>
       <ul class="nav-sidebar">
-        <li class="nav-item"><a href="departments.html" class="nav-link-item"><i class="bi bi-hospital"></i><span>Departments</span></a></li>
+        <li class="nav-item"><a href="{% url 'admin_departments' %}" class="nav-link-item {% if request.resolver_match.url_name == 'admin_departments' %}active{% endif %}"><i class="bi bi-hospital"></i><span>Departments</span></a></li>
       </ul>
 
       <div class="sidebar-label">SYSTEM</div>
       <ul class="nav-sidebar">
-        <li class="nav-item"><a href="reports.html" class="nav-link-item"><i class="bi bi-bar-chart"></i><span>Reports &amp; Analytics</span></a></li>
-        <li class="nav-item"><a href="settings.html" class="nav-link-item"><i class="bi bi-gear"></i><span>Settings</span></a></li>
+        <li class="nav-item"><a href="{% url 'admin_reports' %}" class="nav-link-item {% if request.resolver_match.url_name == 'admin_reports' %}active{% endif %}"><i class="bi bi-bar-chart"></i><span>Reports &amp; Analytics</span></a></li>
+        <li class="nav-item"><a href="{% url 'admin_settings' %}" class="nav-link-item {% if request.resolver_match.url_name == 'admin_settings' %}active{% endif %}"><i class="bi bi-gear"></i><span>Settings</span></a></li>
       </ul>
     {% endif %}
   </div>
