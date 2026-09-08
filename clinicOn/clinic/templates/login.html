@@ -546,15 +546,23 @@
           <!-- Card Heading -->
           <h2 class="card-heading-title">Sign in to Clinic On</h2>
 
+          <!-- Django Backend Messages -->
+          {% if msg %}
+          <div class="alert alert-danger py-2 fs-7 mb-3 d-flex align-items-center" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2 fs-6"></i>
+            <div>{{ msg }}</div>
+          </div>
+          {% endif %}
+
           <!-- Interactive Login Form -->
-          <form id="loginForm" novalidate>
+          <form id="loginForm" method="POST" action="" novalidate>
+            {% csrf_token %}
             <!-- Email Field -->
             <div class="glass-form-group">
               <label class="glass-field-label" for="loginEmail">Email Address</label>
               <div class="glass-input-container">
-                <input type="email" class="glass-input-field" id="loginEmail" placeholder="Enter Email" required autocomplete="email">
+                <input type="email" name="email" class="glass-input-field" id="loginEmail" placeholder="Enter Email" autocomplete="email">
               </div>
-              <div class="invalid-feedback fs-8 text-danger mt-1">Please enter a valid email address.</div>
             </div>
 
             <!-- Password Field -->
@@ -564,12 +572,11 @@
                 <a href="#" id="forgotPasswordBtn" class="forgot-link-btn">Forgot-Password?</a>
               </div>
               <div class="glass-input-container">
-                <input type="password" class="glass-input-field is-password" id="loginPassword" placeholder="Enter Password" required autocomplete="current-password">
+                <input type="password" name="password" class="glass-input-field is-password" id="loginPassword" placeholder="Enter Password" autocomplete="current-password">
                 <button type="button" class="eye-toggle-btn" id="togglePasswordBtn" title="Toggle password visibility">
                   <i class="bi bi-eye"></i>
                 </button>
               </div>
-              <div class="invalid-feedback fs-8 text-danger mt-1">Password is required.</div>
             </div>
 
             <!-- Remember Session Checkbox -->
@@ -600,10 +607,8 @@
 {% block extra_js %}
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const emailInput = document.getElementById('loginEmail');
     const passwordInput = document.getElementById('loginPassword');
     const togglePasswordBtn = document.getElementById('togglePasswordBtn');
-    const loginForm = document.getElementById('loginForm');
     const forgotBtn = document.getElementById('forgotPasswordBtn');
 
     // Password visibility toggle
@@ -613,28 +618,6 @@
         passwordInput.setAttribute('type', isPass ? 'text' : 'password');
         togglePasswordBtn.innerHTML = isPass ? '<i class="bi bi-eye-slash"></i>' : '<i class="bi bi-eye"></i>';
       });
-    }
-
-    // Login Form Submit
-    if (loginForm) {
-      loginForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        if (!emailInput.value.trim() || !passwordInput.value) {
-          if (!emailInput.value.trim()) emailInput.classList.add('is-invalid');
-          if (!passwordInput.value) passwordInput.classList.add('is-invalid');
-          return;
-        }
-
-        emailInput.classList.remove('is-invalid');
-        passwordInput.classList.remove('is-invalid');
-
-        const remember = document.getElementById('rememberMe').checked;
-        Auth.login(emailInput.value.trim(), passwordInput.value.trim(), remember);
-      });
-
-      emailInput.addEventListener('input', () => emailInput.classList.remove('is-invalid'));
-      passwordInput.addEventListener('input', () => passwordInput.classList.remove('is-invalid'));
     }
 
     // Demo password hint

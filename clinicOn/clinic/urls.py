@@ -11,6 +11,7 @@ urlpatterns = [
     path('departments/', views.departments, name='departments'),
     path('contact/', views.contact, name='contact'),
     path('login/', views.login_view, name='login'),
+    path('logout/', views.logout_view, name='logout'),
     path('register/', views.register_view, name='register'),
 
     # Admin Portal Pages
@@ -51,6 +52,7 @@ urlpatterns = [
     path('departments.html', RedirectView.as_view(url='/departments/', permanent=False)),
     path('contact.html', RedirectView.as_view(url='/contact/', permanent=False)),
     path('login.html', RedirectView.as_view(url='/login/', permanent=False)),
+    path('logout.html', RedirectView.as_view(url='/logout/', permanent=False)),
     path('register.html', RedirectView.as_view(url='/register/', permanent=False)),
 
     path('admin/dashboard.html', RedirectView.as_view(url='/admin/dashboard/', permanent=False)),

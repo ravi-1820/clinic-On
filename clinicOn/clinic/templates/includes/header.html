@@ -47,8 +47,15 @@
           <i class="bi bi-search me-1"></i> <span>Search</span>
         </button>
 
-        <!-- Login Link -->
+        {% if request.session.email %}
+        <!-- Logout Link (Shown when user is logged in) -->
+        <a href="{% url 'logout' %}" class="btn btn-ghost px-3 fw-semibold text-danger">
+          <i class="bi bi-box-arrow-right me-1"></i> Logout
+        </a>
+        {% else %}
+        <!-- Login Link (Shown when user is logged out) -->
         <a href="{% url 'login' %}" class="btn btn-ghost px-3 fw-semibold">Login</a>
+        {% endif %}
 
         <!-- Emerald Pill CTA -->
         <a href="{% url 'patient_book_appointment' %}" class="btn btn-emerald-pill">

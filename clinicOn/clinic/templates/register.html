@@ -817,30 +817,6 @@
         }
       });
     });
-
-    // Form validation
-    const registerForm = document.getElementById('registerForm');
-    if (registerForm) {
-      registerForm.addEventListener('submit', (e) => {
-        const pass = document.getElementById('regPassword').value;
-        const confirmPass = document.getElementById('regConfirmPassword').value;
-
-        if (pass !== confirmPass) {
-          e.preventDefault();
-          if (window.ClinicApp && typeof window.ClinicApp.toast === 'function') {
-            ClinicApp.toast('Passwords do not match.', 'danger');
-          } else {
-            alert('Passwords do not match.');
-          }
-          return;
-        }
-
-        if (!registerForm.checkValidity()) {
-          e.preventDefault();
-          registerForm.classList.add('was-validated');
-        }
-      });
-    }
   });
 </script>
 {% endblock %}

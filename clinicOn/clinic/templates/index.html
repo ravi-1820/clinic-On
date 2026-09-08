@@ -491,20 +491,6 @@
           </div>
         `).join('');
     }
-
-    // Session auth check
-    const session = ClinicStore.getSession();
-    if (session) {
-      const navAuthArea = document.getElementById('navAuthArea');
-      if (navAuthArea) {
-        const dashUrl = session.role === 'admin' ? '/admin/dashboard/' : session.role === 'doctor' ? '/doctor/dashboard/' : '/patient/dashboard/';
-        navAuthArea.innerHTML = `
-            <button type="button" class="theme-toggle-btn me-1"><i class="bi bi-moon-stars"></i></button>
-            <a href="${dashUrl}" class="btn btn-emerald-pill"><i class="bi bi-speedometer2 me-1"></i>Dashboard</a>
-            <button class="btn btn-ghost text-danger btn-logout"><i class="bi bi-box-arrow-right"></i></button>
-          `;
-      }
-    }
   });
 </script>
 {% endblock %}

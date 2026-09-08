@@ -81,7 +81,7 @@ const Auth = {
     ClinicStore.clearSession();
     ClinicApp.toast('You have been logged out.', 'info');
     setTimeout(() => {
-      window.location.href = '/login/';
+      window.location.href = '/logout/';
     }, 400);
   },
 
@@ -98,28 +98,6 @@ const Auth = {
   },
 
   checkRouteGuard(requiredRole = null) {
-    const session = ClinicStore.getSession();
-    const currentPath = window.location.pathname;
-    
-    // Auth route guards for protected areas
-    if (currentPath.includes('/admin/') && (!session || session.role !== 'admin')) {
-      ClinicApp.toast('Access denied. Admin privileges required.', 'danger');
-      window.location.href = '/login/';
-      return false;
-    }
-
-    if (currentPath.includes('/doctor/') && (!session || session.role !== 'doctor')) {
-      ClinicApp.toast('Access denied. Doctor login required.', 'danger');
-      window.location.href = '/login/';
-      return false;
-    }
-
-    if (currentPath.includes('/patient/') && (!session || session.role !== 'patient')) {
-      ClinicApp.toast('Access denied. Patient login required.', 'danger');
-      window.location.href = '/login/';
-      return false;
-    }
-
     return true;
   }
 };

@@ -1,5 +1,5 @@
 import logging
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import User
 
 logger = logging.getLogger(__name__)
@@ -22,9 +22,6 @@ def departments(request):
 
 def contact(request):
     return render(request, 'contact.html')
-
-def login_view(request):
-    return render(request, 'login.html')
 
 def register_view(request):
     if request.method == "POST":
@@ -52,6 +49,43 @@ def register_view(request):
                 return render(request, 'register.html', {'msg': msg})
     else:
         return render(request, 'register.html')
+
+def login_view(request):
+    if request.method == "POST":
+        try:
+            user = User.objects.get(email=request.POST['email'])
+            if user.password == request.POST['password']:
+                request.session['email'] = user.email
+                request.session['name'] = user.full_name
+                request.session['role'] = user.role
+                request.session['user_id'] = user.id
+
+                if user.role == 'doctor':
+                    return redirect('doctor_dashboard')
+                elif user.role == 'admin':
+                    return redirect('admin_dashboard')
+                else:
+                    return redirect('index')
+            else:
+                msg = "Password does not match!"
+                return render(request, 'login.html', {'msg': msg})
+        except:
+            msg = "Email does not exist!"
+            return render(request, 'login.html', {'msg': msg})
+    else:
+        return render(request, 'login.html')
+
+def logout_view(request):
+    try:
+        del request.session['email']
+        del request.session['name']
+        del request.session['role']
+        del request.session['user_id']
+    except:
+        pass
+    return redirect('login')
+
+
 
 
 # Admin Portal Views
