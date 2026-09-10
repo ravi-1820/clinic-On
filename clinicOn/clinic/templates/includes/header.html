@@ -3,7 +3,7 @@
 <header class="navbar navbar-expand-lg glass-navbar sticky-top-nav">
   <div class="container">
     <!-- Brand Logo Matching Login/Register -->
-    <a class="brand-logo-text" href="{% url 'index' %}">
+    <a class="brand-logo-text me-lg-2" href="{% url 'index' %}">
       <span class="brand-icon-box">
         <i class="bi bi-heart-pulse-fill"></i>
       </span>
@@ -17,7 +17,17 @@
 
     <!-- Collapsible Navigation Menu -->
     <div class="collapse navbar-collapse" id="navbarMain">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-1 me-lg-3 align-items-lg-center">
+      <!-- Searchbar between Logo and Menus with clear breathing room from logo -->
+      <div class="ms-lg-4 ms-xl-5 me-lg-auto my-2 my-lg-0">
+        <button type="button" class="btn header-search-btn command-palette-trigger d-flex align-items-center gap-2 rounded-pill px-3 py-1.5 fs-8" title="Quick Search (Ctrl + K)">
+          <i class="bi bi-search"></i>
+          <span>Search...</span>
+          <kbd class="ms-2">Ctrl K</kbd>
+        </button>
+      </div>
+
+      <!-- Navigation Menu Items -->
+      <ul class="navbar-nav mb-2 mb-lg-0 gap-lg-1 me-lg-3 align-items-lg-center">
         <li class="nav-item">
           <a class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}" href="{% url 'index' %}">Home</a>
         </li>
@@ -37,16 +47,6 @@
 
       <!-- Right Action Area -->
       <div class="d-flex align-items-center gap-2 flex-wrap" id="navAuthArea">
-        <!-- Theme Switcher -->
-        <button type="button" class="theme-toggle-btn me-1" title="Toggle Light/Dark Theme">
-          <i class="bi bi-moon-stars"></i>
-        </button>
-
-        <!-- Command Palette Trigger -->
-        <button type="button" class="btn btn-outline-primary command-palette-trigger me-1 py-1.5 px-3 rounded-pill fs-8">
-          <i class="bi bi-search me-1"></i> <span>Search</span>
-        </button>
-
         {% if request.session.email %}
         <!-- Logout Link (Shown when user is logged in) -->
         <a href="{% url 'logout' %}" class="btn btn-ghost px-3 fw-semibold text-danger">
@@ -61,6 +61,11 @@
         <a href="{% url 'patient_book_appointment' %}" class="btn btn-emerald-pill">
           <i class="bi bi-calendar-plus me-1"></i> Book Appointment
         </a>
+
+        <!-- Theme Switcher (Shifted to the LAST) -->
+        <button type="button" class="theme-toggle-btn ms-1" title="Toggle Light/Dark Theme">
+          <i class="bi bi-moon-stars"></i>
+        </button>
       </div>
     </div>
   </div>

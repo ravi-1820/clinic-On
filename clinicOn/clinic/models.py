@@ -23,7 +23,7 @@ class User(models.Model):
     ]
     full_name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
-    phone = models.CharField(max_length=15)
+    phone = models.CharField(max_length=20)
     date_of_birth = models.DateField()
     gender = models.CharField(
         max_length=10,

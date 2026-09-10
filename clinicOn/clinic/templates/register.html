@@ -4,6 +4,7 @@
 {% block title %}Create an Account - Clinic On{% endblock %}
 
 {% block extra_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css">
 <style>
   /* ==========================================================================
      Clinic On - Compact Professional Glassmorphism Register Design
@@ -387,6 +388,179 @@
     background: rgba(255, 255, 255, 0.15);
   }
 
+  /* Country Code & Phone Input Group */
+  .glass-phone-group {
+    display: flex;
+    gap: 0.45rem;
+    align-items: center;
+    position: relative;
+  }
+
+  .glass-country-picker {
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .glass-country-btn {
+    height: 39px;
+    padding: 0.52rem 0.65rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--input-text);
+    background: var(--input-glass-bg);
+    border: 1.5px solid var(--input-glass-border);
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    cursor: pointer;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03);
+    transition: all 0.25s ease;
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  .glass-country-btn:hover,
+  .glass-country-btn:focus,
+  .glass-country-btn.show {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: #34d399;
+    box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.28);
+    color: var(--input-text);
+  }
+
+  [data-theme="dark"] .glass-country-btn:hover,
+  [data-theme="dark"] .glass-country-btn:focus,
+  [data-theme="dark"] .glass-country-btn.show {
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .glass-country-btn .fi,
+  .country-option .fi {
+    width: 1.35em !important;
+    height: 1em !important;
+    line-height: 1em;
+    border-radius: 3px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .glass-country-menu {
+    max-height: 275px;
+    width: 250px;
+    min-width: 240px;
+    padding: 0.35rem;
+    background: rgba(255, 255, 255, 0.96) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.7) !important;
+    border-radius: 14px !important;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.22) !important;
+    z-index: 1060;
+    margin-top: 5px !important;
+  }
+
+  [data-theme="dark"] .glass-country-menu {
+    background: rgba(15, 23, 42, 0.96) !important;
+    border-color: rgba(255, 255, 255, 0.16) !important;
+  }
+
+  .country-scroll-list {
+    max-height: 200px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .country-option {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.42rem 0.65rem;
+    border-radius: 8px;
+    font-size: 0.825rem;
+    font-weight: 600;
+    color: #0f172a;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .country-name {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .code-val {
+    font-weight: 700;
+    font-size: 0.78rem;
+    color: #64748b;
+    margin-left: auto;
+  }
+
+  [data-theme="dark"] .country-option {
+    color: #f8fafc;
+  }
+
+  [data-theme="dark"] .code-val {
+    color: #94a3b8;
+  }
+
+  .country-option:hover,
+  .country-option.active {
+    background: rgba(16, 185, 129, 0.16);
+    color: #059669;
+  }
+
+  .country-option:hover .code-val,
+  .country-option.active .code-val {
+    color: #059669;
+  }
+
+  [data-theme="dark"] .country-option:hover,
+  [data-theme="dark"] .country-option.active {
+    background: rgba(16, 185, 129, 0.28);
+    color: #34d399;
+  }
+
+  [data-theme="dark"] .country-option:hover .code-val,
+  [data-theme="dark"] .country-option.active .code-val {
+    color: #34d399;
+  }
+
+  .glass-country-search {
+    border-radius: 8px !important;
+    font-size: 0.78rem !important;
+    margin-bottom: 0.3rem !important;
+    background: rgba(255, 255, 255, 0.85) !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  }
+
+  [data-theme="dark"] .glass-country-search {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
+    color: #f8fafc !important;
+  }
+
+  .glass-phone-input {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .glass-select-field option {
+    background-color: #ffffff;
+    color: #0f172a;
+  }
+
+  [data-theme="dark"] .glass-select-field option {
+    background-color: #0f172a;
+    color: #f8fafc;
+  }
+
   .glass-input-field.is-password {
     padding-right: 2.4rem;
   }
@@ -677,8 +851,64 @@
               <div class="col-md-6 col-12">
                 <div class="glass-form-group">
                   <label class="glass-field-label" for="regPhone">Phone Number</label>
-                  <div class="glass-input-container">
-                    <input type="tel" class="glass-input-field" id="regPhone" name="phone" placeholder="Enter Phone Number" required autocomplete="tel">
+                  <div class="glass-phone-group">
+                    <div class="glass-country-picker dropdown" id="countryPickerDropdown">
+                      <button type="button" class="glass-country-btn dropdown-toggle" id="countryDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false" title="Select Country Code">
+                        <span class="fi fi-in" id="currentFlagIcon"></span>
+                        <span id="currentDialCode">+91</span>
+                      </button>
+                      <ul class="dropdown-menu glass-country-menu shadow" aria-labelledby="countryDropdownBtn">
+                        <li class="p-1">
+                          <input type="text" class="form-control form-control-sm glass-country-search" id="countryCodeSearch" placeholder="Search country or code..." autocomplete="off">
+                        </li>
+                        <div class="country-scroll-list" id="countryOptionsList">
+                          <li class="country-option active" data-code="+91" data-flag="in" data-name="India" data-placeholder="98765 43210"><span class="fi fi-in"></span> <span class="country-name">India</span> <span class="code-val">+91</span></li>
+                          <li class="country-option" data-code="+1" data-flag="us" data-name="United States" data-placeholder="(555) 000-0000"><span class="fi fi-us"></span> <span class="country-name">United States</span> <span class="code-val">+1</span></li>
+                          <li class="country-option" data-code="+44" data-flag="gb" data-name="United Kingdom" data-placeholder="7911 123456"><span class="fi fi-gb"></span> <span class="country-name">United Kingdom</span> <span class="code-val">+44</span></li>
+                          <li class="country-option" data-code="+1" data-flag="ca" data-name="Canada" data-placeholder="(555) 000-0000"><span class="fi fi-ca"></span> <span class="country-name">Canada</span> <span class="code-val">+1</span></li>
+                          <li class="country-option" data-code="+61" data-flag="au" data-name="Australia" data-placeholder="412 345 678"><span class="fi fi-au"></span> <span class="country-name">Australia</span> <span class="code-val">+61</span></li>
+                          <li class="country-option" data-code="+971" data-flag="ae" data-name="UAE" data-placeholder="50 123 4567"><span class="fi fi-ae"></span> <span class="country-name">UAE</span> <span class="code-val">+971</span></li>
+                          <li class="country-option" data-code="+966" data-flag="sa" data-name="Saudi Arabia" data-placeholder="50 123 4567"><span class="fi fi-sa"></span> <span class="country-name">Saudi Arabia</span> <span class="code-val">+966</span></li>
+                          <li class="country-option" data-code="+65" data-flag="sg" data-name="Singapore" data-placeholder="8123 4567"><span class="fi fi-sg"></span> <span class="country-name">Singapore</span> <span class="code-val">+65</span></li>
+                          <li class="country-option" data-code="+49" data-flag="de" data-name="Germany" data-placeholder="151 23456789"><span class="fi fi-de"></span> <span class="country-name">Germany</span> <span class="code-val">+49</span></li>
+                          <li class="country-option" data-code="+33" data-flag="fr" data-name="France" data-placeholder="6 12 34 56 78"><span class="fi fi-fr"></span> <span class="country-name">France</span> <span class="code-val">+33</span></li>
+                          <li class="country-option" data-code="+81" data-flag="jp" data-name="Japan" data-placeholder="90 1234 5678"><span class="fi fi-jp"></span> <span class="country-name">Japan</span> <span class="code-val">+81</span></li>
+                          <li class="country-option" data-code="+86" data-flag="cn" data-name="China" data-placeholder="138 0000 0000"><span class="fi fi-cn"></span> <span class="country-name">China</span> <span class="code-val">+86</span></li>
+                          <li class="country-option" data-code="+7" data-flag="ru" data-name="Russia" data-placeholder="912 345-67-89"><span class="fi fi-ru"></span> <span class="country-name">Russia</span> <span class="code-val">+7</span></li>
+                          <li class="country-option" data-code="+55" data-flag="br" data-name="Brazil" data-placeholder="11 91234-5678"><span class="fi fi-br"></span> <span class="country-name">Brazil</span> <span class="code-val">+55</span></li>
+                          <li class="country-option" data-code="+27" data-flag="za" data-name="South Africa" data-placeholder="71 234 5678"><span class="fi fi-za"></span> <span class="country-name">South Africa</span> <span class="code-val">+27</span></li>
+                          <li class="country-option" data-code="+880" data-flag="bd" data-name="Bangladesh" data-placeholder="1712-345678"><span class="fi fi-bd"></span> <span class="country-name">Bangladesh</span> <span class="code-val">+880</span></li>
+                          <li class="country-option" data-code="+977" data-flag="np" data-name="Nepal" data-placeholder="981-2345678"><span class="fi fi-np"></span> <span class="country-name">Nepal</span> <span class="code-val">+977</span></li>
+                          <li class="country-option" data-code="+94" data-flag="lk" data-name="Sri Lanka" data-placeholder="71 234 5678"><span class="fi fi-lk"></span> <span class="country-name">Sri Lanka</span> <span class="code-val">+94</span></li>
+                          <li class="country-option" data-code="+92" data-flag="pk" data-name="Pakistan" data-placeholder="300 1234567"><span class="fi fi-pk"></span> <span class="country-name">Pakistan</span> <span class="code-val">+92</span></li>
+                          <li class="country-option" data-code="+60" data-flag="my" data-name="Malaysia" data-placeholder="12-345 6789"><span class="fi fi-my"></span> <span class="country-name">Malaysia</span> <span class="code-val">+60</span></li>
+                          <li class="country-option" data-code="+62" data-flag="id" data-name="Indonesia" data-placeholder="812-3456-7890"><span class="fi fi-id"></span> <span class="country-name">Indonesia</span> <span class="code-val">+62</span></li>
+                          <li class="country-option" data-code="+64" data-flag="nz" data-name="New Zealand" data-placeholder="21 123 4567"><span class="fi fi-nz"></span> <span class="country-name">New Zealand</span> <span class="code-val">+64</span></li>
+                          <li class="country-option" data-code="+39" data-flag="it" data-name="Italy" data-placeholder="312 345 6789"><span class="fi fi-it"></span> <span class="country-name">Italy</span> <span class="code-val">+39</span></li>
+                          <li class="country-option" data-code="+34" data-flag="es" data-name="Spain" data-placeholder="612 34 56 78"><span class="fi fi-es"></span> <span class="country-name">Spain</span> <span class="code-val">+34</span></li>
+                          <li class="country-option" data-code="+41" data-flag="ch" data-name="Switzerland" data-placeholder="78 123 45 67"><span class="fi fi-ch"></span> <span class="country-name">Switzerland</span> <span class="code-val">+41</span></li>
+                          <li class="country-option" data-code="+31" data-flag="nl" data-name="Netherlands" data-placeholder="6 12345678"><span class="fi fi-nl"></span> <span class="country-name">Netherlands</span> <span class="code-val">+31</span></li>
+                          <li class="country-option" data-code="+46" data-flag="se" data-name="Sweden" data-placeholder="70 123 45 67"><span class="fi fi-se"></span> <span class="country-name">Sweden</span> <span class="code-val">+46</span></li>
+                          <li class="country-option" data-code="+47" data-flag="no" data-name="Norway" data-placeholder="412 34 567"><span class="fi fi-no"></span> <span class="country-name">Norway</span> <span class="code-val">+47</span></li>
+                          <li class="country-option" data-code="+974" data-flag="qa" data-name="Qatar" data-placeholder="3312 3456"><span class="fi fi-qa"></span> <span class="country-name">Qatar</span> <span class="code-val">+974</span></li>
+                          <li class="country-option" data-code="+968" data-flag="om" data-name="Oman" data-placeholder="9123 4567"><span class="fi fi-om"></span> <span class="country-name">Oman</span> <span class="code-val">+968</span></li>
+                          <li class="country-option" data-code="+965" data-flag="kw" data-name="Kuwait" data-placeholder="9123 4567"><span class="fi fi-kw"></span> <span class="country-name">Kuwait</span> <span class="code-val">+965</span></li>
+                          <li class="country-option" data-code="+973" data-flag="bh" data-name="Bahrain" data-placeholder="3612 3456"><span class="fi fi-bh"></span> <span class="country-name">Bahrain</span> <span class="code-val">+973</span></li>
+                          <li class="country-option" data-code="+20" data-flag="eg" data-name="Egypt" data-placeholder="100 123 4567"><span class="fi fi-eg"></span> <span class="country-name">Egypt</span> <span class="code-val">+20</span></li>
+                          <li class="country-option" data-code="+234" data-flag="ng" data-name="Nigeria" data-placeholder="802 123 4567"><span class="fi fi-ng"></span> <span class="country-name">Nigeria</span> <span class="code-val">+234</span></li>
+                          <li class="country-option" data-code="+254" data-flag="ke" data-name="Kenya" data-placeholder="712 345678"><span class="fi fi-ke"></span> <span class="country-name">Kenya</span> <span class="code-val">+254</span></li>
+                          <li class="country-option" data-code="+90" data-flag="tr" data-name="Turkey" data-placeholder="512 345 6789"><span class="fi fi-tr"></span> <span class="country-name">Turkey</span> <span class="code-val">+90</span></li>
+                          <li class="country-option" data-code="+82" data-flag="kr" data-name="South Korea" data-placeholder="10-1234-5678"><span class="fi fi-kr"></span> <span class="country-name">South Korea</span> <span class="code-val">+82</span></li>
+                          <li class="country-option" data-code="+63" data-flag="ph" data-name="Philippines" data-placeholder="912 345 6789"><span class="fi fi-ph"></span> <span class="country-name">Philippines</span> <span class="code-val">+63</span></li>
+                          <li class="country-option" data-code="+66" data-flag="th" data-name="Thailand" data-placeholder="81 234 5678"><span class="fi fi-th"></span> <span class="country-name">Thailand</span> <span class="code-val">+66</span></li>
+                          <li class="country-option" data-code="+353" data-flag="ie" data-name="Ireland" data-placeholder="83 123 4567"><span class="fi fi-ie"></span> <span class="country-name">Ireland</span> <span class="code-val">+353</span></li>
+                        </div>
+                      </ul>
+                      <input type="hidden" name="country_code" id="regCountryCode" value="+91">
+                    </div>
+                    <div class="glass-input-container glass-phone-input">
+                      <input type="tel" class="glass-input-field" id="regPhone" name="phone" placeholder="98765 43210" required autocomplete="tel-national">
+                    </div>
                   </div>
                 </div>
               </div>
@@ -817,6 +1047,60 @@
         }
       });
     });
+
+    // Country code picker logic
+    const currentFlagIcon = document.getElementById('currentFlagIcon');
+    const currentDialCode = document.getElementById('currentDialCode');
+    const countryCodeInput = document.getElementById('regCountryCode');
+    const phoneInput = document.getElementById('regPhone');
+    const searchInput = document.getElementById('countryCodeSearch');
+    const countryOptions = document.querySelectorAll('.country-option');
+    const dropdownBtn = document.getElementById('countryDropdownBtn');
+
+    countryOptions.forEach(opt => {
+      opt.addEventListener('click', (e) => {
+        e.stopPropagation();
+        countryOptions.forEach(o => o.classList.remove('active'));
+        opt.classList.add('active');
+
+        const code = opt.getAttribute('data-code');
+        const flag = opt.getAttribute('data-flag');
+        const placeholder = opt.getAttribute('data-placeholder');
+
+        if (currentFlagIcon) currentFlagIcon.className = `fi fi-${flag}`;
+        if (currentDialCode) currentDialCode.textContent = code;
+        if (countryCodeInput) countryCodeInput.value = code;
+        if (phoneInput && placeholder) phoneInput.placeholder = placeholder;
+
+        // Close dropdown
+        if (typeof bootstrap !== 'undefined' && bootstrap.Dropdown && dropdownBtn) {
+          const bsDropdown = bootstrap.Dropdown.getInstance(dropdownBtn) || new bootstrap.Dropdown(dropdownBtn);
+          if (bsDropdown) bsDropdown.hide();
+        }
+      });
+    });
+
+    if (searchInput) {
+      searchInput.addEventListener('click', (e) => e.stopPropagation());
+      searchInput.addEventListener('input', () => {
+        const q = searchInput.value.trim().toLowerCase();
+        countryOptions.forEach(opt => {
+          const code = (opt.getAttribute('data-code') || '').toLowerCase();
+          const name = (opt.getAttribute('data-name') || '').toLowerCase();
+          if (code.includes(q) || name.includes(q)) {
+            opt.style.display = 'flex';
+          } else {
+            opt.style.display = 'none';
+          }
+        });
+      });
+    }
+
+    if (phoneInput) {
+      phoneInput.addEventListener('input', () => {
+        phoneInput.value = phoneInput.value.replace(/[^0-9\s-]/g, '');
+      });
+    }
   });
 </script>
 {% endblock %}

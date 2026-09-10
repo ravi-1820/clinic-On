@@ -5,9 +5,21 @@
 const Patient = {
   getLoggedPatient() {
     const session = ClinicStore.getSession();
-    if (!session) return null;
+    const sessionName = document.querySelector('.user-display-name')?.textContent?.trim();
+    if (sessionName && sessionName !== 'Sarah Jenkins') {
+      return {
+        id: session ? session.id || session.user_id : 'pat_1',
+        name: sessionName,
+        email: session ? session.email : ''
+      };
+    }
+    if (!session) return { id: 'pat_1', name: 'Patient', email: '' };
     const patients = ClinicStore.getPatients();
-    return patients.find(p => p.email.toLowerCase() === session.email.toLowerCase()) || patients[0];
+    return patients.find(p => p.email && p.email.toLowerCase() === session.email.toLowerCase()) || {
+      id: session.id || session.user_id || 'pat_1',
+      name: session.name || 'Patient',
+      email: session.email || ''
+    };
   },
 
   initLayout() {
@@ -33,39 +45,45 @@ const Patient = {
     // Render Next Upcoming Appointment Widget
     const nextApptCard = document.getElementById('patNextApptCard');
     if (nextApptCard) {
-      if (upcoming.length === 0) {
+      if (upcoming.length > 0) {
+        const nextApt = upcoming[0];
         nextApptCard.innerHTML = `
-          <div class="p-4 text-center">
-            <i class="bi bi-calendar-x text-muted fs-1 mb-2"></i>
-            <h6 class="fw-bold">No Upcoming Appointments</h6>
-            <p class="text-muted fs-7 mb-3">You don't have any scheduled appointments.</p>
-            <a href="/patient/book-appointment/" class="btn btn-primary btn-sm"><i class="bi bi-calendar-plus me-1"></i>Book New Appointment</a>
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div>
+              <span class="badge badge-success-custom mb-1"><i class="bi bi-clock me-1"></i>${nextApt.time}</span>
+              <h5 class="fw-bold mb-0">${nextApt.doctorName}</h5>
+              <small class="text-muted">${nextApt.department || 'Consultation'}</small>
+            </div>
+            <div class="text-end">
+              <span class="badge bg-soft-primary text-primary px-3 py-2 rounded-pill fs-8"><i class="bi bi-calendar3 me-1"></i>${nextApt.date}</span>
+            </div>
+          </div>
+          <div class="p-3 bg-light rounded-3 d-flex justify-content-between align-items-center">
+            <div>
+              <small class="text-muted d-block">Reason</small>
+              <strong class="fs-7">${nextApt.reason || 'General Consultation'}</strong>
+            </div>
+            <span class="badge bg-primary text-white">${nextApt.status}</span>
           </div>
         `;
       } else {
-        const next = upcoming[0];
         nextApptCard.innerHTML = `
-          <div class="d-flex justify-content-between align-items-start mb-3">
-            <div>
-              <span class="badge bg-primary-subtle text-primary fw-bold mb-1">${next.department}</span>
-              <h5 class="fw-bold mb-0">${next.doctorName}</h5>
+          <div class="text-center py-4">
+            <div class="stat-icon-wrapper stat-icon-teal mx-auto mb-3" style="width:56px; height:56px; border-radius:50%;">
+              <i class="bi bi-calendar-check fs-3"></i>
             </div>
-            <span class="badge-${next.status.toLowerCase()}">${next.status}</span>
-          </div>
-          <div class="p-3 bg-light rounded border mb-3 fs-7">
-            <div class="mb-1"><i class="bi bi-calendar-event me-2 text-primary"></i><strong>Date:</strong> ${next.date}</div>
-            <div><i class="bi bi-clock me-2 text-primary"></i><strong>Time:</strong> ${next.time}</div>
-          </div>
-          <div class="d-flex gap-2">
-            <a href="/patient/appointments/" class="btn btn-outline-primary btn-sm flex-grow-1">View Details</a>
-            <button class="btn btn-outline-danger btn-sm" onclick="Patient.cancelAppointment('${next.id}')">Cancel</button>
+            <h6 class="fw-bold text-foreground mb-1">No Upcoming Consultations</h6>
+            <p class="text-muted fs-7 mb-3 mx-auto" style="max-width:320px;">You don't have any scheduled appointments at the moment.</p>
+            <a href="/patient/book-appointment/" class="btn btn-emerald-pill btn-sm px-3">
+              <i class="bi bi-calendar-plus me-1"></i>Book New Consultation
+            </a>
           </div>
         `;
       }
     }
   },
 
-  // Interactive 5-Step Booking Wizard
+  // Appointment Booking Page Flow
   initBookingPage() {
     this.initLayout();
 
@@ -75,9 +93,9 @@ const Patient = {
     const slotsContainer = document.getElementById('bookTimeSlotsContainer');
     const reasonInput = document.getElementById('bookReasonInput');
 
-    // Populate Departments
+    // Populate Departments if not pre-rendered
     const depts = ClinicStore.getDepartments();
-    if (deptSelect) {
+    if (deptSelect && deptSelect.options.length <= 1) {
       deptSelect.innerHTML = `<option value="">-- Select Department --</option>` + depts.map(d => `<option value="${d.name}">${d.name}</option>`).join('');
     }
 
@@ -92,21 +110,27 @@ const Patient = {
 
     // Populate Doctors based on selected department
     const updateDoctorsDropdown = () => {
+      // If server already rendered real doctors from DB, keep them unless user filtered department
+      if (docSelect.options.length > 1 && !deptSelect.value) {
+        return;
+      }
       const selectedDept = deptSelect.value;
       const allDocs = ClinicStore.getDoctors();
       const filteredDocs = selectedDept ? allDocs.filter(d => d.department === selectedDept) : allDocs;
 
-      docSelect.innerHTML = `<option value="">-- Select Doctor --</option>` + filteredDocs.map(d => `<option value="${d.id}" data-name="${d.name}" data-dept="${d.department}">${d.name} (${d.specialization})</option>`).join('');
+      if (filteredDocs.length > 0) {
+        docSelect.innerHTML = `<option value="">-- Select Doctor --</option>` + filteredDocs.map(d => `<option value="${d.id}" data-name="${d.name}" data-dept="${d.department}">${d.name} (${d.specialization})</option>`).join('');
+      }
 
       if (preDocId) {
         docSelect.value = preDocId;
-        const matchedDoc = allDocs.find(d => d.id === preDocId);
-        if (matchedDoc) deptSelect.value = matchedDoc.department;
       }
     };
 
     deptSelect.addEventListener('change', updateDoctorsDropdown);
-    updateDoctorsDropdown();
+    if (docSelect && docSelect.options.length <= 1) {
+      updateDoctorsDropdown();
+    }
 
     // Default Date to Tomorrow
     const tomorrow = new Date();

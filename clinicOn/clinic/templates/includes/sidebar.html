@@ -71,16 +71,18 @@
 
   <div class="sidebar-footer">
     <div class="d-flex align-items-center gap-2">
-      <div class="avatar user-display-avatar">{% if role == 'doctor' %}D{% elif role == 'patient' %}P{% else %}A{% endif %}</div>
+      <div class="avatar user-display-avatar">
+        {% if request.session.name %}{{ request.session.name|slice:":1"|upper }}{% elif role == 'doctor' %}D{% elif role == 'patient' %}P{% else %}A{% endif %}
+      </div>
       <div class="overflow-hidden">
         <div class="fw-bold fs-8 user-display-name text-truncate">
-          {% if role == 'doctor' %}Dr. John Smith{% elif role == 'patient' %}Sarah Jenkins{% else %}Admin User{% endif %}
+          {% if request.session.name %}{{ request.session.name }}{% elif role == 'doctor' %}Dr. Doctor{% elif role == 'patient' %}Patient Account{% else %}Administrator{% endif %}
         </div>
         <small class="text-muted fs-8 d-block text-truncate">
-          {% if role == 'doctor' %}Cardiologist{% elif role == 'patient' %}Patient Account{% else %}Administrator{% endif %}
+          {% if request.session.role %}{{ request.session.role|capfirst }} Account{% elif role == 'doctor' %}Doctor Portal{% elif role == 'patient' %}Patient Account{% else %}Administrator{% endif %}
         </small>
       </div>
     </div>
-    <button class="btn btn-ghost p-1 text-danger btn-logout" title="Sign Out"><i class="bi bi-box-arrow-right"></i></button>
+    <a href="{% url 'logout' %}" class="btn btn-ghost p-1 text-danger btn-logout" title="Sign Out"><i class="bi bi-box-arrow-right"></i></a>
   </div>
 </aside>

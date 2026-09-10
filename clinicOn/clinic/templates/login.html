@@ -235,19 +235,37 @@
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
-    font-size: 0.925rem;
+    font-size: 0.85rem;
     font-weight: 600;
     color: var(--card-text-muted);
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.32);
+    border-radius: 50px;
+    padding: 0.35rem 0.85rem;
     text-decoration: none !important;
-    transition: all 0.2s ease;
+    cursor: pointer;
+    transition: all 0.22s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    outline: none;
   }
 
   .card-back-btn:hover {
+    background: rgba(255, 255, 255, 0.35);
     color: #0f172a;
     transform: translateX(-3px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  }
+
+  [data-theme="dark"] .card-back-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+    color: #cbd5e1;
   }
 
   [data-theme="dark"] .card-back-btn:hover {
+    background: rgba(255, 255, 255, 0.16);
     color: #ffffff;
   }
 
@@ -454,6 +472,326 @@
       font-size: 1.9rem;
     }
   }
+  /* ==========================================
+     Forgot Password Specific Component Styles
+     ========================================== */
+  .forgot-step-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    margin-bottom: 1.5rem;
+    padding: 0 0.5rem;
+  }
+
+  .step-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .step-badge {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.25);
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+    color: var(--card-text-muted);
+    transition: all 0.3s ease;
+  }
+
+  [data-theme="dark"] .step-badge {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .step-item .step-check {
+    display: none;
+    font-size: 0.95rem;
+  }
+
+  .step-item.active .step-badge {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border-color: #34d399;
+    color: #ffffff;
+    box-shadow: 0 0 16px rgba(16, 185, 129, 0.5);
+    transform: scale(1.08);
+  }
+
+  .step-item.completed .step-badge {
+    background: rgba(16, 185, 129, 0.2);
+    border-color: #10b981;
+    color: #10b981;
+  }
+
+  .step-item.completed .step-num {
+    display: none;
+  }
+
+  .step-item.completed .step-check {
+    display: inline-block;
+  }
+
+  .step-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--card-text-muted);
+    transition: color 0.3s ease;
+  }
+
+  .step-item.active .step-label {
+    color: var(--card-text-title);
+    font-weight: 700;
+  }
+
+  .step-item.completed .step-label {
+    color: #10b981;
+  }
+
+  .step-connector {
+    flex: 1;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.3);
+    margin: 0 0.5rem;
+    margin-top: -1.2rem;
+    position: relative;
+    z-index: 1;
+    transition: background 0.35s ease;
+  }
+
+  [data-theme="dark"] .step-connector {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .step-connector.completed {
+    background: #10b981;
+  }
+
+  .glass-input-field.has-left-icon {
+    padding-left: 2.5rem;
+  }
+
+  .glass-input-icon {
+    position: absolute;
+    left: 0.9rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--input-placeholder);
+    font-size: 1rem;
+    pointer-events: none;
+  }
+
+  /* 6-Digit OTP Row */
+  .otp-inputs-row {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: space-between;
+    margin: 1.15rem 0;
+  }
+
+  .otp-digit-box {
+    width: 48px;
+    height: 52px;
+    text-align: center;
+    font-size: 1.35rem;
+    font-weight: 800;
+    border-radius: 12px;
+    border: 1.5px solid var(--input-glass-border);
+    background: var(--input-glass-bg);
+    color: var(--input-text);
+    outline: none;
+    transition: all 0.25s ease;
+  }
+
+  .otp-digit-box:focus {
+    border-color: #34d399;
+    box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.3);
+    background: rgba(255, 255, 255, 0.92);
+    transform: translateY(-2px);
+  }
+
+  [data-theme="dark"] .otp-digit-box:focus {
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .demo-otp-banner {
+    background: rgba(16, 185, 129, 0.14);
+    border: 1px dashed rgba(52, 211, 153, 0.5);
+    border-radius: 12px;
+    padding: 0.5rem 0.85rem;
+    font-size: 0.8rem;
+    color: #10b981;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+  }
+
+  [data-theme="dark"] .demo-otp-banner {
+    color: #34d399;
+  }
+
+  .demo-code-badge {
+    background: #10b981;
+    color: #ffffff;
+    padding: 0.15rem 0.45rem;
+    border-radius: 6px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+  }
+
+  .btn-link-resend {
+    background: none;
+    border: none;
+    color: #10b981;
+    font-weight: 700;
+    font-size: 0.825rem;
+    padding: 0;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .btn-link-resend:hover:not(:disabled) {
+    text-decoration: underline;
+    color: #059669;
+  }
+
+  .btn-link-resend:disabled {
+    color: var(--card-text-muted);
+    cursor: not-allowed;
+    opacity: 0.75;
+  }
+
+  /* Password Strength Meter */
+  .password-strength-wrap {
+    margin: 0.6rem 0 0.85rem;
+  }
+
+  .strength-bar-track {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.35);
+    border-radius: 50px;
+    overflow: hidden;
+  }
+
+  [data-theme="dark"] .strength-bar-track {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .strength-bar-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 50px;
+    transition: width 0.35s ease, background-color 0.35s ease;
+    background-color: #ef4444;
+  }
+
+  /* Password Rules Box */
+  .password-rules-box {
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 12px;
+    padding: 0.75rem 0.95rem;
+    font-size: 0.775rem;
+    color: var(--card-text-muted);
+    margin-bottom: 1.15rem;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+  }
+
+  [data-theme="dark"] .password-rules-box {
+    background: rgba(0, 0, 0, 0.25);
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .rule-item {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-bottom: 0.3rem;
+    transition: color 0.2s ease;
+  }
+
+  .rule-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .rule-item i {
+    font-size: 0.85rem;
+  }
+
+  .rule-item.valid {
+    color: #10b981;
+    font-weight: 600;
+  }
+
+  .rule-item.valid i {
+    color: #10b981;
+  }
+
+  /* Success Animation */
+  .success-animated-icon {
+    font-size: 3.75rem;
+    color: #10b981;
+    display: inline-block;
+    filter: drop-shadow(0 8px 24px rgba(16, 185, 129, 0.45));
+    animation: successPulse 1.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes successPulse {
+    0% { transform: scale(0.95); }
+    100% { transform: scale(1.05); }
+  }
+
+  .stage-panel {
+    display: none;
+    animation: fadeInStage 0.35s ease forwards;
+  }
+
+  .stage-panel.active {
+    display: block;
+  }
+
+  @keyframes fadeInStage {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes shakeInput {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+  }
+  .input-shake {
+    animation: shakeInput 0.4s ease-in-out !important;
+  }
+  .glass-input-container.has-error {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.35) !important;
+  }
+  .field-error-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    color: #fca5a5;
+    background: rgba(239, 68, 68, 0.18);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    padding: 0.35rem 0.75rem;
+    border-radius: 8px;
+    margin-top: 0.5rem;
+    animation: fadeInStage 0.2s ease forwards;
+  }
+  .field-error-badge i {
+    font-size: 0.95rem;
+  }
 </style>
 {% endblock %}
 
@@ -533,7 +871,7 @@
       <div class="glass-card-stage">
 
         <!-- Main Frosted Glass Login Card -->
-        <div class="glass-login-card">
+        <div class="glass-login-card" id="loginCard">
           
           <!-- Card Top Navigation: Clean Back Link -->
           <div class="card-top-nav">
@@ -569,7 +907,7 @@
             <div class="glass-form-group">
               <div class="glass-field-label">
                 <label for="loginPassword" class="mb-0">Password</label>
-                <a href="#" id="forgotPasswordBtn" class="forgot-link-btn">Forgot-Password?</a>
+                <a href="{% url 'forgot_password' %}" id="forgotPasswordBtn" class="forgot-link-btn">Forgot-Password?</a>
               </div>
               <div class="glass-input-container">
                 <input type="password" name="password" class="glass-input-field is-password" id="loginPassword" placeholder="Enter Password" autocomplete="current-password">
@@ -597,6 +935,171 @@
           </form>
 
         </div>
+
+        <!-- Frosted Glass Forgot Password Card (Frontend-Only 3-Stage Flow) -->
+        <div class="glass-login-card" id="forgotPasswordCard" style="display: none;">
+
+          <!-- 3-Step Progress Indicator -->
+          <div class="forgot-step-indicator" id="stepIndicatorBar">
+            <div class="step-item active" id="stepPill1">
+              <div class="step-badge">
+                <span class="step-num">1</span>
+                <i class="bi bi-check-lg step-check"></i>
+              </div>
+              <span class="step-label">Email</span>
+            </div>
+            <div class="step-connector" id="connector1"></div>
+            <div class="step-item" id="stepPill2">
+              <div class="step-badge">
+                <span class="step-num">2</span>
+                <i class="bi bi-check-lg step-check"></i>
+              </div>
+              <span class="step-label">Verify OTP</span>
+            </div>
+            <div class="step-connector" id="connector2"></div>
+            <div class="step-item" id="stepPill3">
+              <div class="step-badge">
+                <span class="step-num">3</span>
+                <i class="bi bi-check-lg step-check"></i>
+              </div>
+              <span class="step-label">New Password</span>
+            </div>
+          </div>
+
+          <!-- STAGE 1: EMAIL ENTRY -->
+          <div class="stage-panel active" id="stage1Panel">
+            <h2 class="card-heading-title mb-4">Forgot your password?</h2>
+
+            <form id="forgotEmailForm" novalidate>
+              <div class="glass-form-group">
+                <label class="glass-field-label" for="forgotEmailInput">Email Address</label>
+                <div class="glass-input-container" id="forgotEmailContainer">
+                  <i class="bi bi-envelope glass-input-icon"></i>
+                  <input type="email" class="glass-input-field has-left-icon" id="forgotEmailInput" placeholder="name@clinicon.org" required autocomplete="email">
+                </div>
+                <div class="field-error-badge d-none" id="emailErrorMsg"></div>
+              </div>
+
+              <button type="button" class="btn-green-pill-signin" id="btnSendOtp">
+                <span class="btn-text">Send OTP</span>
+                <i class="bi bi-arrow-right"></i>
+              </button>
+
+              <div class="card-bottom-meta mt-3">
+                Remember your password? <a href="#login" class="card-register-anchor btn-to-login">Sign In</a>
+              </div>
+            </form>
+          </div>
+
+          <!-- STAGE 2: OTP VERIFICATION -->
+          <div class="stage-panel" id="stage2Panel">
+            <div class="card-top-nav">
+              <button type="button" class="card-back-btn" id="btnBackToEmail">
+                <i class="bi bi-arrow-left"></i>
+                <span>Change Email</span>
+              </button>
+            </div>
+
+            <h2 class="card-heading-title">Verify your email</h2>
+            <p class="card-heading-subtitle">
+              We sent a 6-digit verification code to <strong id="maskedEmailDisplay" class="fw-bold">your email</strong>.
+            </p>
+
+
+
+            <form id="otpVerifyForm" novalidate>
+              <label class="glass-field-label text-center d-block mb-1">Enter 6-Digit Code</label>
+              
+              <div class="otp-inputs-row" id="otpInputsRow">
+                <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit-box" data-idx="0" autocomplete="one-time-code">
+                <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit-box" data-idx="1">
+                <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit-box" data-idx="2">
+                <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit-box" data-idx="3">
+                <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit-box" data-idx="4">
+                <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit-box" data-idx="5">
+              </div>
+
+              <div class="text-danger fs-8 text-center mb-2 d-none" id="otpErrorMsg"></div>
+
+              <button type="submit" class="btn-green-pill-signin mb-3" id="btnVerifyOtp">
+                <span class="btn-text">Verify OTP</span>
+              </button>
+
+              <div class="text-center fs-8">
+                <span class="text-muted">Didn't receive code? </span>
+                <button type="button" class="btn-link-resend" id="btnResendOtp" disabled>
+                  Resend OTP in <span id="resendTimerCountdown">00:45</span>
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- STAGE 3: PASSWORD RESET -->
+          <div class="stage-panel" id="stage3Panel">
+            <h2 class="card-heading-title">Create new password</h2>
+            <p class="card-heading-subtitle">
+              Choose a strong password to secure your Clinic On account.
+            </p>
+
+            <form id="resetPasswordForm" novalidate>
+              <!-- Field 1: New Password -->
+              <div class="glass-form-group mb-2">
+                <label class="glass-field-label" for="newPasswordInput">New Password</label>
+                <div class="glass-input-container">
+                  <input type="password" class="glass-input-field is-password" id="newPasswordInput" placeholder="Create new password" required autocomplete="new-password">
+                  <button type="button" class="eye-toggle-btn toggle-password-btn" data-target="newPasswordInput" title="Toggle password visibility">
+                    <i class="bi bi-eye"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Password Strength Bar -->
+              <div class="password-strength-wrap">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <span class="fs-8 text-muted">Password strength:</span>
+                  <span class="fs-8 fw-bold" id="strengthRatingLabel" style="color: #ef4444;">Too weak</span>
+                </div>
+                <div class="strength-bar-track">
+                  <div class="strength-bar-fill" id="strengthBarFill"></div>
+                </div>
+              </div>
+
+
+              <!-- Field 2: Confirm Password -->
+              <div class="glass-form-group mb-3">
+                <label class="glass-field-label" for="confirmPasswordInput">Confirm Password</label>
+                <div class="glass-input-container">
+                  <input type="password" class="glass-input-field is-password" id="confirmPasswordInput" placeholder="Confirm new password" required autocomplete="new-password">
+                  <button type="button" class="eye-toggle-btn toggle-password-btn" data-target="confirmPasswordInput" title="Toggle password visibility">
+                    <i class="bi bi-eye"></i>
+                  </button>
+                </div>
+                <div class="text-danger fs-8 mt-1 d-none" id="confirmPasswordErrorMsg"></div>
+              </div>
+
+              <button type="submit" class="btn-green-pill-signin" id="btnUpdatePassword">
+                <span class="btn-text">Update Password</span>
+              </button>
+            </form>
+          </div>
+
+          <!-- STAGE 4: SUCCESS STATE -->
+          <div class="stage-panel" id="stageSuccessPanel">
+            <div class="text-center py-2">
+              <div class="success-animated-icon mb-3">
+                <i class="bi bi-patch-check-fill"></i>
+              </div>
+              <h2 class="card-heading-title mb-2">Password updated successfully!</h2>
+              <p class="card-heading-subtitle mb-4">
+                Your password has been reset successfully. You can now continue to sign in with your new credentials.
+              </p>
+              <button type="button" class="btn-green-pill-signin w-100 btn-to-login">
+                <span>Back to Sign In</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
 
@@ -606,12 +1109,11 @@
 
 {% block extra_js %}
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
+  function initForgotFlow() {
+    // Existing Password visibility toggle on Login Card
     const passwordInput = document.getElementById('loginPassword');
     const togglePasswordBtn = document.getElementById('togglePasswordBtn');
-    const forgotBtn = document.getElementById('forgotPasswordBtn');
 
-    // Password visibility toggle
     if (togglePasswordBtn && passwordInput) {
       togglePasswordBtn.addEventListener('click', () => {
         const isPass = passwordInput.getAttribute('type') === 'password';
@@ -620,13 +1122,498 @@
       });
     }
 
-    // Demo password hint
+    // ==========================================
+    // Forgot Password Frontend Experience Logic
+    // ==========================================
+    const loginCard = document.getElementById('loginCard');
+    const forgotPasswordCard = document.getElementById('forgotPasswordCard');
+    const forgotBtn = document.getElementById('forgotPasswordBtn');
+    const btnToLogins = document.querySelectorAll('.btn-to-login');
+
+    const state = {
+      email: '',
+      demoOtp: '123456',
+      timerSeconds: 45,
+      timerInterval: null
+    };
+
+    function showForgotPassword() {
+      loginCard.style.display = 'none';
+      forgotPasswordCard.style.display = 'block';
+      window.location.hash = 'forgot-password';
+      setStep(1);
+      setTimeout(() => {
+        const emailInp = document.getElementById('forgotEmailInput');
+        if (emailInp) emailInp.focus();
+      }, 100);
+    }
+
+    function showLoginCard() {
+      forgotPasswordCard.style.display = 'none';
+      loginCard.style.display = 'block';
+      if (window.location.hash === '#forgot-password') {
+        history.pushState(null, '', window.location.pathname);
+      }
+      clearInterval(state.timerInterval);
+    }
+
     if (forgotBtn) {
       forgotBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        ClinicApp.toast('Demo accounts: admin@clinicon.org / "admin123", patient@clinicon.org / "patient123"', 'info');
+        showForgotPassword();
       });
     }
-  });
+
+    btnToLogins.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        showLoginCard();
+      });
+    });
+
+    // Check URL hash on load
+    if (window.location.hash === '#forgot-password') {
+      window.location.href = "{% url 'forgot_password' %}";
+    }
+
+    window.addEventListener('hashchange', () => {
+      if (window.location.hash === '#forgot-password') {
+        window.location.href = "{% url 'forgot_password' %}";
+      } else {
+        showLoginCard();
+      }
+    });
+
+    // DOM Elements for Forgot Flow
+    const stage1 = document.getElementById('stage1Panel');
+    const stage2 = document.getElementById('stage2Panel');
+    const stage3 = document.getElementById('stage3Panel');
+    const stageSuccess = document.getElementById('stageSuccessPanel');
+
+    const pill1 = document.getElementById('stepPill1');
+    const pill2 = document.getElementById('stepPill2');
+    const pill3 = document.getElementById('stepPill3');
+    const conn1 = document.getElementById('connector1');
+    const conn2 = document.getElementById('connector2');
+
+    const forgotEmailInput = document.getElementById('forgotEmailInput');
+    const emailErrorMsg = document.getElementById('emailErrorMsg');
+    const btnSendOtp = document.getElementById('btnSendOtp');
+
+    const maskedEmailDisplay = document.getElementById('maskedEmailDisplay');
+    const demoOtpBadge = document.getElementById('demoOtpBadge');
+    const otpBoxes = document.querySelectorAll('.otp-digit-box');
+    const otpErrorMsg = document.getElementById('otpErrorMsg');
+    const btnVerifyOtp = document.getElementById('btnVerifyOtp');
+    const btnResendOtp = document.getElementById('btnResendOtp');
+    const resendTimerCountdown = document.getElementById('resendTimerCountdown');
+    const btnBackToEmail = document.getElementById('btnBackToEmail');
+
+    const newPasswordInput = document.getElementById('newPasswordInput');
+    const confirmPasswordInput = document.getElementById('confirmPasswordInput');
+    const strengthBarFill = document.getElementById('strengthBarFill');
+    const strengthRatingLabel = document.getElementById('strengthRatingLabel');
+    const confirmPasswordErrorMsg = document.getElementById('confirmPasswordErrorMsg');
+    const btnUpdatePassword = document.getElementById('btnUpdatePassword');
+
+    const ruleLength = document.getElementById('ruleLength');
+    const ruleUpper = document.getElementById('ruleUpper');
+    const ruleLower = document.getElementById('ruleLower');
+    const ruleNumber = document.getElementById('ruleNumber');
+    const ruleSpecial = document.getElementById('ruleSpecial');
+
+    function maskEmail(email) {
+      if (!email || !email.includes('@')) return email;
+      const [name, domain] = email.split('@');
+      if (name.length <= 2) {
+        return name[0] + '***@' + domain;
+      }
+      return name[0] + '***' + name[name.length - 1] + '@' + domain;
+    }
+
+    function setStep(step) {
+      stage1.classList.toggle('active', step === 1);
+      stage2.classList.toggle('active', step === 2);
+      stage3.classList.toggle('active', step === 3);
+      stageSuccess.classList.toggle('active', step === 4);
+
+      const stepBar = document.getElementById('stepIndicatorBar');
+      if (stepBar) {
+        stepBar.style.display = step === 4 ? 'none' : 'flex';
+      }
+
+      if (step === 1) {
+        pill1.className = 'step-item active';
+        pill2.className = 'step-item';
+        pill3.className = 'step-item';
+        conn1.className = 'step-connector';
+        conn2.className = 'step-connector';
+      } else if (step === 2) {
+        pill1.className = 'step-item completed';
+        pill2.className = 'step-item active';
+        pill3.className = 'step-item';
+        conn1.className = 'step-connector completed';
+        conn2.className = 'step-connector';
+      } else if (step === 3) {
+        pill1.className = 'step-item completed';
+        pill2.className = 'step-item completed';
+        pill3.className = 'step-item active';
+        conn1.className = 'step-connector completed';
+        conn2.className = 'step-connector completed';
+      } else if (step === 4) {
+        pill1.className = 'step-item completed';
+        pill2.className = 'step-item completed';
+        pill3.className = 'step-item completed';
+        conn1.className = 'step-connector completed';
+        conn2.className = 'step-connector completed';
+      }
+    }
+
+    function generateDemoOtp() {
+      state.demoOtp = Math.floor(100000 + Math.random() * 900000).toString();
+      if (demoOtpBadge) demoOtpBadge.textContent = state.demoOtp;
+    }
+
+    function startResendTimer() {
+      clearInterval(state.timerInterval);
+      state.timerSeconds = 45;
+      if (btnResendOtp) btnResendOtp.disabled = true;
+
+      function updateText() {
+        const mins = String(Math.floor(state.timerSeconds / 60)).padStart(2, '0');
+        const secs = String(state.timerSeconds % 60).padStart(2, '0');
+        if (resendTimerCountdown) resendTimerCountdown.textContent = `${mins}:${secs}`;
+      }
+
+      updateText();
+      state.timerInterval = setInterval(() => {
+        state.timerSeconds--;
+        if (state.timerSeconds <= 0) {
+          clearInterval(state.timerInterval);
+          if (btnResendOtp) {
+            btnResendOtp.disabled = false;
+            btnResendOtp.textContent = 'Resend OTP';
+          }
+        } else {
+          updateText();
+        }
+      }, 1000);
+    }
+
+    // STAGE 1: Send OTP Action
+    function handleSendOtp(e) {
+      if (e) e.preventDefault();
+      
+      const emailContainer = document.getElementById('forgotEmailContainer');
+      const email = forgotEmailInput ? forgotEmailInput.value.trim() : '';
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      // Reset previous error state
+      if (emailErrorMsg) {
+        emailErrorMsg.classList.add('d-none');
+        emailErrorMsg.innerHTML = '';
+      }
+      if (emailContainer) {
+        emailContainer.classList.remove('has-error', 'input-shake');
+      }
+
+      if (!email) {
+        if (emailErrorMsg) {
+          emailErrorMsg.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> Please enter your registered email address.';
+          emailErrorMsg.classList.remove('d-none');
+        }
+        if (emailContainer) {
+          emailContainer.classList.add('has-error', 'input-shake');
+          setTimeout(() => emailContainer.classList.remove('input-shake'), 450);
+        }
+        if (forgotEmailInput) forgotEmailInput.focus();
+        return;
+      }
+
+      if (!emailRegex.test(email)) {
+        if (emailErrorMsg) {
+          emailErrorMsg.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> Please enter a valid email (e.g. name@domain.com).';
+          emailErrorMsg.classList.remove('d-none');
+        }
+        if (emailContainer) {
+          emailContainer.classList.add('has-error', 'input-shake');
+          setTimeout(() => emailContainer.classList.remove('input-shake'), 450);
+        }
+        if (forgotEmailInput) forgotEmailInput.focus();
+        return;
+      }
+
+      // Visual loading state on Send OTP button
+      const origText = btnSendOtp.innerHTML;
+      btnSendOtp.disabled = true;
+      btnSendOtp.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status"></span> Sending OTP...';
+
+      setTimeout(() => {
+        btnSendOtp.disabled = false;
+        btnSendOtp.innerHTML = origText;
+
+        state.email = email;
+        if (maskedEmailDisplay) maskedEmailDisplay.textContent = maskEmail(email);
+        generateDemoOtp();
+        setStep(2);
+        startResendTimer();
+
+        otpBoxes.forEach(b => b.value = '');
+        if (otpBoxes[0]) otpBoxes[0].focus();
+      }, 500);
+    }
+
+    const forgotEmailForm = document.getElementById('forgotEmailForm');
+    if (forgotEmailForm) {
+      forgotEmailForm.addEventListener('submit', handleSendOtp);
+    }
+    if (btnSendOtp) {
+      btnSendOtp.addEventListener('click', handleSendOtp);
+    }
+
+    if (btnBackToEmail) {
+      btnBackToEmail.addEventListener('click', () => {
+        clearInterval(state.timerInterval);
+        setStep(1);
+        if (forgotEmailInput) forgotEmailInput.focus();
+      });
+    }
+
+    // Auto-fill Demo OTP Button
+    const btnAutoFillOtp = document.getElementById('btnAutoFillOtp');
+    if (btnAutoFillOtp) {
+      btnAutoFillOtp.addEventListener('click', () => {
+        const code = (state.demoOtp || '123456').split('');
+        otpBoxes.forEach((box, i) => {
+          if (code[i]) box.value = code[i];
+        });
+        if (btnVerifyOtp) btnVerifyOtp.focus();
+      });
+    }
+
+    // OTP Input Boxes Behavior
+    otpBoxes.forEach((box, idx) => {
+      box.addEventListener('input', () => {
+        box.value = box.value.replace(/[^0-9]/g, '');
+        if (box.value.length === 1 && idx < otpBoxes.length - 1) {
+          otpBoxes[idx + 1].focus();
+        }
+      });
+
+      box.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && !box.value && idx > 0) {
+          otpBoxes[idx - 1].focus();
+        }
+      });
+
+      box.addEventListener('paste', (e) => {
+        e.preventDefault();
+        const pasteData = (e.clipboardData || window.clipboardData).getData('text').trim();
+        const digits = pasteData.replace(/[^0-9]/g, '').slice(0, 6);
+
+        if (digits.length > 0) {
+          digits.split('').forEach((d, i) => {
+            if (otpBoxes[i]) otpBoxes[i].value = d;
+          });
+          const nextIdx = Math.min(digits.length, otpBoxes.length - 1);
+          otpBoxes[nextIdx].focus();
+        }
+      });
+    });
+
+    if (btnResendOtp) {
+      btnResendOtp.addEventListener('click', () => {
+        if (btnResendOtp.disabled) return;
+        generateDemoOtp();
+        startResendTimer();
+        if (otpErrorMsg) otpErrorMsg.classList.add('d-none');
+        otpBoxes.forEach(b => b.value = '');
+        if (otpBoxes[0]) otpBoxes[0].focus();
+      });
+    }
+
+    // STAGE 2: Verify OTP Submit Action
+    function handleVerifyOtp(e) {
+      if (e) e.preventDefault();
+      if (otpErrorMsg) otpErrorMsg.classList.add('d-none');
+
+      let enteredOtp = '';
+      otpBoxes.forEach(b => enteredOtp += b.value);
+
+      if (enteredOtp.length < 6) {
+        if (otpErrorMsg) {
+          otpErrorMsg.textContent = 'Please enter all 6 digits of the verification code.';
+          otpErrorMsg.classList.remove('d-none');
+        }
+        return;
+      }
+
+      if (enteredOtp !== state.demoOtp && enteredOtp !== '123456') {
+        if (otpErrorMsg) {
+          otpErrorMsg.textContent = 'Invalid verification code. Please check demo OTP and try again.';
+          otpErrorMsg.classList.remove('d-none');
+        }
+        return;
+      }
+
+      const origText = btnVerifyOtp.innerHTML;
+      btnVerifyOtp.disabled = true;
+      btnVerifyOtp.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status"></span> Verifying...';
+
+      setTimeout(() => {
+        btnVerifyOtp.disabled = false;
+        btnVerifyOtp.innerHTML = origText;
+        clearInterval(state.timerInterval);
+        setStep(3);
+        if (newPasswordInput) newPasswordInput.focus();
+      }, 500);
+    }
+
+    const otpVerifyForm = document.getElementById('otpVerifyForm');
+    if (otpVerifyForm) {
+      otpVerifyForm.addEventListener('submit', handleVerifyOtp);
+    }
+    if (btnVerifyOtp) {
+      btnVerifyOtp.addEventListener('click', handleVerifyOtp);
+    }
+
+    // STAGE 3: Password Evaluation & Reset
+    function evaluatePassword(pwd) {
+      const hasLength = pwd.length >= 8;
+      const hasUpper = /[A-Z]/.test(pwd);
+      const hasLower = /[a-z]/.test(pwd);
+      const hasNum = /[0-9]/.test(pwd);
+      const hasSpecial = /[^A-Za-z0-9]/.test(pwd);
+
+      function setRule(el, valid) {
+        if (!el) return;
+        el.classList.toggle('valid', valid);
+        const icon = el.querySelector('i');
+        if (icon) icon.className = valid ? 'bi bi-check-circle-fill' : 'bi bi-circle';
+      }
+
+      setRule(ruleLength, hasLength);
+      setRule(ruleUpper, hasUpper);
+      setRule(ruleLower, hasLower);
+      setRule(ruleNumber, hasNum);
+      setRule(ruleSpecial, hasSpecial);
+
+      const score = [hasLength, hasUpper, hasLower, hasNum, hasSpecial].filter(Boolean).length;
+
+      if (!pwd) {
+        strengthBarFill.style.width = '0%';
+        strengthBarFill.style.backgroundColor = '#ef4444';
+        strengthRatingLabel.textContent = 'Too weak';
+        strengthRatingLabel.style.color = '#ef4444';
+      } else if (score <= 2) {
+        strengthBarFill.style.width = '30%';
+        strengthBarFill.style.backgroundColor = '#ef4444';
+        strengthRatingLabel.textContent = 'Weak';
+        strengthRatingLabel.style.color = '#ef4444';
+      } else if (score <= 4) {
+        strengthBarFill.style.width = '70%';
+        strengthBarFill.style.backgroundColor = '#f59e0b';
+        strengthRatingLabel.textContent = 'Medium';
+        strengthRatingLabel.style.color = '#f59e0b';
+      } else {
+        strengthBarFill.style.width = '100%';
+        strengthBarFill.style.backgroundColor = '#10b981';
+        strengthRatingLabel.textContent = 'Strong';
+        strengthRatingLabel.style.color = '#10b981';
+      }
+
+      return score === 5;
+    }
+
+    if (newPasswordInput) {
+      newPasswordInput.addEventListener('input', () => {
+        evaluatePassword(newPasswordInput.value);
+        if (confirmPasswordInput && confirmPasswordInput.value) {
+          checkConfirmPasswordMatch();
+        }
+      });
+    }
+
+    function checkConfirmPasswordMatch() {
+      if (!newPasswordInput || !confirmPasswordInput) return false;
+      const p1 = newPasswordInput.value;
+      const p2 = confirmPasswordInput.value;
+      if (!p2) {
+        confirmPasswordErrorMsg.classList.add('d-none');
+        return false;
+      }
+      if (p1 !== p2) {
+        confirmPasswordErrorMsg.textContent = 'Passwords do not match.';
+        confirmPasswordErrorMsg.classList.remove('d-none');
+        return false;
+      } else {
+        confirmPasswordErrorMsg.classList.add('d-none');
+        return true;
+      }
+    }
+
+    if (confirmPasswordInput) {
+      confirmPasswordInput.addEventListener('input', checkConfirmPasswordMatch);
+    }
+
+    // Toggle password buttons for forgot password form
+    document.querySelectorAll('#forgotPasswordCard .toggle-password-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-target');
+        const input = document.getElementById(targetId);
+        if (input) {
+          const isPass = input.getAttribute('type') === 'password';
+          input.setAttribute('type', isPass ? 'text' : 'password');
+          btn.innerHTML = isPass ? '<i class="bi bi-eye-slash"></i>' : '<i class="bi bi-eye"></i>';
+        }
+      });
+    });
+
+    // STAGE 3: Reset Password Submit Action
+    function handleResetPassword(e) {
+      if (e) e.preventDefault();
+
+      const pwd = newPasswordInput.value;
+      const confirmPwd = confirmPasswordInput.value;
+
+      evaluatePassword(pwd);
+      if (!pwd) {
+        newPasswordInput.focus();
+        return;
+      }
+
+      if (pwd !== confirmPwd) {
+        confirmPasswordErrorMsg.textContent = 'Passwords do not match.';
+        confirmPasswordErrorMsg.classList.remove('d-none');
+        confirmPasswordInput.focus();
+        return;
+      }
+
+      const origText = btnUpdatePassword.innerHTML;
+      btnUpdatePassword.disabled = true;
+      btnUpdatePassword.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status"></span> Updating Password...';
+
+      setTimeout(() => {
+        btnUpdatePassword.disabled = false;
+        btnUpdatePassword.innerHTML = origText;
+        setStep(4);
+      }, 700);
+    }
+
+    const resetPasswordForm = document.getElementById('resetPasswordForm');
+    if (resetPasswordForm) {
+      resetPasswordForm.addEventListener('submit', handleResetPassword);
+    }
+    if (btnUpdatePassword) {
+      btnUpdatePassword.addEventListener('click', handleResetPassword);
+    }
+  }
+
+  // Ensure initialization runs reliably
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initForgotFlow);
+  } else {
+    initForgotFlow();
+  }
 </script>
 {% endblock %}

@@ -4,7 +4,374 @@
 {% block title %}Patient Dashboard - Clinic On{% endblock %}
 
 {% block extra_css %}
-  <link rel="stylesheet" href="{% static 'assets/css/dashboard.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/dashboard.css' %}?v=2.3">
+  <style>
+    /* Patient Panel Sidebar - Matching Homepage Gradient Theme */
+    .sidebar {
+      background: var(--auth-bg-gradient, linear-gradient(180deg, #12296c 0%, #15388c 25%, #0f588c 55%, #0a848c 85%, #0ea57a 100%)) !important;
+      border-right: 1px solid rgba(255, 255, 255, 0.12) !important;
+      box-shadow: 4px 0 25px -4px rgba(10, 25, 60, 0.3) !important;
+    }
+    .sidebar .sidebar-header {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+    }
+    .sidebar .brand-logo-text {
+      color: #ffffff !important;
+    }
+    .sidebar .brand-icon-box {
+      background: rgba(255, 255, 255, 0.18) !important;
+      color: #34d399 !important;
+    }
+    .sidebar .sidebar-label {
+      color: rgba(255, 255, 255, 0.6) !important;
+    }
+    .sidebar .nav-sidebar .nav-link-item {
+      color: rgba(255, 255, 255, 0.82) !important;
+      transition: all 0.2s ease !important;
+      border-radius: 10px !important;
+    }
+    .sidebar .nav-sidebar .nav-link-item i {
+      color: rgba(255, 255, 255, 0.75) !important;
+    }
+    .sidebar .nav-sidebar .nav-link-item:hover {
+      color: #ffffff !important;
+      background-color: rgba(255, 255, 255, 0.14) !important;
+      transform: translateX(3px) !important;
+    }
+    .sidebar .nav-sidebar .nav-link-item:hover i {
+      color: #34d399 !important;
+    }
+    .sidebar .nav-sidebar .nav-link-item.active {
+      color: #ffffff !important;
+      background: linear-gradient(135deg, rgba(20, 184, 166, 0.38) 0%, rgba(14, 165, 233, 0.3) 100%) !important;
+      border: 1px solid rgba(52, 211, 153, 0.4) !important;
+      font-weight: 700 !important;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3) !important;
+    }
+    .sidebar .nav-sidebar .nav-link-item.active i {
+      color: #34d399 !important;
+    }
+    .sidebar .sidebar-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+      background: rgba(0, 0, 0, 0.14) !important;
+    }
+    .sidebar .user-display-name {
+      color: #ffffff !important;
+    }
+    .sidebar .user-display-avatar {
+      background: linear-gradient(135deg, #10b981 0%, #0284c7 100%) !important;
+      color: #ffffff !important;
+      font-weight: 700 !important;
+    }
+    .sidebar small.text-muted {
+      color: rgba(255, 255, 255, 0.65) !important;
+    }
+    .sidebar .btn-logout {
+      color: #fca5a5 !important;
+    }
+    .sidebar .btn-logout:hover {
+      background-color: rgba(239, 68, 68, 0.2) !important;
+      color: #ef4444 !important;
+    }
+
+    /* Patient Portal Hero Banner with Homepage Hero-BG */
+    .patient-hero-banner {
+      position: relative;
+      background: var(--auth-bg-gradient, linear-gradient(130deg, #12296c 0%, #15388c 25%, #0f588c 55%, #0a848c 85%, #0ea57a 100%)) !important;
+      border-radius: 20px;
+      padding: 2.25rem 2.5rem;
+      color: #ffffff !important;
+      overflow: hidden;
+      box-shadow: 0 16px 36px -8px rgba(18, 41, 108, 0.35);
+      margin-bottom: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+    .patient-hero-banner .hero-geometric-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.95;
+    }
+    .patient-hero-banner .hero-geometric-bg svg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .patient-hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    .patient-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 50px;
+      padding: 0.35rem 0.95rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #34d399 !important;
+      margin-bottom: 0.85rem;
+    }
+    .patient-hero-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.6rem;
+      color: #ffffff !important;
+    }
+    .patient-hero-title span {
+      background: linear-gradient(135deg, #38bdf8 0%, #34d399 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .patient-hero-subtext {
+      color: rgba(255, 255, 255, 0.85) !important;
+      font-size: 0.92rem;
+      max-width: 620px;
+      line-height: 1.6;
+      margin-bottom: 1.35rem;
+    }
+    .patient-hero-chips {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .patient-hero-chip {
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50px;
+      padding: 0.4rem 0.95rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.95) !important;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* Upgraded Metric Stat Cards */
+    .patient-stat-card {
+      background: var(--surface, #ffffff);
+      border: 1px solid var(--border, #e2e8f0);
+      border-radius: 16px;
+      padding: 1.4rem;
+      box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.05);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      height: 100%;
+    }
+    .patient-stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px -4px rgba(10, 132, 140, 0.15);
+      border-color: rgba(10, 132, 140, 0.35);
+    }
+    .stat-icon-wrapper {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.45rem;
+      flex-shrink: 0;
+    }
+    .stat-icon-teal {
+      background: linear-gradient(135deg, rgba(10, 132, 140, 0.15) 0%, rgba(6, 182, 212, 0.2) 100%);
+      color: #0a848c;
+      border: 1px solid rgba(10, 132, 140, 0.25);
+    }
+    .stat-icon-blue {
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.15) 0%, rgba(56, 189, 248, 0.2) 100%);
+      color: #2563eb;
+      border: 1px solid rgba(37, 99, 235, 0.25);
+    }
+    .stat-icon-emerald {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(52, 211, 153, 0.2) 100%);
+      color: #10b981;
+      border: 1px solid rgba(16, 185, 129, 0.25);
+    }
+    .stat-icon-rose {
+      background: linear-gradient(135deg, rgba(244, 63, 94, 0.15) 0%, rgba(251, 113, 133, 0.2) 100%);
+      color: #f43f5e;
+      border: 1px solid rgba(244, 63, 94, 0.25);
+    }
+    .stat-card-label {
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted, #64748b);
+      margin-bottom: 0.35rem;
+    }
+    .stat-card-value {
+      font-size: 1.95rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--foreground, #0f172a);
+      margin-bottom: 0.35rem;
+      line-height: 1.1;
+    }
+
+    /* Glass Panels */
+    .dashboard-glass-panel {
+      background: var(--surface, #ffffff);
+      border: 1px solid var(--border, #e2e8f0);
+      border-radius: 16px;
+      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+      overflow: hidden;
+      transition: all 0.25s ease;
+    }
+    .dashboard-panel-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border, #e2e8f0);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .dashboard-panel-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--foreground, #0f172a);
+    }
+    .dashboard-panel-body {
+      padding: 1.5rem;
+    }
+
+    /* Quick Action Tiles */
+    .quick-action-tile {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.95rem 1.15rem;
+      border-radius: 12px;
+      background: var(--background, #f8fafc);
+      border: 1px solid var(--border, #e2e8f0);
+      text-decoration: none !important;
+      color: var(--foreground, #0f172a) !important;
+      transition: all 0.25s ease;
+      margin-bottom: 0.75rem;
+    }
+    .quick-action-tile:last-child {
+      margin-bottom: 0;
+    }
+    .quick-action-tile:hover {
+      background: var(--surface-hover, #f1f5f9);
+      border-color: #0a848c;
+      transform: translateX(4px);
+      box-shadow: 0 6px 18px -3px rgba(10, 132, 140, 0.12);
+    }
+    .action-tile-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+    .action-tile-text h6 {
+      margin: 0 0 0.15rem 0;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--foreground, #0f172a);
+    }
+    .action-tile-text p {
+      margin: 0;
+      font-size: 0.78rem;
+      color: var(--muted, #64748b);
+    }
+    .action-tile-arrow {
+      margin-left: auto;
+      color: var(--muted, #64748b);
+      font-size: 1.1rem;
+      transition: transform 0.2s ease;
+    }
+    .quick-action-tile:hover .action-tile-arrow {
+      color: #0a848c;
+      transform: translateX(3px);
+    }
+
+    /* Specialist Doctor Mini Cards */
+    .specialist-mini-card {
+      background: var(--surface, #ffffff);
+      border: 1px solid var(--border, #e2e8f0);
+      border-radius: 14px;
+      padding: 1.25rem;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .specialist-mini-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 24px -4px rgba(10, 132, 140, 0.15);
+      border-color: #0a848c;
+    }
+    .doctor-avatar-circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0a848c 0%, #0284c7 100%);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(10, 132, 140, 0.25);
+      flex-shrink: 0;
+    }
+
+    /* Dark Mode Harmonization */
+    [data-theme="dark"] .patient-hero-banner {
+      background: linear-gradient(135deg, #060d1b 0%, #0a1f33 50%, #082d38 100%) !important;
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+    [data-theme="dark"] .patient-stat-card,
+    [data-theme="dark"] .dashboard-glass-panel,
+    [data-theme="dark"] .specialist-mini-card {
+      background: rgba(13, 23, 48, 0.7);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-color: rgba(255, 255, 255, 0.1);
+      color: #f8fafc;
+    }
+    [data-theme="dark"] .quick-action-tile {
+      background: rgba(7, 13, 29, 0.6);
+      border-color: rgba(255, 255, 255, 0.08);
+      color: #f8fafc !important;
+    }
+    [data-theme="dark"] .quick-action-tile:hover {
+      background: rgba(14, 165, 233, 0.12);
+      border-color: #38bdf8;
+    }
+    [data-theme="dark"] .action-tile-text h6,
+    [data-theme="dark"] .dashboard-panel-title,
+    [data-theme="dark"] .stat-card-value {
+      color: #f8fafc !important;
+    }
+  </style>
 {% endblock %}
 
 {% block navbar %}{% endblock %}
@@ -18,82 +385,248 @@
       {% include 'includes/topbar.html' %}
 
       <main class="dashboard-body">
-        <div class="page-title-box">
-          <div>
-            <h3>Welcome, <span class="user-display-name text-primary">Sarah</span></h3>
-            <p>How are you feeling today? Overview of your next visit and health summary.</p>
+        <!-- Patient Hero Welcome Banner with Homepage Hero-BG -->
+        <div class="patient-hero-banner">
+          <div class="hero-geometric-bg">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" fill="none" preserveAspectRatio="xMidYMid slice">
+              <defs>
+                <radialGradient id="heroGlowPat" cx="80%" cy="30%" r="60%">
+                  <stop offset="0%" stop-color="#14b8a6" stop-opacity="0.38" />
+                  <stop offset="100%" stop-color="#14b8a6" stop-opacity="0" />
+                </radialGradient>
+              </defs>
+
+              <rect width="100%" height="100%" fill="url(#heroGlowPat)" />
+
+              <!-- Faint circular geometric line contours -->
+              <g stroke="#ffffff" opacity="0.12" stroke-width="1.2">
+                <circle cx="200" cy="180" r="160" stroke-dasharray="3 5" />
+                <circle cx="200" cy="180" r="320" />
+                <circle cx="200" cy="180" r="500" stroke-dasharray="6 8" />
+                <circle cx="200" cy="180" r="700" />
+
+                <circle cx="1120" cy="420" r="200" stroke-dasharray="4 6" />
+                <circle cx="1120" cy="420" r="360" />
+                <circle cx="1120" cy="420" r="540" stroke-dasharray="8 8" />
+                <circle cx="1120" cy="420" r="740" />
+              </g>
+
+              <!-- Smooth subtle flow lines -->
+              <g opacity="0.10" stroke="#ffffff" stroke-width="1.5">
+                <path d="M-100,580 C280,480 460,720 840,620 C1220,520 1340,680 1600,580" fill="none" />
+                <path d="M-100,620 C280,520 460,760 840,660 C1220,560 1340,720 1600,620" fill="none" />
+                <path d="M-100,660 C280,560 460,800 840,700 C1220,600 1340,760 1600,660" fill="none" />
+              </g>
+            </svg>
           </div>
-          <a href="{% url 'patient_book_appointment' %}" class="btn btn-primary"><i class="bi bi-calendar-plus me-1"></i>Book Consultation</a>
+
+          <div class="patient-hero-content">
+            <div class="patient-hero-badge">
+              <i class="bi bi-shield-check"></i> Clinic On Verified Patient Portal
+            </div>
+            <h2 class="patient-hero-title">
+              Welcome back, <span>{% if request.session.name %}{{ request.session.name }}{% elif user %}{{ user.full_name }}{% else %}Patient{% endif %}</span> 👋
+            </h2>
+            <p class="patient-hero-subtext">
+              Your personalized health overview is ready. Schedule consultations with top specialists, track your appointments, and access digital prescriptions securely in one place.
+            </p>
+            <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+              <div class="patient-hero-chips">
+                <span class="patient-hero-chip">
+                  <i class="bi bi-envelope-at"></i> {{ request.session.email|default:'Patient Account' }}
+                </span>
+                <span class="patient-hero-chip">
+                  <i class="bi bi-droplet-half text-danger"></i> Blood Group: <strong>{{ user.blood_group|default:'O+' }}</strong>
+                </span>
+                <span class="patient-hero-chip">
+                  <i class="bi bi-check-circle-fill text-success"></i> Status: Active
+                </span>
+              </div>
+              <a href="{% url 'patient_book_appointment' %}" class="btn btn-emerald-pill shadow-glow">
+                <i class="bi bi-calendar-plus me-1"></i> Book New Consultation
+              </a>
+            </div>
+          </div>
         </div>
 
-        <!-- Metric Blocks -->
+        <!-- Metric Stat Cards -->
         <div class="row g-3 mb-4">
-          <div class="col-sm-6 col-xl-4">
-            <div class="metric-card">
-              <div class="metric-info">
-                <h6>Upcoming Visits</h6>
-                <h3 id="patStatUpcomingCount">0</h3>
-                <span class="metric-trend up"><i class="bi bi-calendar-event"></i> Active</span>
+          <!-- Upcoming Consultations -->
+          <div class="col-sm-6 col-xl-3">
+            <div class="patient-stat-card">
+              <div>
+                <div class="stat-card-label">Upcoming Visits</div>
+                <div class="stat-card-value" id="patStatUpcomingCount">0</div>
+                <span class="badge bg-soft-primary text-primary fs-8"><i class="bi bi-calendar-event me-1"></i>Active</span>
+              </div>
+              <div class="stat-icon-wrapper stat-icon-teal">
+                <i class="bi bi-calendar2-check"></i>
               </div>
             </div>
           </div>
 
-          <div class="col-sm-6 col-xl-4">
-            <div class="metric-card">
-              <div class="metric-info">
-                <h6>Past Consultations</h6>
-                <h3 id="patStatCompletedCount">0</h3>
-                <span class="metric-trend neutral"><i class="bi bi-check-circle"></i> Completed</span>
+          <!-- Past Consultations -->
+          <div class="col-sm-6 col-xl-3">
+            <div class="patient-stat-card">
+              <div>
+                <div class="stat-card-label">Past Consultations</div>
+                <div class="stat-card-value" id="patStatCompletedCount">0</div>
+                <span class="badge bg-soft-primary text-primary fs-8"><i class="bi bi-check-circle me-1"></i>Completed</span>
+              </div>
+              <div class="stat-icon-wrapper stat-icon-blue">
+                <i class="bi bi-clock-history"></i>
               </div>
             </div>
           </div>
 
-          <div class="col-sm-6 col-xl-4">
-            <div class="metric-card">
-              <div class="metric-info">
-                <h6>Digital Prescriptions</h6>
-                <h3 id="patStatRxCount">0</h3>
-                <span class="metric-trend neutral"><i class="bi bi-prescription2"></i> Available</span>
+          <!-- Digital Prescriptions -->
+          <div class="col-sm-6 col-xl-3">
+            <div class="patient-stat-card">
+              <div>
+                <div class="stat-card-label">Prescriptions</div>
+                <div class="stat-card-value" id="patStatRxCount">0</div>
+                <span class="badge bg-soft-emerald text-success fs-8"><i class="bi bi-prescription2 me-1"></i>Available</span>
+              </div>
+              <div class="stat-icon-wrapper stat-icon-emerald">
+                <i class="bi bi-prescription"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Health Vitals (Blood Group) -->
+          <div class="col-sm-6 col-xl-3">
+            <div class="patient-stat-card">
+              <div>
+                <div class="stat-card-label">Health Vital</div>
+                <div class="stat-card-value">{{ user.blood_group|default:"O+" }}</div>
+                <span class="badge bg-soft-danger text-danger fs-8"><i class="bi bi-droplet me-1"></i>Blood Group</span>
+              </div>
+              <div class="stat-icon-wrapper stat-icon-rose">
+                <i class="bi bi-heart-pulse"></i>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Next Scheduled Visit Widget -->
+        <!-- Middle Core Panels: Next Visit & Quick Actions -->
         <div class="row g-4 mb-4">
+          <!-- Next Scheduled Visit Widget -->
           <div class="col-lg-6">
-            <div class="card p-3 shadow-sm h-100">
-              <div class="card-header border-0 pb-0">
-                <h6 class="fw-bold mb-0"><i class="bi bi-clock-history text-primary me-2"></i>Next Scheduled Visit</h6>
+            <div class="dashboard-glass-panel h-100">
+              <div class="dashboard-panel-header">
+                <h6 class="dashboard-panel-title">
+                  <i class="bi bi-calendar-event text-primary"></i> Next Scheduled Visit
+                </h6>
+                <span class="badge bg-soft-primary text-primary fs-8">Real-Time</span>
               </div>
-              <div class="card-body" id="patNextApptCard">
-                <!-- Rendered dynamically -->
+              <div class="dashboard-panel-body" id="patNextApptCard">
+                <!-- Rendered dynamically by patient.js -->
               </div>
             </div>
           </div>
 
+          <!-- Quick Actions Widget -->
           <div class="col-lg-6">
-            <div class="card p-3 shadow-sm h-100">
-              <div class="card-header border-0 pb-0">
-                <h6 class="fw-bold mb-0"><i class="bi bi-lightning-charge text-warning me-2"></i>Quick Actions</h6>
+            <div class="dashboard-glass-panel h-100">
+              <div class="dashboard-panel-header">
+                <h6 class="dashboard-panel-title">
+                  <i class="bi bi-lightning-charge text-warning"></i> Quick Patient Actions
+                </h6>
+                <span class="badge bg-soft-teal text-teal fs-8">Shortcuts</span>
               </div>
-              <div class="card-body d-flex flex-column justify-content-center gap-2.5">
-                <a href="{% url 'patient_book_appointment' %}" class="btn btn-outline-primary py-2.5 text-start d-flex align-items-center gap-3">
-                  <i class="bi bi-calendar-plus fs-4 text-primary"></i>
-                  <div>
-                    <div class="fw-semibold text-foreground fs-7">Book Doctor Consultation</div>
-                    <small class="text-muted">Choose department, doctor, and date time slot</small>
+              <div class="dashboard-panel-body p-3">
+                <a href="{% url 'patient_book_appointment' %}" class="quick-action-tile">
+                  <div class="action-tile-icon stat-icon-teal">
+                    <i class="bi bi-calendar-plus"></i>
                   </div>
+                  <div class="action-tile-text">
+                    <h6>Book Specialist Appointment</h6>
+                    <p>Select department, doctor, and consultation slot</p>
+                  </div>
+                  <i class="bi bi-chevron-right action-tile-arrow"></i>
                 </a>
-                <a href="{% url 'patient_prescriptions' %}" class="btn btn-outline-primary py-2.5 text-start d-flex align-items-center gap-3">
-                  <i class="bi bi-prescription2 fs-4 text-secondary"></i>
-                  <div>
-                    <div class="fw-semibold text-foreground fs-7">View &amp; Print Prescriptions</div>
-                    <small class="text-muted">Access electronic prescriptions issued by doctors</small>
+
+                <a href="{% url 'patient_prescriptions' %}" class="quick-action-tile">
+                  <div class="action-tile-icon stat-icon-blue">
+                    <i class="bi bi-prescription2"></i>
                   </div>
+                  <div class="action-tile-text">
+                    <h6>Digital Prescriptions</h6>
+                    <p>View, download &amp; print prescription orders</p>
+                  </div>
+                  <i class="bi bi-chevron-right action-tile-arrow"></i>
+                </a>
+
+                <a href="{% url 'patient_doctors' %}" class="quick-action-tile">
+                  <div class="action-tile-icon stat-icon-emerald">
+                    <i class="bi bi-people"></i>
+                  </div>
+                  <div class="action-tile-text">
+                    <h6>Doctors Directory</h6>
+                    <p>Browse specialist doctors &amp; department schedules</p>
+                  </div>
+                  <i class="bi bi-chevron-right action-tile-arrow"></i>
+                </a>
+
+                <a href="{% url 'patient_profile' %}" class="quick-action-tile">
+                  <div class="action-tile-icon stat-icon-rose">
+                    <i class="bi bi-person-gear"></i>
+                  </div>
+                  <div class="action-tile-text">
+                    <h6>Manage Health Profile</h6>
+                    <p>Update personal contact info &amp; blood group details</p>
+                  </div>
+                  <i class="bi bi-chevron-right action-tile-arrow"></i>
                 </a>
               </div>
             </div>
+          </div>
+        </div>
+
+        <!-- Available Specialists Row -->
+        <div class="mb-4">
+          <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
+            <div>
+              <h5 class="fw-bold mb-0">
+                <i class="bi bi-hospital text-primary me-2"></i>Available Medical Specialists
+              </h5>
+              <small class="text-muted">Top verified doctors ready for appointments</small>
+            </div>
+            <a href="{% url 'patient_doctors' %}" class="btn btn-ghost fs-8 fw-semibold">
+              View All Doctors <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+          </div>
+
+          <div class="row g-3">
+            {% for doc in doctors %}
+            <div class="col-md-6 col-lg-4">
+              <div class="specialist-mini-card">
+                <div class="d-flex align-items-center gap-3 mb-3">
+                  <div class="doctor-avatar-circle">
+                    {{ doc.full_name|slice:":1"|upper }}
+                  </div>
+                  <div class="overflow-hidden">
+                    <h6 class="fw-bold mb-0 text-truncate">{{ doc.full_name }}</h6>
+                    <small class="text-primary fw-semibold fs-8">General Physician / Specialist</small>
+                    <div class="text-muted fs-8 mt-1"><i class="bi bi-envelope me-1"></i>{{ doc.email }}</div>
+                  </div>
+                </div>
+                <div class="mt-auto pt-2 border-top d-flex align-items-center justify-content-between">
+                  <span class="badge bg-soft-emerald text-success fs-8">Available Today</span>
+                  <a href="{% url 'patient_book_appointment' %}?docId={{ doc.id }}" class="btn btn-emerald-pill btn-sm px-3">
+                    Book Now
+                  </a>
+                </div>
+              </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+              <div class="p-4 text-center text-muted bg-surface rounded-3 border">
+                <i class="bi bi-person-badge fs-2 mb-2 d-block opacity-50"></i>
+                Specialist doctors will appear here once registered.
+              </div>
+            </div>
+            {% endfor %}
           </div>
         </div>
       </main>

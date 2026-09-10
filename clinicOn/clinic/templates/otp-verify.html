@@ -1,0 +1,958 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Verify OTP - Clinic On{% endblock %}
+
+{% block extra_css %}
+<style>
+  /* ==========================================================================
+     Clinic On - Forgot Password (Step 2: Verify OTP)
+     ========================================================================== */
+  
+  :root {
+    --auth-bg-gradient: linear-gradient(130deg, #12296c 0%, #15388c 25%, #0f588c 55%, #0a848c 85%, #0ea57a 100%);
+    --card-glass-bg: rgba(255, 255, 255, 0.22);
+    --card-glass-border: rgba(255, 255, 255, 0.42);
+    --card-shadow: 0 30px 60px -12px rgba(8, 30, 65, 0.35), 0 10px 25px -5px rgba(0, 0, 0, 0.12), inset 0 1px 1px 0 rgba(255, 255, 255, 0.65);
+    --input-glass-bg: rgba(255, 255, 255, 0.5);
+    --input-glass-border: rgba(255, 255, 255, 0.65);
+    --input-text: #0f172a;
+    --input-placeholder: #64748b;
+    --card-text-title: #0f172a;
+    --card-text-muted: #334155;
+    --green-btn-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    --green-btn-glow: 0 8px 24px -2px rgba(16, 185, 129, 0.55), 0 0 20px rgba(52, 211, 153, 0.4);
+    --green-btn-glow-hover: 0 12px 32px -2px rgba(16, 185, 129, 0.75), 0 0 30px rgba(52, 211, 153, 0.6);
+  }
+
+  [data-theme="dark"] {
+    --card-glass-bg: rgba(15, 23, 42, 0.55);
+    --card-glass-border: rgba(255, 255, 255, 0.18);
+    --card-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.6), inset 0 1px 1px 0 rgba(255, 255, 255, 0.2);
+    --input-glass-bg: rgba(255, 255, 255, 0.08);
+    --input-glass-border: rgba(255, 255, 255, 0.15);
+    --input-text: #f8fafc;
+    --input-placeholder: #94a3b8;
+    --card-text-title: #ffffff;
+    --card-text-muted: #cbd5e1;
+  }
+
+  body {
+    background: var(--auth-bg-gradient) !important;
+    min-height: 100vh;
+    overflow-x: hidden;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  /* Top Navigation Header for Brand Logo */
+  .auth-top-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 1.75rem 3.5rem;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .brand-logo-hero {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    text-decoration: none !important;
+  }
+
+  .brand-icon-hero {
+    width: 44px;
+    height: 44px;
+    background: #ffffff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transition: transform 0.25s ease;
+  }
+
+  .brand-icon-hero i {
+    font-size: 1.45rem;
+    background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .brand-logo-hero:hover .brand-icon-hero {
+    transform: scale(1.05);
+  }
+
+  .brand-text-hero {
+    font-size: 1.65rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+  }
+
+  .brand-text-highlight {
+    color: #ffffff;
+    opacity: 0.95;
+  }
+
+  .theme-toggle-header-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.32);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.15rem;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .theme-toggle-header-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(15deg) scale(1.06);
+  }
+
+  /* Full Screen Master Wrapper */
+  .auth-hero-page {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6.5rem 2rem 2.5rem;
+    overflow: hidden;
+  }
+
+  /* Background Geometric Canvas */
+  .auth-geometric-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .auth-geometric-canvas svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Split Container */
+  .auth-content-container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
+  }
+
+  /* Left Hero Column */
+  .auth-left-col {
+    flex: 1 1 50%;
+    max-width: 520px;
+    color: #ffffff;
+  }
+
+  .auth-main-headline {
+    font-size: clamp(2.2rem, 3.4vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    margin-bottom: 1.25rem;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .auth-main-subtext {
+    font-size: 1.1rem;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 460px;
+    margin-bottom: 2rem;
+  }
+
+  .auth-security-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: 50px;
+    padding: 0.5rem 1.2rem;
+    font-size: 0.825rem;
+    color: rgba(255, 255, 255, 0.94);
+    font-weight: 500;
+  }
+
+  .auth-security-badge i {
+    font-size: 1rem;
+    color: #34d399;
+  }
+
+  /* Right Column & Stage */
+  .auth-right-col {
+    flex: 1 1 50%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .glass-card-stage {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+  }
+
+  /* Frosted Glass Card */
+  .glass-login-card {
+    position: relative;
+    z-index: 10;
+    background: var(--card-glass-bg);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border: 1px solid var(--card-glass-border);
+    border-radius: 24px;
+    padding: 2.25rem 2.5rem;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  /* Card Top Row Navigation */
+  .card-top-nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 1.15rem;
+  }
+
+  .card-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.825rem;
+    font-weight: 600;
+    color: var(--card-text-muted);
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.32);
+    border-radius: 50px;
+    padding: 0.35rem 0.85rem;
+    text-decoration: none !important;
+    cursor: pointer;
+    transition: all 0.22s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    outline: none;
+  }
+
+  .card-back-btn:hover {
+    background: rgba(255, 255, 255, 0.35);
+    color: #0f172a;
+    transform: translateX(-3px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  }
+
+  [data-theme="dark"] .card-back-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+    color: #cbd5e1;
+  }
+
+  [data-theme="dark"] .card-back-btn:hover {
+    background: rgba(255, 255, 255, 0.16);
+    color: #ffffff;
+  }
+
+  /* Card Headings */
+  .card-heading-title {
+    font-size: 1.65rem;
+    font-weight: 800;
+    color: var(--card-text-title);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.35rem;
+  }
+
+  .card-heading-subtitle {
+    font-size: 0.875rem;
+    color: var(--card-text-muted);
+    margin-bottom: 1.25rem;
+    line-height: 1.5;
+  }
+
+  /* Step Progress Indicator */
+  .forgot-step-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    margin-bottom: 1.65rem;
+    padding: 0 0.5rem;
+  }
+
+  .step-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .step-badge {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.825rem;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.25);
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+    color: var(--card-text-muted);
+    transition: all 0.3s ease;
+  }
+
+  [data-theme="dark"] .step-badge {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .step-item .step-check {
+    display: none;
+    font-size: 0.95rem;
+  }
+
+  .step-item.active .step-badge {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border-color: #34d399;
+    color: #ffffff;
+    box-shadow: 0 0 16px rgba(16, 185, 129, 0.5);
+    transform: scale(1.08);
+  }
+
+  .step-item.completed .step-badge {
+    background: rgba(16, 185, 129, 0.22);
+    border-color: #10b981;
+    color: #10b981;
+  }
+
+  .step-item.completed .step-num {
+    display: none;
+  }
+
+  .step-item.completed .step-check {
+    display: inline-block;
+  }
+
+  .step-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--card-text-muted);
+    transition: color 0.3s ease;
+  }
+
+  .step-item.active .step-label {
+    color: var(--card-text-title);
+    font-weight: 700;
+  }
+
+  .step-item.completed .step-label {
+    color: #10b981;
+  }
+
+  .step-connector {
+    flex: 1;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.3);
+    margin: 0 0.5rem;
+    margin-top: -1.2rem;
+    position: relative;
+    z-index: 1;
+    transition: background 0.35s ease;
+  }
+
+  [data-theme="dark"] .step-connector {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .step-connector.completed {
+    background: #10b981;
+  }
+
+  /* Demo OTP Banner */
+  .demo-otp-banner {
+    background: rgba(16, 185, 129, 0.14);
+    border: 1px dashed rgba(52, 211, 153, 0.5);
+    border-radius: 12px;
+    padding: 0.5rem 0.85rem;
+    font-size: 0.8rem;
+    color: #10b981;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  [data-theme="dark"] .demo-otp-banner {
+    color: #34d399;
+  }
+
+  .demo-code-badge {
+    background: #10b981;
+    color: #ffffff;
+    padding: 0.2rem 0.55rem;
+    border-radius: 6px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    font-size: 0.85rem;
+  }
+
+  .btn-autofill {
+    background: rgba(16, 185, 129, 0.3);
+    border: 1px solid #34d399;
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.55rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .btn-autofill:hover {
+    background: #10b981;
+  }
+
+  /* 6-Digit OTP Inputs Row */
+  .otp-inputs-row {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: space-between;
+    margin: 1.25rem 0;
+  }
+
+  .otp-digit-box {
+    width: 48px;
+    height: 54px;
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: 800;
+    border-radius: 12px;
+    border: 1.5px solid var(--input-glass-border);
+    background: var(--input-glass-bg);
+    color: var(--input-text);
+    outline: none;
+    transition: all 0.25s ease;
+  }
+
+  .otp-digit-box:focus {
+    border-color: #34d399;
+    box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.3);
+    background: rgba(255, 255, 255, 0.92);
+    transform: translateY(-2px);
+  }
+
+  [data-theme="dark"] .otp-digit-box:focus {
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .otp-digit-box.has-value {
+    border-color: #10b981;
+    background: rgba(16, 185, 129, 0.12);
+  }
+
+  /* Emerald Pill Action Button */
+  .btn-green-pill-signin {
+    width: 100%;
+    padding: 0.78rem 1.5rem;
+    border-radius: 50px;
+    background: var(--green-btn-gradient);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: -0.01em;
+    border: none;
+    cursor: pointer;
+    box-shadow: var(--green-btn-glow);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .btn-green-pill-signin:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--green-btn-glow-hover);
+    color: #ffffff;
+  }
+
+  .btn-green-pill-signin:active {
+    transform: translateY(1px);
+  }
+
+  .btn-green-pill-signin:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .btn-link-resend {
+    background: none;
+    border: none;
+    color: #10b981;
+    font-weight: 700;
+    font-size: 0.825rem;
+    padding: 0;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .btn-link-resend:hover:not(:disabled) {
+    text-decoration: underline;
+    color: #059669;
+  }
+
+  .btn-link-resend:disabled {
+    color: var(--card-text-muted);
+    cursor: not-allowed;
+    opacity: 0.75;
+  }
+
+  .card-bottom-meta {
+    text-align: center;
+    font-size: 0.825rem;
+    color: var(--card-text-muted);
+  }
+
+  .field-error-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    font-size: 0.825rem;
+    color: #fca5a5;
+    background: rgba(239, 68, 68, 0.18);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    padding: 0.45rem 0.85rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    animation: fadeInStage 0.2s ease forwards;
+  }
+
+  @keyframes fadeInStage {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 991.98px) {
+    .auth-top-header {
+      padding: 1.25rem 1.75rem;
+    }
+    .auth-hero-page {
+      padding: 5.5rem 1.5rem 2rem;
+    }
+    .auth-content-container {
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+    .auth-left-col {
+      max-width: 100%;
+      text-align: center;
+    }
+    .auth-main-subtext {
+      margin: 0 auto 1.75rem;
+    }
+    .glass-card-stage {
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: 575.98px) {
+    .auth-top-header {
+      padding: 1rem;
+    }
+    .auth-hero-page {
+      padding: 5rem 1rem 1.5rem;
+    }
+    .glass-login-card {
+      padding: 1.65rem 1.35rem;
+      border-radius: 20px;
+    }
+    .card-heading-title {
+      font-size: 1.45rem;
+    }
+    .auth-main-headline {
+      font-size: 1.9rem;
+    }
+    .otp-digit-box {
+      width: 40px;
+      height: 48px;
+      font-size: 1.15rem;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block navbar %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block content %}
+<!-- Top Header for Clinic On Logo & Theme Toggle -->
+<header class="auth-top-header">
+  <a class="brand-logo-hero" href="{% url 'index' %}">
+    <div class="brand-icon-hero">
+      <i class="bi bi-heart-pulse-fill"></i>
+    </div>
+    <span class="brand-text-hero">Clinic <span class="brand-text-highlight">On</span></span>
+  </a>
+
+  <button type="button" class="theme-toggle-header-btn theme-toggle-btn" title="Toggle Light/Dark Theme">
+    <i class="bi bi-moon-stars"></i>
+  </button>
+</header>
+
+<div class="auth-hero-page">
+  
+  <!-- Subtle Concentric Geometric Circles & Flowing Vector Mesh Background -->
+  <div class="auth-geometric-canvas">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" fill="none" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="meshGlow" cx="80%" cy="30%" r="60%">
+          <stop offset="0%" stop-color="#14b8a6" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#14b8a6" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      
+      <rect width="100%" height="100%" fill="url(#meshGlow)" />
+      
+      <g stroke="#ffffff" opacity="0.08" stroke-width="1.2">
+        <circle cx="240" cy="180" r="160" stroke-dasharray="3 5"/>
+        <circle cx="240" cy="180" r="300"/>
+        <circle cx="240" cy="180" r="460" stroke-dasharray="6 8"/>
+        <circle cx="240" cy="180" r="640"/>
+        <circle cx="240" cy="180" r="840"/>
+
+        <circle cx="1080" cy="460" r="190" stroke-dasharray="4 6"/>
+        <circle cx="1080" cy="460" r="340"/>
+        <circle cx="1080" cy="460" r="500" stroke-dasharray="8 8"/>
+        <circle cx="1080" cy="460" r="680"/>
+        <circle cx="1080" cy="460" r="880"/>
+      </g>
+
+      <g opacity="0.06" stroke="#ffffff" stroke-width="1.5">
+        <path d="M-100,580 C280,480 460,720 840,620 C1220,520 1340,680 1600,580" fill="none"/>
+        <path d="M-100,620 C280,520 460,760 840,660 C1220,560 1340,720 1600,620" fill="none"/>
+        <path d="M-100,660 C280,560 460,800 840,700 C1220,600 1340,760 1600,660" fill="none"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Master Asymmetrical Split Content -->
+  <div class="auth-content-container">
+    
+    <!-- Left Hero Column -->
+    <div class="auth-left-col">
+      <div class="auth-hero-copy">
+        <h1 class="auth-main-headline">
+          Verify your identity securely.
+        </h1>
+        <p class="auth-main-subtext">
+          Enter the 6-digit verification code sent to your registered email to continue resetting your password.
+        </p>
+      </div>
+
+      <div>
+        <div class="auth-security-badge">
+          <i class="bi bi-shield-check"></i>
+          <span>Two-Factor Authentication &amp; HIPAA Compliant Security</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Glassmorphism Card Column -->
+    <div class="auth-right-col">
+      <div class="glass-card-stage">
+
+        <!-- Frosted Glass Card: STEP 2 ONLY -->
+        <div class="glass-login-card">
+
+          <!-- Top Navigation: Back to Email -->
+          <div class="card-top-nav">
+            <a href="{% url 'forgot_password' %}" class="card-back-btn" id="btnBackToEmail">
+              <i class="bi bi-arrow-left"></i>
+              <span>Change Email</span>
+            </a>
+          </div>
+
+          <!-- 3-Step Progress Indicator -->
+          <div class="forgot-step-indicator" id="stepIndicatorBar">
+            <div class="step-item completed">
+              <div class="step-badge">
+                <span class="step-num">1</span>
+                <i class="bi bi-check-lg step-check"></i>
+              </div>
+              <span class="step-label">Email</span>
+            </div>
+            <div class="step-connector completed"></div>
+            <div class="step-item active">
+              <div class="step-badge">
+                <span class="step-num">2</span>
+                <i class="bi bi-check-lg step-check"></i>
+              </div>
+              <span class="step-label">Verify OTP</span>
+            </div>
+            <div class="step-connector"></div>
+            <div class="step-item">
+              <div class="step-badge">
+                <span class="step-num">3</span>
+                <i class="bi bi-check-lg step-check"></i>
+              </div>
+              <span class="step-label">New Password</span>
+            </div>
+          </div>
+
+          <!-- STAGE 2: OTP VERIFICATION -->
+          <h2 class="card-heading-title">Verify your email</h2>
+          <p class="card-heading-subtitle">
+            We sent a 6-digit verification code to <strong id="maskedEmailDisplay" class="fw-bold text-light">your email</strong>.
+          </p>
+
+          <form id="otpVerifyForm" method="POST" action="{% url 'otp_verify' %}" novalidate>
+            {% csrf_token %}
+            <input type="hidden" name="otp" id="hiddenOtpInput">
+            <input type="hidden" name="action" id="hiddenActionInput" value="verify">
+
+            {% if msg %}
+            <div class="field-error-badge mb-3">
+              <i class="bi bi-exclamation-circle-fill"></i>
+              <span>{{ msg }}</span>
+            </div>
+            {% endif %}
+
+            {% if msg1 %}
+            <div class="field-error-badge mb-3" style="color: #a7f3d0; background: rgba(16, 185, 129, 0.18); border: 1px solid rgba(16, 185, 129, 0.4);">
+              <i class="bi bi-check-circle-fill"></i>
+              <span>{{ msg1 }}</span>
+            </div>
+            {% endif %}
+
+            <div class="otp-inputs-row" id="otpInputsRow">
+              <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit-box" data-idx="0" autocomplete="one-time-code" autofocus>
+              <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit-box" data-idx="1">
+              <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit-box" data-idx="2">
+              <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit-box" data-idx="3">
+              <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit-box" data-idx="4">
+              <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit-box" data-idx="5">
+            </div>
+
+            <div class="field-error-badge d-none" id="otpErrorMsg"></div>
+
+            <button type="submit" class="btn-green-pill-signin" id="btnVerifyOtp">
+              <span class="btn-text">Verify OTP</span>
+              <i class="bi bi-arrow-right"></i>
+            </button>
+
+            <div class="card-bottom-meta">
+              <span>Didn't receive code? </span>
+              <button type="button" class="btn-link-resend" id="btnResendOtp" disabled>
+                Resend OTP in <span id="resendTimerCountdown">00:45</span>
+              </button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  function initOtpVerifyPage() {
+    const maskedEmailDisplay = document.getElementById('maskedEmailDisplay');
+    const otpVerifyForm = document.getElementById('otpVerifyForm');
+    const otpBoxes = document.querySelectorAll('.otp-digit-box');
+    const otpErrorMsg = document.getElementById('otpErrorMsg');
+    const btnVerifyOtp = document.getElementById('btnVerifyOtp');
+    const btnResendOtp = document.getElementById('btnResendOtp');
+    const resendTimerCountdown = document.getElementById('resendTimerCountdown');
+
+    // Email masking
+    function maskEmail(email) {
+      if (!email || !email.includes('@')) return email || 'your email';
+      const [name, domain] = email.split('@');
+      if (name.length <= 2) {
+        return name[0] + '***@' + domain;
+      }
+      return name[0] + '***' + name[name.length - 1] + '@' + domain;
+    }
+
+    const serverEmail = "{{ email|default:'' }}" || sessionStorage.getItem('clinic_reset_email') || '';
+    if (maskedEmailDisplay && serverEmail) {
+      maskedEmailDisplay.textContent = maskEmail(serverEmail);
+    }
+
+    // Resend countdown timer
+    let timerSeconds = 45;
+    let timerInterval = null;
+
+    function startResendTimer() {
+      clearInterval(timerInterval);
+      timerSeconds = 45;
+      if (btnResendOtp) {
+        btnResendOtp.disabled = true;
+      }
+
+      function updateText() {
+        const mins = String(Math.floor(timerSeconds / 60)).padStart(2, '0');
+        const secs = String(timerSeconds % 60).padStart(2, '0');
+        if (resendTimerCountdown) {
+          resendTimerCountdown.textContent = `${mins}:${secs}`;
+        }
+      }
+
+      updateText();
+      timerInterval = setInterval(() => {
+        timerSeconds--;
+        if (timerSeconds <= 0) {
+          clearInterval(timerInterval);
+          if (btnResendOtp) {
+            btnResendOtp.disabled = false;
+            btnResendOtp.innerHTML = 'Resend OTP';
+          }
+        } else {
+          updateText();
+        }
+      }, 1000);
+    }
+
+    startResendTimer();
+
+    // Resend button click
+    if (btnResendOtp) {
+      btnResendOtp.addEventListener('click', () => {
+        if (btnResendOtp.disabled) return;
+        const hiddenActionInput = document.getElementById('hiddenActionInput');
+        if (hiddenActionInput && otpVerifyForm) {
+          hiddenActionInput.value = 'resend';
+          btnResendOtp.disabled = true;
+          btnResendOtp.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Resending...';
+          otpVerifyForm.submit();
+        }
+      });
+    }
+
+
+
+    // Individual input box keyboard navigation
+    otpBoxes.forEach((box, idx) => {
+      box.addEventListener('input', () => {
+        box.value = box.value.replace(/[^0-9]/g, '');
+        if (box.value) {
+          box.classList.add('has-value');
+          if (idx < otpBoxes.length - 1) {
+            otpBoxes[idx + 1].focus();
+          }
+        } else {
+          box.classList.remove('has-value');
+        }
+        if (otpErrorMsg) otpErrorMsg.classList.add('d-none');
+      });
+
+      box.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && !box.value && idx > 0) {
+          otpBoxes[idx - 1].focus();
+        } else if (e.key === 'ArrowLeft' && idx > 0) {
+          otpBoxes[idx - 1].focus();
+        } else if (e.key === 'ArrowRight' && idx < otpBoxes.length - 1) {
+          otpBoxes[idx + 1].focus();
+        }
+      });
+
+      box.addEventListener('paste', (e) => {
+        e.preventDefault();
+        const pasteData = (e.clipboardData || window.clipboardData).getData('text').trim();
+        const digits = pasteData.replace(/[^0-9]/g, '').slice(0, 6);
+        if (digits.length > 0) {
+          digits.split('').forEach((d, i) => {
+            if (otpBoxes[i]) {
+              otpBoxes[i].value = d;
+              otpBoxes[i].classList.add('has-value');
+            }
+          });
+          const nextIdx = Math.min(digits.length, otpBoxes.length - 1);
+          otpBoxes[nextIdx].focus();
+          if (otpErrorMsg) otpErrorMsg.classList.add('d-none');
+        }
+      });
+    });
+
+    // Verify OTP Submit
+    function handleVerifyOtp(e) {
+      if (e) e.preventDefault();
+      if (otpErrorMsg) {
+        otpErrorMsg.classList.add('d-none');
+        otpErrorMsg.innerHTML = '';
+      }
+
+      let enteredOtp = '';
+      otpBoxes.forEach(b => enteredOtp += b.value.trim());
+
+      if (enteredOtp.length < 6) {
+        otpErrorMsg.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> Please enter all 6 digits of the verification code.';
+        otpErrorMsg.classList.remove('d-none');
+        return;
+      }
+
+      const hiddenOtpInput = document.getElementById('hiddenOtpInput');
+      if (hiddenOtpInput) {
+        hiddenOtpInput.value = enteredOtp;
+      }
+
+      const origHtml = btnVerifyOtp.innerHTML;
+      btnVerifyOtp.disabled = true;
+      btnVerifyOtp.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status"></span> Verifying...';
+
+      // Submit to Django backend
+      otpVerifyForm.submit();
+    }
+
+    if (otpVerifyForm) {
+      otpVerifyForm.addEventListener('submit', handleVerifyOtp);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initOtpVerifyPage);
+  } else {
+    initOtpVerifyPage();
+  }
+</script>
+{% endblock %}

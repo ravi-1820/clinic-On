@@ -32,15 +32,19 @@
                 <div class="row g-3">
                   <div class="col-md-6">
                     <label class="form-label fs-7 fw-semibold">Doctor Name</label>
-                    <input type="text" class="form-control" id="docProfileName" value="Dr. John Smith">
+                    <input type="text" class="form-control" id="docProfileName" value="{{ user.full_name|default:request.session.name }}">
                   </div>
                   <div class="col-md-6">
-                    <label class="form-label fs-7 fw-semibold">Specialization</label>
-                    <input type="text" class="form-control" value="Senior Cardiologist">
+                    <label class="form-label fs-7 fw-semibold">Email Address</label>
+                    <input type="email" class="form-control" value="{{ user.email|default:request.session.email }}" readonly>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fs-7 fw-semibold">Phone Number</label>
+                    <input type="tel" class="form-control" value="{{ user.phone|default:'' }}">
                   </div>
                   <div class="col-md-6">
                     <label class="form-label fs-7 fw-semibold">Department</label>
-                    <input type="text" class="form-control" value="Cardiology" readonly>
+                    <input type="text" class="form-control" value="General Medicine" readonly>
                   </div>
                   <div class="col-md-6">
                     <label class="form-label fs-7 fw-semibold">Consultation Fee</label>

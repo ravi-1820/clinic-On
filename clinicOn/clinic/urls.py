@@ -13,6 +13,9 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
     path('register/', views.register_view, name='register'),
+    path('forgot-password/', views.forgot_password, name='forgot_password'),
+    path('otp-verify/', views.otp_verify, name='otp_verify'),
+    path('update-password/', views.update_password, name='update_password'),
 
     # Admin Portal Pages
     path('admin/', RedirectView.as_view(url='/admin/dashboard/', permanent=False)),
@@ -54,6 +57,9 @@ urlpatterns = [
     path('login.html', RedirectView.as_view(url='/login/', permanent=False)),
     path('logout.html', RedirectView.as_view(url='/logout/', permanent=False)),
     path('register.html', RedirectView.as_view(url='/register/', permanent=False)),
+    path('forgot-password.html', RedirectView.as_view(url='/forgot-password/', permanent=False)),
+    path('otp-verify.html', RedirectView.as_view(url='/otp-verify/', permanent=False)),
+    path('update-password.html', RedirectView.as_view(url='/update-password/', permanent=False)),
 
     path('admin/dashboard.html', RedirectView.as_view(url='/admin/dashboard/', permanent=False)),
     path('admin/appointments.html', RedirectView.as_view(url='/admin/appointments/', permanent=False)),

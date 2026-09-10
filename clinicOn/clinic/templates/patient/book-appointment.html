@@ -36,13 +36,24 @@
                   <div class="col-md-6">
                     <label class="form-label fs-7 fw-semibold">Department</label>
                     <select class="form-select" id="bookDeptSelect" required>
-                      <!-- Options rendered via JS -->
+                      <option value="">-- Select Department --</option>
+                      <option value="General Medicine">General Medicine</option>
+                      <option value="Cardiology">Cardiology</option>
+                      <option value="Neurology">Neurology</option>
+                      <option value="Pediatrics">Pediatrics</option>
+                      <option value="Orthopedics">Orthopedics</option>
+                      <option value="Dermatology">Dermatology</option>
                     </select>
                   </div>
                   <div class="col-md-6">
                     <label class="form-label fs-7 fw-semibold">Doctor</label>
                     <select class="form-select" id="bookDocSelect" required>
-                      <!-- Options rendered via JS -->
+                      <option value="">-- Select Doctor --</option>
+                      {% for doc in doctors %}
+                        <option value="{{ doc.id }}" data-name="{{ doc.full_name }}">{{ doc.full_name }}</option>
+                      {% empty %}
+                        <option value="" disabled>No doctors registered</option>
+                      {% endfor %}
                     </select>
                   </div>
                 </div>

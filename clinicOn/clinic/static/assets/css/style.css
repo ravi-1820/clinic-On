@@ -366,6 +366,55 @@ h1, h2, h3, h4, h5, h6 {
   transform: rotate(15deg) scale(1.06);
 }
 
+/* Header Quick Search Bar */
+.header-search-btn {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: var(--transition);
+  cursor: pointer;
+  box-shadow: var(--shadow-subtle);
+  min-width: 200px;
+}
+
+.header-search-btn:hover {
+  background: var(--surface-hover);
+  border-color: var(--teal);
+  color: var(--foreground);
+}
+
+.header-search-btn kbd {
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 0.15rem 0.4rem;
+  font-size: 0.7rem;
+  color: var(--muted);
+  font-family: inherit;
+}
+
+[data-theme="dark"] .header-search-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .header-search-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: var(--teal);
+  color: #ffffff;
+}
+
+[data-theme="dark"] .header-search-btn kbd {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #cbd5e1;
+}
+
 /* ==========================================================================
    Reusable Glassmorphism Components
    ========================================================================== */
