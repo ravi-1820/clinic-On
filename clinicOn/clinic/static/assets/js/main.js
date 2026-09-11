@@ -64,7 +64,7 @@ const SEED_DATA = {
       days: ['Tue', 'Thu', 'Sat'],
       hours: '10:00 AM - 05:00 PM',
       about: 'Dedicated pediatrician focused on child health, growth tracking, and adolescent medicine.',
-      image: 'https://images.unsplash.com/photo-1594824813566-88855ce789c0?w=400&auto=format&fit=crop&q=80'
+      image: '/static/assets/images/doctor-emily-wong.jpg'
     },
     {
       id: 'doc_3',
@@ -290,7 +290,24 @@ const SEED_DATA = {
 // ClinicStore API
 const ClinicStore = {
   init() {
-    if (!localStorage.getItem(STORAGE_KEYS.DOCTORS)) localStorage.setItem(STORAGE_KEYS.DOCTORS, JSON.stringify(SEED_DATA.doctors));
+    if (!localStorage.getItem(STORAGE_KEYS.DOCTORS)) {
+      localStorage.setItem(STORAGE_KEYS.DOCTORS, JSON.stringify(SEED_DATA.doctors));
+    } else {
+      // Auto-heal any stale or broken doctor images in existing localStorage
+      try {
+        const storedDocs = JSON.parse(localStorage.getItem(STORAGE_KEYS.DOCTORS) || '[]');
+        let updated = false;
+        storedDocs.forEach(d => {
+          if (d.id === 'doc_2' || (d.image && (d.image.includes('photo-1594824813566') || d.image.includes('unsplash.com/photo-1594824813566')))) {
+            d.image = '/static/assets/images/doctor-emily-wong.jpg';
+            updated = true;
+          }
+        });
+        if (updated) {
+          localStorage.setItem(STORAGE_KEYS.DOCTORS, JSON.stringify(storedDocs));
+        }
+      } catch (err) {}
+    }
     if (!localStorage.getItem(STORAGE_KEYS.PATIENTS)) localStorage.setItem(STORAGE_KEYS.PATIENTS, JSON.stringify(SEED_DATA.patients));
     if (!localStorage.getItem(STORAGE_KEYS.APPOINTMENTS)) localStorage.setItem(STORAGE_KEYS.APPOINTMENTS, JSON.stringify(SEED_DATA.appointments));
     if (!localStorage.getItem(STORAGE_KEYS.PRESCRIPTIONS)) localStorage.setItem(STORAGE_KEYS.PRESCRIPTIONS, JSON.stringify(SEED_DATA.prescriptions));
@@ -299,7 +316,16 @@ const ClinicStore = {
     if (!localStorage.getItem(STORAGE_KEYS.USERS)) localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(SEED_DATA.users));
   },
 
-  getDoctors() { return JSON.parse(localStorage.getItem(STORAGE_KEYS.DOCTORS) || '[]'); },
+  getDoctors() {
+    const list = JSON.parse(localStorage.getItem(STORAGE_KEYS.DOCTORS) || '[]');
+    // Safety fallback check so doc_2 image is always reliable
+    list.forEach(d => {
+      if (d.id === 'doc_2' && (!d.image || d.image.includes('photo-1594824813566'))) {
+        d.image = '/static/assets/images/doctor-emily-wong.jpg';
+      }
+    });
+    return list;
+  },
   saveDoctor(doc) {
     const list = this.getDoctors();
     const idx = list.findIndex(d => d.id === doc.id);

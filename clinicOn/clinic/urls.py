@@ -16,6 +16,8 @@ urlpatterns = [
     path('forgot-password/', views.forgot_password, name='forgot_password'),
     path('otp-verify/', views.otp_verify, name='otp_verify'),
     path('update-password/', views.update_password, name='update_password'),
+    path('profile/', views.profile_view, name='profile'),
+    path('delete-account/', views.delete_account, name='delete_account'),
 
     # Admin Portal Pages
     path('admin/', RedirectView.as_view(url='/admin/dashboard/', permanent=False)),

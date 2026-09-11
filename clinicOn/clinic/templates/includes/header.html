@@ -1,31 +1,49 @@
 {% load static %}
 <!-- ==========================================================================
      Clinic On - 2026 Floating Frosted-Glass Healthcare Navbar
-     Pixel-perfect match for Reference Design & Container Alignment
+     Pixel-perfect match for Reference Design, Container Alignment & Height
      ========================================================================== -->
 <style>
   /* Scoped Floating Navbar Styles - Perfectly aligned with page container & cards */
   .clinic-navbar-wrapper {
     position: sticky;
-    top: 14px;
+    top: 16px;
     z-index: 1040;
     width: 100%;
     padding: 0;
-    margin-bottom: -66px;
+    margin-bottom: -78px;
     pointer-events: none;
+  }
+
+  /* Extra breathing room between floating navbar and hero image/content */
+  .hero-gradient-section {
+    padding-top: 8rem !important; /* ~128px padding creating generous space between navbar & doctor image */
+  }
+
+  .page-hero-banner {
+    padding-top: 7rem !important;
+  }
+
+  @media (max-width: 991px) {
+    .hero-gradient-section {
+      padding-top: 6.5rem !important;
+    }
+    .page-hero-banner {
+      padding-top: 5.5rem !important;
+    }
   }
 
   .clinic-navbar-container {
     pointer-events: auto;
     width: 100%;
-    min-height: 54px;
-    background: rgba(25, 73, 145, 0.65);
+    min-height: 62px;
+    background: rgba(18, 41, 108, 0.65);
     backdrop-filter: blur(20px) saturate(160%);
     -webkit-backdrop-filter: blur(20px) saturate(160%);
     border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 22px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    padding: 0.45rem 1.15rem;
+    border-radius: 24px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+    padding: 0.6rem 1.25rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -43,36 +61,37 @@
   .clinic-navbar-left {
     display: flex;
     align-items: center;
-    gap: 1.25rem;
+    gap: 1.35rem;
     flex-shrink: 0;
   }
 
   .clinic-navbar-brand {
     display: inline-flex;
     align-items: center;
-    gap: 0.65rem;
+    gap: 0.7rem;
     text-decoration: none !important;
     user-select: none;
   }
 
   .clinic-brand-icon {
-    width: 34px;
-    height: 34px;
-    border-radius: 9px;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
     background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
     display: inline-flex;
     align-items: center;
     justify-content: center;
     color: #ffffff;
-    font-size: 1rem;
-    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.35);
+    font-size: 1.1rem;
+    box-shadow: 0 3px 10px rgba(16, 185, 129, 0.35);
     flex-shrink: 0;
   }
 
   .clinic-brand-title {
-    font-size: 1.18rem;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-size: 1.25rem;
     font-weight: 700;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
     display: inline-flex;
     align-items: center;
     gap: 0.22rem;
@@ -80,25 +99,29 @@
 
   .clinic-brand-text {
     color: #ffffff;
+    transition: color 0.25s ease;
   }
 
   .clinic-brand-accent {
-    color: #34d399; /* Mint green accent from reference */
+    color: #ffffff;
+    transition: color 0.25s ease;
   }
 
   /* Desktop Navigation Links */
   .clinic-navbar-links {
     display: flex;
     align-items: center;
-    gap: 0.2rem;
+    gap: 0.25rem;
   }
 
   .clinic-nav-link {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     color: rgba(255, 255, 255, 0.9);
-    font-weight: 500;
-    font-size: 0.9rem;
-    padding: 0.4rem 0.82rem;
-    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.92rem;
+    letter-spacing: -0.01em;
+    padding: 0.46rem 0.92rem;
+    border-radius: 11px;
     text-decoration: none !important;
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     white-space: nowrap;
@@ -112,9 +135,9 @@
 
   .clinic-nav-link.active {
     color: #ffffff !important;
-    font-weight: 600;
+    font-weight: 700;
     background: rgba(255, 255, 255, 0.16);
-    border-radius: 10px;
+    border-radius: 11px;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.22);
@@ -124,24 +147,24 @@
   .clinic-navbar-right {
     display: flex;
     align-items: center;
-    gap: 0.65rem;
+    gap: 0.75rem;
     flex-shrink: 0;
   }
 
   .clinic-navbar-search {
-    height: 38px;
+    height: 42px;
     width: clamp(120px, 11vw, 175px);
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 11px;
+    border-radius: 12px;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    padding: 0 12px;
+    padding: 0 13px;
     display: flex;
     align-items: center;
     gap: 8px;
     color: rgba(255, 255, 255, 0.72);
-    font-size: 0.88rem;
+    font-size: 0.9rem;
     cursor: pointer;
     transition: all 0.2s ease;
     outline: none;
@@ -156,19 +179,19 @@
   }
 
   .clinic-navbar-search i {
-    font-size: 0.85rem;
+    font-size: 0.88rem;
     color: rgba(255, 255, 255, 0.7);
   }
 
   .clinic-navbar-book {
-    height: 38px;
-    padding: 0 16px;
+    height: 42px;
+    padding: 0 18px;
     background: #10b981;
     border: none;
-    border-radius: 11px;
+    border-radius: 12px;
     color: #ffffff !important;
     font-weight: 600;
-    font-size: 0.88rem;
+    font-size: 0.92rem;
     display: inline-flex;
     align-items: center;
     gap: 7px;
@@ -186,12 +209,12 @@
   }
 
   .clinic-navbar-book i {
-    font-size: 0.95rem;
+    font-size: 1rem;
   }
 
   .clinic-navbar-icon-btn {
-    width: 38px;
-    height: 38px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
     background: transparent;
     border: none;
@@ -201,7 +224,7 @@
     justify-content: center;
     position: relative;
     cursor: pointer;
-    font-size: 1.15rem;
+    font-size: 1.22rem;
     transition: all 0.2s ease;
     outline: none;
     padding: 0;
@@ -214,24 +237,24 @@
 
   .clinic-notification-badge {
     position: absolute;
-    top: 9px;
-    right: 9px;
-    width: 6px;
-    height: 6px;
+    top: 10px;
+    right: 10px;
+    width: 6.5px;
+    height: 6.5px;
     background-color: #ef4444;
     border-radius: 50%;
-    box-shadow: 0 0 0 2px rgba(25, 73, 145, 0.95);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
   }
 
   .clinic-navbar-profile {
-    width: 38px;
-    height: 38px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
     background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
     border: 1.5px solid rgba(255, 255, 255, 0.35);
     color: #ffffff;
     font-weight: 700;
-    font-size: 0.82rem;
+    font-size: 0.88rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -247,6 +270,62 @@
     transform: scale(1.05);
     border-color: rgba(255, 255, 255, 0.7);
     box-shadow: 0 4px 14px rgba(99, 102, 241, 0.5);
+  }
+
+  /* Dedicated Navbar Dark/Light Theme Switch Button (Last Position) */
+  .clinic-navbar-theme-btn {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    color: #ffffff !important;
+    font-size: 1.15rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+    outline: none !important;
+    padding: 0 !important;
+    flex-shrink: 0 !important;
+  }
+
+  .clinic-navbar-theme-btn:hover {
+    background: rgba(255, 255, 255, 0.24) !important;
+    border-color: rgba(255, 255, 255, 0.45) !important;
+    color: #38bdf8 !important;
+    transform: rotate(15deg) scale(1.06) !important;
+    box-shadow: 0 4px 14px rgba(56, 189, 248, 0.25) !important;
+  }
+
+  /* Scrolled State for Theme Switch Button */
+  .clinic-navbar-container.scrolled .clinic-navbar-theme-btn {
+    background: rgba(15, 23, 42, 0.05) !important;
+    border-color: rgba(15, 23, 42, 0.12) !important;
+    color: #0f172a !important;
+    box-shadow: none !important;
+  }
+
+  .clinic-navbar-container.scrolled .clinic-navbar-theme-btn:hover {
+    background: rgba(15, 23, 42, 0.1) !important;
+    border-color: rgba(15, 23, 42, 0.25) !important;
+    color: #0f588c !important;
+    transform: rotate(15deg) scale(1.06) !important;
+  }
+
+  [data-theme="dark"] .clinic-navbar-theme-btn {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(255, 255, 255, 0.18) !important;
+    color: #facc15 !important;
+  }
+
+  [data-theme="dark"] .clinic-navbar-theme-btn:hover {
+    background: rgba(255, 255, 255, 0.16) !important;
+    border-color: rgba(250, 204, 21, 0.5) !important;
+    color: #fde047 !important;
+    box-shadow: 0 0 16px rgba(250, 204, 21, 0.4) !important;
   }
 
   /* Dropdown Menus */
@@ -299,16 +378,16 @@
 
   /* Mobile Toggler & Panel */
   .clinic-navbar-toggler {
-    width: 36px;
-    height: 36px;
-    border-radius: 9px;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.18);
     color: #ffffff;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.25rem;
+    font-size: 1.35rem;
     cursor: pointer;
     transition: all 0.2s ease;
     outline: none;
@@ -367,12 +446,175 @@
       top: 10px;
     }
     .clinic-navbar-container {
-      padding: 0.4rem 0.85rem;
-      border-radius: 18px;
+      padding: 0.45rem 0.85rem;
+      border-radius: 20px;
+      min-height: 56px;
     }
     .clinic-brand-title {
-      font-size: 1.05rem;
+      font-size: 1.1rem;
     }
+    .clinic-brand-icon {
+      width: 34px;
+      height: 34px;
+      font-size: 1rem;
+    }
+    .clinic-navbar-profile {
+      width: 36px;
+      height: 36px;
+      font-size: 0.8rem;
+    }
+  }
+
+  /* ==========================================================================
+     Scrolled Navbar State (Crystal-Clear High-Contrast Fonts on Light Pages)
+     ========================================================================== */
+  .clinic-navbar-container.scrolled {
+    background: rgba(255, 255, 255, 0.88) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border-color: rgba(226, 232, 240, 0.95) !important;
+    box-shadow: 0 10px 30px -4px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(15, 23, 42, 0.04) !important;
+  }
+
+  .clinic-navbar-container.scrolled .clinic-brand-text {
+    color: #0f172a !important;
+  }
+
+  .clinic-navbar-container.scrolled .clinic-brand-accent {
+    color: #059669 !important;
+  }
+
+  .clinic-navbar-container.scrolled .clinic-nav-link {
+    color: #334155 !important;
+    font-weight: 600;
+  }
+
+  .clinic-navbar-container.scrolled .clinic-nav-link:hover {
+    color: #0f588c !important;
+    background: rgba(15, 88, 140, 0.08) !important;
+  }
+
+  .clinic-navbar-container.scrolled .clinic-nav-link.active {
+    color: #0f588c !important;
+    font-weight: 700;
+    background: rgba(15, 88, 140, 0.12) !important;
+    box-shadow: inset 0 1px 1px rgba(15, 88, 140, 0.15) !important;
+  }
+
+  .clinic-navbar-container.scrolled .clinic-navbar-search {
+    background: rgba(15, 23, 42, 0.04) !important;
+    border-color: rgba(15, 23, 42, 0.12) !important;
+    color: #64748b !important;
+  }
+
+  .clinic-navbar-container.scrolled .clinic-navbar-search:hover,
+  .clinic-navbar-container.scrolled .clinic-navbar-search:focus {
+    background: #ffffff !important;
+    border-color: #0f588c !important;
+    color: #0f172a !important;
+    box-shadow: 0 0 12px rgba(15, 88, 140, 0.12) !important;
+  }
+
+  .clinic-navbar-container.scrolled .clinic-navbar-search i {
+    color: #64748b !important;
+  }
+
+  .clinic-navbar-container.scrolled .clinic-navbar-icon-btn {
+    color: #334155 !important;
+  }
+
+  .clinic-navbar-container.scrolled .clinic-navbar-icon-btn:hover {
+    color: #0f172a !important;
+    background: rgba(15, 23, 42, 0.06) !important;
+  }
+
+  .clinic-navbar-container.scrolled .clinic-notification-badge {
+    box-shadow: 0 0 0 2px #ffffff !important;
+  }
+
+  .clinic-navbar-container.scrolled .clinic-navbar-toggler {
+    background: rgba(15, 23, 42, 0.04) !important;
+    border-color: rgba(15, 23, 42, 0.12) !important;
+    color: #0f172a !important;
+  }
+
+  .clinic-navbar-container.scrolled .clinic-navbar-toggler:hover {
+    background: rgba(15, 23, 42, 0.08) !important;
+    color: #0f172a !important;
+  }
+
+  .clinic-navbar-wrapper.scrolled .clinic-navbar-mobile-card {
+    background: rgba(255, 255, 255, 0.98) !important;
+    border-color: rgba(226, 232, 240, 0.9) !important;
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12) !important;
+  }
+
+  .clinic-navbar-wrapper.scrolled .clinic-mobile-nav-link {
+    color: #334155 !important;
+  }
+
+  .clinic-navbar-wrapper.scrolled .clinic-mobile-nav-link:hover,
+  .clinic-navbar-wrapper.scrolled .clinic-mobile-nav-link.active {
+    color: #0f588c !important;
+    background: rgba(15, 88, 140, 0.08) !important;
+  }
+
+  /* Scrolled State for Dark Theme */
+  [data-theme="dark"] .clinic-navbar-container.scrolled {
+    background: rgba(15, 23, 42, 0.88) !important;
+    border-color: rgba(255, 255, 255, 0.14) !important;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45) !important;
+  }
+
+  [data-theme="dark"] .clinic-navbar-container.scrolled .clinic-brand-text {
+    color: #ffffff !important;
+  }
+
+  [data-theme="dark"] .clinic-navbar-container.scrolled .clinic-brand-accent {
+    color: #34d399 !important;
+  }
+
+  [data-theme="dark"] .clinic-navbar-container.scrolled .clinic-nav-link {
+    color: rgba(255, 255, 255, 0.88) !important;
+  }
+
+  [data-theme="dark"] .clinic-navbar-container.scrolled .clinic-nav-link:hover {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+  }
+
+  [data-theme="dark"] .clinic-navbar-container.scrolled .clinic-nav-link.active {
+    color: #38bdf8 !important;
+    background: rgba(56, 189, 248, 0.18) !important;
+  }
+
+  [data-theme="dark"] .clinic-navbar-container.scrolled .clinic-navbar-search {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(255, 255, 255, 0.18) !important;
+    color: rgba(255, 255, 255, 0.72) !important;
+  }
+
+  [data-theme="dark"] .clinic-navbar-container.scrolled .clinic-navbar-icon-btn {
+    color: rgba(255, 255, 255, 0.9) !important;
+  }
+
+  [data-theme="dark"] .clinic-navbar-container.scrolled .clinic-notification-badge {
+    box-shadow: 0 0 0 2px #0f172a !important;
+  }
+
+  [data-theme="dark"] .clinic-navbar-container.scrolled .clinic-navbar-toggler {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(255, 255, 255, 0.18) !important;
+    color: #ffffff !important;
+  }
+
+  [data-theme="dark"] .clinic-navbar-wrapper.scrolled .clinic-navbar-mobile-card {
+    background: rgba(11, 28, 60, 0.96) !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+  }
+
+  [data-theme="dark"] .clinic-navbar-wrapper.scrolled .clinic-mobile-nav-link {
+    color: rgba(255, 255, 255, 0.88) !important;
   }
 </style>
 
@@ -400,10 +642,13 @@
           <a href="{% url 'doctors' %}" class="clinic-nav-link {% if request.resolver_match.url_name == 'doctors' or request.resolver_match.url_name == 'doctor_details' %}active{% endif %}">Doctors</a>
           <a href="{% url 'departments' %}" class="clinic-nav-link {% if request.resolver_match.url_name == 'departments' %}active{% endif %}">Departments</a>
           <a href="{% url 'contact' %}" class="clinic-nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Contact</a>
+          {% if not request.session.email %}
+            <a href="{% url 'login' %}" class="clinic-nav-link {% if request.resolver_match.url_name == 'login' %}active{% endif %}">Login</a>
+          {% endif %}
         </div>
       </div>
 
-      <!-- CENTER / RIGHT: Search Box + Book Button + Notification Bell + Profile Avatar -->
+      <!-- CENTER / RIGHT: Search Box + (Notifications & Profile when logged in) + Theme Switch -->
       <div class="clinic-navbar-right">
         
         <!-- Search Input Pill (Triggers Ctrl + K Command Palette) -->
@@ -412,53 +657,61 @@
           <span>Search...</span>
         </button>
 
-        <!-- Emerald Book CTA Button -->
-        <a href="{% url 'patient_book_appointment' %}" class="clinic-navbar-book" title="Book Appointment">
-          <i class="bi bi-calendar2-check"></i>
-          <span>Book</span>
-        </a>
-
-        <!-- Notification Bell with Red Dot -->
-        <div class="dropdown">
-          <button type="button" class="clinic-navbar-icon-btn" id="clinicNotificationDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="Notifications">
-            <i class="bi bi-bell"></i>
-            <span class="clinic-notification-badge"></span>
-          </button>
-          <ul class="dropdown-menu dropdown-menu-end clinic-navbar-dropdown shadow-lg" aria-labelledby="clinicNotificationDropdown">
-            <li class="dropdown-header">System Alerts</li>
-            <li>
-              <div class="clinic-dropdown-item-notification">
-                <i class="bi bi-check-circle-fill text-success me-2 mt-1"></i>
-                <div>
-                  <p class="mb-0 fw-semibold text-white">System Operational</p>
-                  <small class="text-white-50">Online consultations active.</small>
+        {% if request.session.email %}
+          <!-- Notification Bell with Red Dot (Only when logged in) -->
+          <div class="dropdown">
+            <button type="button" class="clinic-navbar-icon-btn" id="clinicNotificationDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="Notifications">
+              <i class="bi bi-bell"></i>
+              <span class="clinic-notification-badge"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end clinic-navbar-dropdown shadow-lg" aria-labelledby="clinicNotificationDropdown">
+              <li class="dropdown-header">System Alerts</li>
+              <li>
+                <div class="clinic-dropdown-item-notification">
+                  <i class="bi bi-check-circle-fill text-success me-2 mt-1"></i>
+                  <div>
+                    <p class="mb-0 fw-semibold text-white">System Operational</p>
+                    <small class="text-white-50">Online consultations active.</small>
+                  </div>
                 </div>
-              </div>
-            </li>
-            <li><hr class="dropdown-divider"></li>
-            <li><span class="dropdown-item text-center text-white-50 small py-1">No unread alerts</span></li>
-          </ul>
-        </div>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <li><span class="dropdown-item text-center text-white-50 small py-1">No unread alerts</span></li>
+            </ul>
+          </div>
 
-        <!-- Profile Avatar (Initials circle matching reference 'JD' / user initials) -->
-        <div class="dropdown">
-          <button type="button" class="clinic-navbar-profile" id="clinicProfileDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="Account Menu">
-            <span>{% if request.session.name %}{{ request.session.name|slice:":2"|upper }}{% else %}JD{% endif %}</span>
-          </button>
-          <ul class="dropdown-menu dropdown-menu-end clinic-navbar-dropdown shadow-lg" aria-labelledby="clinicProfileDropdown">
-            {% if request.session.email %}
+          <!-- Profile Avatar with User Initials (Only when logged in) -->
+          <div class="dropdown">
+            <button type="button" class="clinic-navbar-profile" id="clinicProfileDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="Account Menu">
+              <span class="user-avatar-initials">{{ user_initials|default:"U" }}</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end clinic-navbar-dropdown shadow-lg" aria-labelledby="clinicProfileDropdown">
               <li class="dropdown-header">
                 <div class="fw-bold text-white">{{ request.session.name|default:"Patient User" }}</div>
                 <small class="text-white-50">{{ request.session.email }}</small>
               </li>
               <li><hr class="dropdown-divider"></li>
+              {% if request.session.role == 'doctor' %}
+                <li>
+                  <a class="dropdown-item d-flex align-items-center gap-2" href="{% url 'doctor_dashboard' %}">
+                    <i class="bi bi-speedometer2"></i> Doctor Dashboard
+                  </a>
+                </li>
+              {% elif request.session.role == 'admin' %}
+                <li>
+                  <a class="dropdown-item d-flex align-items-center gap-2" href="{% url 'admin_dashboard' %}">
+                    <i class="bi bi-speedometer2"></i> Admin Dashboard
+                  </a>
+                </li>
+              {% else %}
+                <li>
+                  <a class="dropdown-item d-flex align-items-center gap-2" href="{% url 'patient_dashboard' %}">
+                    <i class="bi bi-speedometer2"></i> Dashboard
+                  </a>
+                </li>
+              {% endif %}
               <li>
-                <a class="dropdown-item d-flex align-items-center gap-2" href="{% url 'patient_dashboard' %}">
-                  <i class="bi bi-speedometer2"></i> Dashboard
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item d-flex align-items-center gap-2" href="{% url 'patient_profile' %}">
+                <a class="dropdown-item d-flex align-items-center gap-2" href="{% url 'profile' %}">
                   <i class="bi bi-person"></i> My Profile
                 </a>
               </li>
@@ -469,43 +722,18 @@
               </li>
               <li><hr class="dropdown-divider"></li>
               <li>
-                <button type="button" class="dropdown-item theme-toggle-btn d-flex align-items-center justify-content-between" title="Toggle Theme">
-                  <span class="d-flex align-items-center gap-2"><i class="bi bi-moon-stars"></i> Theme Mode</span>
-                  <span class="badge bg-secondary-subtle text-white-50">Switch</span>
-                </button>
-              </li>
-              <li><hr class="dropdown-divider"></li>
-              <li>
                 <a class="dropdown-item text-danger d-flex align-items-center gap-2" href="{% url 'logout' %}">
                   <i class="bi bi-box-arrow-right"></i> Logout
                 </a>
               </li>
-            {% else %}
-              <li class="dropdown-header">
-                <div class="fw-bold text-white">Welcome to Clinic On</div>
-                <small class="text-white-50">Patient & Doctor Portal</small>
-              </li>
-              <li><hr class="dropdown-divider"></li>
-              <li>
-                <a class="dropdown-item d-flex align-items-center gap-2" href="{% url 'login' %}">
-                  <i class="bi bi-box-arrow-in-right"></i> Login
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item d-flex align-items-center gap-2" href="{% url 'register' %}">
-                  <i class="bi bi-person-plus"></i> Register
-                </a>
-              </li>
-              <li><hr class="dropdown-divider"></li>
-              <li>
-                <button type="button" class="dropdown-item theme-toggle-btn d-flex align-items-center justify-content-between" title="Toggle Theme">
-                  <span class="d-flex align-items-center gap-2"><i class="bi bi-moon-stars"></i> Theme Mode</span>
-                  <span class="badge bg-secondary-subtle text-white-50">Switch</span>
-                </button>
-              </li>
-            {% endif %}
-          </ul>
-        </div>
+            </ul>
+          </div>
+        {% endif %}
+
+        <!-- Dark / Light Theme Toggle Switch (Navbar Last Position) -->
+        <button type="button" class="clinic-navbar-theme-btn theme-toggle-btn" title="Toggle Light/Dark Theme" aria-label="Toggle Theme">
+          <i class="bi bi-moon-stars"></i>
+        </button>
 
         <!-- Mobile Hamburger Toggler (Visible on < lg screens) -->
         <button class="clinic-navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#clinicNavbarMobileCollapse" aria-controls="clinicNavbarMobileCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -533,6 +761,11 @@
           <a href="{% url 'contact' %}" class="clinic-mobile-nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">
             <i class="bi bi-envelope me-2"></i> Contact
           </a>
+          {% if not request.session.email %}
+            <a href="{% url 'login' %}" class="clinic-mobile-nav-link {% if request.resolver_match.url_name == 'login' %}active{% endif %}">
+              <i class="bi bi-box-arrow-in-right me-2"></i> Login
+            </a>
+          {% endif %}
         </div>
 
         <div class="clinic-mobile-actions pt-3 mt-2 border-top border-white-subtle">
@@ -540,12 +773,50 @@
             <i class="bi bi-search"></i>
             <span>Search...</span>
           </button>
-          <a href="{% url 'patient_book_appointment' %}" class="clinic-navbar-book w-100 justify-content-center mb-2">
-            <i class="bi bi-calendar2-check"></i>
-            <span>Book Appointment</span>
-          </a>
+          {% if request.session.email %}
+            <div class="d-flex gap-2 mt-2">
+              <a href="{% url 'patient_dashboard' %}" class="btn btn-sm btn-outline-light w-50">
+                <i class="bi bi-speedometer2 me-1"></i> Dashboard
+              </a>
+              <a href="{% url 'logout' %}" class="btn btn-sm btn-danger w-50">
+                <i class="bi bi-box-arrow-right me-1"></i> Logout
+              </a>
+            </div>
+          {% else %}
+            <div class="mt-2">
+              <a href="{% url 'login' %}" class="btn btn-sm btn-outline-light w-100">
+                <i class="bi bi-box-arrow-in-right me-1"></i> Login
+              </a>
+            </div>
+          {% endif %}
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+  (function() {
+    function handleNavbarScroll() {
+      var wrapper = document.querySelector('.clinic-navbar-wrapper');
+      var container = document.querySelector('.clinic-navbar-container');
+      if (!container) return;
+      var hasDarkHero = document.querySelector('.hero-gradient-section, .page-hero-banner');
+      var isScrolled = window.scrollY > 30 || !hasDarkHero;
+      if (isScrolled) {
+        container.classList.add('scrolled');
+        if (wrapper) wrapper.classList.add('scrolled');
+      } else {
+        container.classList.remove('scrolled');
+        if (wrapper) wrapper.classList.remove('scrolled');
+      }
+    }
+    window.addEventListener('scroll', handleNavbarScroll, { passive: true });
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', handleNavbarScroll);
+    } else {
+      handleNavbarScroll();
+    }
+  })();
+</script>
+

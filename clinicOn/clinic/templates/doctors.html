@@ -97,7 +97,7 @@
           <div class="col-md-6 col-lg-4">
             <div class="card card-hover h-100 overflow-hidden border-0 shadow-sm">
               <div class="position-relative">
-                <img src="${d.image}" alt="${d.name}" class="card-img-top" style="height:220px; object-fit:cover; width:100%;">
+                <img src="${d.image}" onerror="this.onerror=null; this.src='/static/assets/images/doctor-emily-wong.jpg';" alt="${d.name}" class="card-img-top" style="height:220px; object-fit:cover; width:100%;">
                 <span class="position-absolute top-0 end-0 m-3 badge bg-white text-dark shadow-sm fs-8 fw-bold">
                   <i class="bi bi-star-fill text-warning me-1"></i>${d.rating} (${d.reviewsCount})
                 </span>

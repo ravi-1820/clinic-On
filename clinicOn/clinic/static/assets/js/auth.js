@@ -115,9 +115,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const userRoles = document.querySelectorAll('.user-display-role');
     userRoles.forEach(el => el.textContent = session.role.toUpperCase());
 
-    const userAvatars = document.querySelectorAll('.user-display-avatar');
+    const userAvatars = document.querySelectorAll('.user-display-avatar, .clinic-navbar-profile span, .user-avatar-initials');
     userAvatars.forEach(el => {
-      el.textContent = session.name.split(' ').map(n => n[0]).join('');
+      const parts = session.name.trim().split(/\s+/).filter(Boolean);
+      const filtered = parts.filter(p => !['dr', 'mr', 'mrs', 'ms', 'prof'].includes(p.toLowerCase().replace('.', '')));
+      const useParts = filtered.length > 0 ? filtered : parts;
+      el.textContent = useParts.length >= 2 ? (useParts[0][0] + useParts[useParts.length - 1][0]).toUpperCase() : useParts[0][0].toUpperCase();
     });
   }
 

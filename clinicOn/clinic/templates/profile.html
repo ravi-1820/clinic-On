@@ -1,0 +1,776 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Profile - Clinic On{% endblock %}
+
+{% block extra_css %}
+<style>
+  /* Common Profile Page Clean & Simple Styling */
+  .profile-hero-section {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f766e 100%);
+    padding: 3.5rem 0 5rem;
+    position: relative;
+    overflow: hidden;
+    color: #ffffff;
+  }
+
+  .profile-hero-section .hero-shape {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.08;
+    background: #ffffff;
+  }
+  .profile-hero-section .shape-1 {
+    width: 320px;
+    height: 320px;
+    top: -80px;
+    right: -40px;
+  }
+  .profile-hero-section .shape-2 {
+    width: 220px;
+    height: 220px;
+    bottom: -60px;
+    left: 5%;
+  }
+
+  .profile-wrapper-container {
+    margin-top: -3.5rem;
+    margin-bottom: 4rem;
+    position: relative;
+    z-index: 10;
+  }
+
+  .profile-card {
+    background: var(--card-bg, #ffffff);
+    border: 1px solid var(--border-color, rgba(0, 0, 0, 0.08));
+    border-radius: 18px;
+    box-shadow: 0 12px 36px rgba(15, 23, 42, 0.08);
+    overflow: hidden;
+    transition: box-shadow 0.25s ease;
+  }
+
+  [data-theme="dark"] .profile-card {
+    background: #1e293b;
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+  }
+
+  /* Profile Header Banner inside Card */
+  .profile-card-header {
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.06) 0%, rgba(20, 184, 166, 0.08) 100%);
+    border-bottom: 1px solid var(--border-color, rgba(0, 0, 0, 0.06));
+    padding: 2rem 2.25rem;
+  }
+
+  [data-theme="dark"] .profile-card-header {
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.12) 0%, rgba(20, 184, 166, 0.15) 100%);
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .profile-avatar-circle {
+    width: 86px;
+    height: 86px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0ea5e9 0%, #10b981 100%);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.25rem;
+    font-weight: 700;
+    box-shadow: 0 8px 20px rgba(14, 165, 233, 0.32);
+    border: 4px solid #ffffff;
+    flex-shrink: 0;
+  }
+
+  [data-theme="dark"] .profile-avatar-circle {
+    border-color: #1e293b;
+  }
+
+  .profile-badge-pill {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.35rem 0.85rem;
+    border-radius: 30px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .badge-role-patient {
+    background: rgba(14, 165, 233, 0.12);
+    color: #0284c7;
+    border: 1px solid rgba(14, 165, 233, 0.28);
+  }
+  [data-theme="dark"] .badge-role-patient {
+    background: rgba(14, 165, 233, 0.22);
+    color: #38bdf8;
+  }
+
+  .badge-role-doctor {
+    background: rgba(16, 185, 129, 0.12);
+    color: #059669;
+    border: 1px solid rgba(16, 185, 129, 0.28);
+  }
+  [data-theme="dark"] .badge-role-doctor {
+    background: rgba(16, 185, 129, 0.22);
+    color: #34d399;
+  }
+
+  .badge-role-admin {
+    background: rgba(139, 92, 246, 0.12);
+    color: #7c3aed;
+    border: 1px solid rgba(139, 92, 246, 0.28);
+  }
+  [data-theme="dark"] .badge-role-admin {
+    background: rgba(139, 92, 246, 0.22);
+    color: #a78bfa;
+  }
+
+  /* Form Sections Styling */
+  .profile-form-body {
+    padding: 2.25rem;
+  }
+
+  .section-divider-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--primary, #0f766e);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1.25rem;
+    margin-top: 0.5rem;
+  }
+
+  .section-divider-title i {
+    font-size: 1.15rem;
+  }
+
+  .clean-field-group {
+    margin-bottom: 1.25rem;
+  }
+
+  .clean-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-color, #334155);
+    margin-bottom: 0.45rem;
+    display: block;
+  }
+
+  [data-theme="dark"] .clean-label {
+    color: #cbd5e1;
+  }
+
+  .clean-input-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .clean-input-icon {
+    position: absolute;
+    left: 1rem;
+    color: #94a3b8;
+    font-size: 1rem;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .clean-form-control {
+    width: 100%;
+    height: 48px;
+    padding: 0.65rem 1rem 0.65rem 2.65rem;
+    font-size: 0.92rem;
+    border: 1.5px solid var(--border-color, #e2e8f0);
+    border-radius: 10px;
+    background: var(--input-bg, #ffffff);
+    color: var(--text-color, #0f172a);
+    transition: all 0.2s ease;
+  }
+
+  .clean-form-control.no-icon {
+    padding-left: 1rem;
+  }
+
+  [data-theme="dark"] .clean-form-control {
+    background: #0f172a;
+    border-color: #334155;
+    color: #f8fafc;
+  }
+
+  .clean-form-control:focus {
+    border-color: #0ea5e9;
+    box-shadow: 0 0 0 3.5px rgba(14, 165, 233, 0.18);
+    outline: none;
+  }
+
+  .clean-form-control[readonly] {
+    background: #f8fafc;
+    color: #64748b;
+    cursor: not-allowed;
+  }
+
+  [data-theme="dark"] .clean-form-control[readonly] {
+    background: #172033;
+    color: #94a3b8;
+  }
+
+  .password-toggle-btn {
+    position: absolute;
+    right: 0.75rem;
+    background: none;
+    border: none;
+    color: #94a3b8;
+    font-size: 1.05rem;
+    cursor: pointer;
+    padding: 0.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.15s ease;
+  }
+
+  .password-toggle-btn:hover {
+    color: #0ea5e9;
+  }
+
+  .role-toggle-container {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .role-choice-card {
+    flex: 1;
+    min-width: 120px;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid var(--border-color, #e2e8f0);
+    border-radius: 10px;
+    background: var(--input-bg, #ffffff);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #475569;
+    transition: all 0.2s ease;
+    user-select: none;
+  }
+
+  [data-theme="dark"] .role-choice-card {
+    background: #0f172a;
+    border-color: #334155;
+    color: #cbd5e1;
+  }
+
+  .role-choice-card.active {
+    border-color: #0ea5e9;
+    background: rgba(14, 165, 233, 0.08);
+    color: #0284c7;
+  }
+
+  [data-theme="dark"] .role-choice-card.active {
+    background: rgba(14, 165, 233, 0.18);
+    color: #38bdf8;
+  }
+
+  .profile-action-bar {
+    border-top: 1px solid var(--border-color, rgba(0, 0, 0, 0.08));
+    padding-top: 1.75rem;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.85rem;
+  }
+
+  [data-theme="dark"] .profile-action-bar {
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .btn-save-profile {
+    background: linear-gradient(135deg, #0ea5e9 0%, #10b981 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    padding: 0.7rem 1.75rem;
+    font-weight: 600;
+    font-size: 0.92rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25);
+    transition: all 0.2s ease;
+  }
+
+  .btn-save-profile:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(16, 185, 129, 0.35);
+    color: #ffffff;
+  }
+
+  .btn-cancel-profile {
+    background: transparent;
+    border: 1.5px solid var(--border-color, #cbd5e1);
+    color: #64748b;
+    border-radius: 10px;
+    padding: 0.7rem 1.4rem;
+    font-weight: 600;
+    font-size: 0.92rem;
+    transition: all 0.2s ease;
+    text-decoration: none;
+  }
+
+  [data-theme="dark"] .btn-cancel-profile {
+    border-color: #475569;
+    color: #cbd5e1;
+  }
+
+  .btn-cancel-profile:hover {
+    background: rgba(0, 0, 0, 0.04);
+    color: #334155;
+  }
+
+  .btn-delete-account {
+    background: #fff1f2;
+    border: 1.5px solid #f43f5e;
+    color: #e11d48;
+    border-radius: 10px;
+    padding: 0.7rem 1.4rem;
+    font-weight: 600;
+    font-size: 0.92rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  .btn-delete-account:hover {
+    background: #e11d48;
+    color: #ffffff;
+    border-color: #e11d48;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(225, 29, 72, 0.25);
+  }
+
+  [data-theme="dark"] .btn-delete-account {
+    background: rgba(244, 63, 94, 0.12);
+    border-color: #f43f5e;
+    color: #fb7185;
+  }
+
+  [data-theme="dark"] .btn-delete-account:hover {
+    background: #e11d48;
+    color: #ffffff;
+  }
+
+  /* Success banner toast */
+  .profile-alert-toast {
+    display: none;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid #10b981;
+    color: #065f46;
+    padding: 0.85rem 1.25rem;
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    align-items: center;
+    gap: 0.65rem;
+    animation: fadeIn 0.3s ease forwards;
+  }
+  [data-theme="dark"] .profile-alert-toast {
+    background: rgba(16, 185, 129, 0.2);
+    color: #6ee7b7;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Profile Hero Header Banner -->
+<section class="profile-hero-section">
+  <div class="hero-shape shape-1"></div>
+  <div class="hero-shape shape-2"></div>
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <span class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 border border-white border-opacity-10 fs-8 mb-2">
+          <i class="bi bi-shield-check text-success"></i> Clinic On Account Center
+        </span>
+        <h1 class="fw-bold mb-2 fs-2">User Profile &amp; Settings</h1>
+        <p class="text-white-50 mb-0 fs-7">
+          Manage your personal medical records, contact credentials, and account details in one secure place.
+        </p>
+      </div>
+      <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+        <a href="{% url 'index' %}" class="btn btn-outline-light btn-sm rounded-pill px-3">
+          <i class="bi bi-arrow-left me-1"></i> Back to Home
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Main Profile Form Wrapper -->
+<div class="container profile-wrapper-container">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+
+      <div class="profile-card">
+        
+        <!-- Profile Header inside Card -->
+        <div class="profile-card-header d-flex flex-column flex-sm-row align-items-center gap-3 text-center text-sm-start">
+          <div class="profile-avatar-circle" id="profileAvatarText">
+            {{ user_initials|default:"U" }}
+          </div>
+          
+          <div class="flex-grow-1">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-sm-start gap-2 mb-1">
+              <h3 class="fw-bold mb-0 fs-4" id="headerProfileName">
+                {{ user.full_name|default:"Member Account" }}
+              </h3>
+              
+              <!-- Role Badge -->
+              {% if user.role == 'doctor' %}
+                <span class="profile-badge-pill badge-role-doctor">
+                  <i class="bi bi-heart-pulse-fill"></i> Doctor
+                </span>
+              {% elif user.role == 'admin' %}
+                <span class="profile-badge-pill badge-role-admin">
+                  <i class="bi bi-shield-lock-fill"></i> Administrator
+                </span>
+              {% else %}
+                <span class="profile-badge-pill badge-role-patient">
+                  <i class="bi bi-person-fill"></i> Patient
+                </span>
+              {% endif %}
+            </div>
+            
+            <p class="text-muted fs-7 mb-0 d-flex align-items-center justify-content-center justify-content-sm-start gap-2">
+              <i class="bi bi-envelope"></i>
+              <span id="headerProfileEmail">{{ user.email|default:"user@clinicon.org" }}</span>
+              <span class="opacity-50">&bull;</span>
+              <span class="text-success"><i class="bi bi-check-circle-fill me-1"></i>Active Account</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Form Body with Registration Fields -->
+        <div class="profile-form-body">
+          
+          <!-- Success Notification Toast -->
+          {% if msg1 %}
+          <div class="profile-alert-toast" id="profileSuccessAlert" style="display: flex;">
+            <i class="bi bi-check-circle-fill fs-5"></i>
+            <div>
+              <strong>Account updated!</strong> {{ msg1 }}
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- Error Notification Toast -->
+          {% if msg %}
+          <div class="profile-alert-toast" id="profileErrorAlert" style="display: flex; background: rgba(239, 68, 68, 0.12); border-color: #ef4444; color: #991b1b;">
+            <i class="bi bi-exclamation-triangle-fill fs-5 text-danger"></i>
+            <div>
+              <strong>Error!</strong> {{ msg }}
+            </div>
+          </div>
+          {% endif %}
+
+          <form id="commonProfileForm" method="POST" action="{% url 'profile' %}" novalidate>
+            {% csrf_token %}
+
+            <input type="hidden" name="role" value="{{ user.role|default:'patient' }}">
+
+            <!-- SECTION 2: PERSONAL INFORMATION (Same as Registration) -->
+            <div class="section-divider-title">
+              <i class="bi bi-person-vcard"></i>
+              <span>Personal Information</span>
+            </div>
+
+            <div class="row g-3">
+              <!-- Full Name -->
+              <div class="col-md-6 col-12">
+                <div class="clean-field-group">
+                  <label class="clean-label" for="profileFullName">Full Name</label>
+                  <div class="clean-input-box">
+                    <i class="bi bi-person clean-input-icon"></i>
+                    <input type="text" class="clean-form-control" id="profileFullName" name="full_name" placeholder="Enter Full Name" value="{{ user.full_name|default:'' }}" required>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Email Address -->
+              <div class="col-md-6 col-12">
+                <div class="clean-field-group">
+                  <label class="clean-label" for="profileEmail">Email Address</label>
+                  <div class="clean-input-box">
+                    <i class="bi bi-envelope clean-input-icon"></i>
+                    <input type="email" class="clean-form-control" id="profileEmail" name="email" placeholder="name@example.com" value="{{ user.email|default:'' }}" readonly title="Email cannot be modified directly">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Phone Number -->
+              <div class="col-md-6 col-12">
+                <div class="clean-field-group">
+                  <label class="clean-label" for="profilePhone">Phone Number</label>
+                  <div class="clean-input-box">
+                    <i class="bi bi-telephone clean-input-icon"></i>
+                    <input type="tel" class="clean-form-control" id="profilePhone" name="phone" placeholder="+91 98765 43210" value="{{ user.phone|default:'' }}" required>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Date of Birth -->
+              <div class="col-md-6 col-12">
+                <div class="clean-field-group">
+                  <label class="clean-label" for="profileDob">Date of Birth</label>
+                  <div class="clean-input-box">
+                    <i class="bi bi-calendar-date clean-input-icon"></i>
+                    <input type="date" class="clean-form-control" id="profileDob" name="date_of_birth" value="{{ user.date_of_birth|date:'Y-m-d'|default:user.date_of_birth|default:'' }}" required>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Gender -->
+              <div class="col-md-6 col-12">
+                <div class="clean-field-group">
+                  <label class="clean-label" for="profileGender">Gender</label>
+                  <div class="clean-input-box">
+                    <i class="bi bi-gender-ambiguous clean-input-icon"></i>
+                    <select class="clean-form-control" id="profileGender" name="gender" required>
+                      <option value="male" {% if user.gender == 'male' %}selected{% endif %}>Male</option>
+                      <option value="female" {% if user.gender == 'female' %}selected{% endif %}>Female</option>
+                      <option value="other" {% if user.gender == 'other' %}selected{% endif %}>Other</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Blood Group -->
+              <div class="col-md-6 col-12">
+                <div class="clean-field-group">
+                  <label class="clean-label" for="profileBloodGroup">Blood Group</label>
+                  <div class="clean-input-box">
+                    <i class="bi bi-droplet clean-input-icon"></i>
+                    <select class="clean-form-control" id="profileBloodGroup" name="blood_group">
+                      <option value="O+" {% if user.blood_group == 'O+' %}selected{% endif %}>O+</option>
+                      <option value="A+" {% if user.blood_group == 'A+' %}selected{% endif %}>A+</option>
+                      <option value="B+" {% if user.blood_group == 'B+' %}selected{% endif %}>B+</option>
+                      <option value="AB+" {% if user.blood_group == 'AB+' %}selected{% endif %}>AB+</option>
+                      <option value="O-" {% if user.blood_group == 'O-' %}selected{% endif %}>O-</option>
+                      <option value="A-" {% if user.blood_group == 'A-' %}selected{% endif %}>A-</option>
+                      <option value="B-" {% if user.blood_group == 'B-' %}selected{% endif %}>B-</option>
+                      <option value="AB-" {% if user.blood_group == 'AB-' %}selected{% endif %}>AB-</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SECTION 3: RESIDENTIAL ADDRESS (Same as Registration) -->
+            <div class="section-divider-title mt-4">
+              <i class="bi bi-geo-alt"></i>
+              <span>Address &amp; Location</span>
+            </div>
+
+            <div class="row g-3">
+              <div class="col-12">
+                <div class="clean-field-group">
+                  <label class="clean-label" for="profileAddress">Residential Address</label>
+                  <div class="clean-input-box">
+                    <i class="bi bi-house-door clean-input-icon"></i>
+                    <input type="text" class="clean-form-control" id="profileAddress" name="address" placeholder="Enter street address, building, or city" value="{{ user.address|default:'' }}" required>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SECTION 4: SECURITY & PASSWORD (Same as Registration) -->
+            <div class="section-divider-title mt-4">
+              <i class="bi bi-shield-lock"></i>
+              <span>Security &amp; Password</span>
+            </div>
+
+            <div class="row g-3">
+              <!-- Password -->
+              <div class="col-md-6 col-12">
+                <div class="clean-field-group">
+                  <label class="clean-label" for="profilePassword">New Password</label>
+                  <div class="clean-input-box">
+                    <i class="bi bi-key clean-input-icon"></i>
+                    <input type="password" class="clean-form-control is-password" id="profilePassword" name="password" placeholder="Leave blank to keep unchanged">
+                    <button type="button" class="password-toggle-btn" data-target="profilePassword" title="Toggle password visibility">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Confirm Password -->
+              <div class="col-md-6 col-12">
+                <div class="clean-field-group">
+                  <label class="clean-label" for="profileConfirmPassword">Confirm Password</label>
+                  <div class="clean-input-box">
+                    <i class="bi bi-key-fill clean-input-icon"></i>
+                    <input type="password" class="clean-form-control is-password" id="profileConfirmPassword" name="confirm_password" placeholder="Re-enter password">
+                    <button type="button" class="password-toggle-btn" data-target="profileConfirmPassword" title="Toggle password visibility">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Form Action Buttons -->
+            <div class="profile-action-bar">
+              <a href="{% url 'index' %}" class="btn-cancel-profile">Cancel</a>
+              <button type="submit" class="btn-save-profile" id="btnUpdateAccount">
+                <i class="bi bi-arrow-repeat"></i>
+                <span>Update Account</span>
+              </button>
+              <button type="button" class="btn-delete-account" id="btnDeleteAccount" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
+                <i class="bi bi-trash3"></i>
+                <span>Delete Account</span>
+              </button>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Delete Account Confirmation Modal (Frontend Only) -->
+<div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius: 16px; border: 1px solid var(--border-color, #e2e8f0); overflow: hidden; background: var(--card-bg, #ffffff);">
+      <div class="modal-header border-0 pb-0 pt-4 px-4">
+        <div class="d-flex align-items-center gap-3">
+          <div style="width: 44px; height: 44px; border-radius: 50%; background: #fee2e2; color: #dc2626; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+          </div>
+          <div>
+            <h5 class="modal-title fw-bold mb-0" id="deleteAccountModalLabel" style="color: var(--text-heading, #0f172a);">Delete Account</h5>
+            <small class="text-muted">Permanent action confirmation</small>
+          </div>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body px-4 py-3">
+        <p class="text-secondary mb-0" style="font-size: 0.93rem; line-height: 1.6;">
+          Are you sure you want to delete your account? All your personal records, appointments, and credentials will be permanently removed. This action cannot be undone.
+        </p>
+      </div>
+      <div class="modal-footer border-0 px-4 pb-4 pt-2 gap-2">
+        <button type="button" class="btn-cancel-profile" data-bs-dismiss="modal">Cancel</button>
+        <form method="POST" action="{% url 'delete_account' %}" style="display: inline-block; margin: 0;">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger px-3 py-2 fw-semibold" id="confirmDeleteAccountBtn" style="border-radius: 10px; background: #dc2626; border: none;">
+            <i class="bi bi-trash3 me-1"></i> Yes, Delete Account
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // 1. Pre-fill from ClinicStore session if fields are empty
+    if (typeof ClinicStore !== 'undefined' && ClinicStore.getSession) {
+      const session = ClinicStore.getSession();
+      if (session) {
+        const nameInput = document.getElementById('profileFullName');
+        const emailInput = document.getElementById('profileEmail');
+        const headerName = document.getElementById('headerProfileName');
+        const headerEmail = document.getElementById('headerProfileEmail');
+        const avatarCircle = document.getElementById('profileAvatarText');
+
+        if (nameInput && !nameInput.value && session.name) {
+          nameInput.value = session.name;
+        }
+        if (emailInput && !emailInput.value && session.email) {
+          emailInput.value = session.email;
+        }
+        if (headerName && (!headerName.textContent.trim() || headerName.textContent.includes('Member Account')) && session.name) {
+          headerName.textContent = session.name;
+        }
+        if (headerEmail && (!headerEmail.textContent.trim() || headerEmail.textContent.includes('user@clinicon.org')) && session.email) {
+          headerEmail.textContent = session.email;
+        }
+        if (avatarCircle && session.name) {
+          const parts = session.name.trim().split(/\s+/).filter(Boolean);
+          const filtered = parts.filter(p => !['dr', 'mr', 'mrs', 'ms', 'prof'].includes(p.toLowerCase().replace('.', '')));
+          const useParts = filtered.length > 0 ? filtered : parts;
+          avatarCircle.textContent = useParts.length >= 2 ? (useParts[0][0] + useParts[useParts.length - 1][0]).toUpperCase() : useParts[0][0].toUpperCase();
+        }
+      }
+    }
+
+    // 2. Password Visibility Toggles
+    document.querySelectorAll('.password-toggle-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-target');
+        const input = document.getElementById(targetId);
+        if (input) {
+          const isPass = input.getAttribute('type') === 'password';
+          input.setAttribute('type', isPass ? 'text' : 'password');
+          btn.innerHTML = isPass ? '<i class="bi bi-eye-slash"></i>' : '<i class="bi bi-eye"></i>';
+        }
+      });
+    });
+
+    // 3. Update Account Button & Password Validation
+    const form = document.getElementById('commonProfileForm');
+    const updateBtn = document.getElementById('btnUpdateAccount') || document.getElementById('btnSaveProfile');
+
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        const pwd = document.getElementById('profilePassword').value;
+        const confirmPwd = document.getElementById('profileConfirmPassword').value;
+
+        if (pwd && pwd !== confirmPwd) {
+          e.preventDefault();
+          alert('Passwords do not match! Please verify your password entry.');
+          return;
+        }
+
+        if (updateBtn) {
+          updateBtn.disabled = true;
+          updateBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status"></span> Updating Account...';
+        }
+      });
+    }
+
+    // 4. Delete Account Form Handler
+    const confirmDeleteBtn = document.getElementById('confirmDeleteAccountBtn');
+    if (confirmDeleteBtn) {
+      confirmDeleteBtn.addEventListener('click', (e) => {
+        confirmDeleteBtn.disabled = true;
+        confirmDeleteBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status"></span> Deleting...';
+        confirmDeleteBtn.closest('form').submit();
+      });
+    }
+  });
+</script>
+{% endblock %}

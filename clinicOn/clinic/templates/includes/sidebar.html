@@ -2,10 +2,17 @@
 <!-- Compact Floating Sidebar -->
 <aside class="sidebar">
   <div class="sidebar-header">
+    {% if role == 'patient' %}
     <a class="brand-logo-text" href="{% url 'index' %}">
       <span class="brand-icon-box"><i class="bi bi-heart-pulse-fill"></i></span>
       <span>Clinic <span class="brand-gradient-part">On</span></span>
     </a>
+    {% else %}
+    <div class="brand-logo-text">
+      <span class="brand-icon-box"><i class="bi bi-heart-pulse-fill"></i></span>
+      <span>Clinic <span class="brand-gradient-part">On</span></span>
+    </div>
+    {% endif %}
   </div>
 
   <div class="sidebar-menu">
@@ -54,6 +61,7 @@
         <li class="nav-item"><a href="{% url 'admin_appointments' %}" class="nav-link-item {% if request.resolver_match.url_name == 'admin_appointments' %}active{% endif %}"><i class="bi bi-calendar-check"></i><span>Appointments</span></a></li>
         <li class="nav-item"><a href="{% url 'admin_patients' %}" class="nav-link-item {% if request.resolver_match.url_name == 'admin_patients' %}active{% endif %}"><i class="bi bi-people"></i><span>Patients</span></a></li>
         <li class="nav-item"><a href="{% url 'admin_doctors' %}" class="nav-link-item {% if request.resolver_match.url_name == 'admin_doctors' %}active{% endif %}"><i class="bi bi-person-badge"></i><span>Doctors</span></a></li>
+        <li class="nav-item"><a href="{% url 'index' %}" class="nav-link-item {% if request.resolver_match.url_name == 'index' %}active{% endif %}"><i class="bi bi-globe"></i><span>Client View</span></a></li>
       </ul>
 
       <div class="sidebar-label">CLINICAL</div>
@@ -72,7 +80,7 @@
   <div class="sidebar-footer">
     <div class="d-flex align-items-center gap-2">
       <div class="avatar user-display-avatar">
-        {% if request.session.name %}{{ request.session.name|slice:":1"|upper }}{% elif role == 'doctor' %}D{% elif role == 'patient' %}P{% else %}A{% endif %}
+        {{ user_initials|default:"U" }}
       </div>
       <div class="overflow-hidden">
         <div class="fw-bold fs-8 user-display-name text-truncate">

@@ -5,6 +5,7 @@ class User(models.Model):
     ROLE_CHOICES = [
         ('patient', 'Patient'),
         ('doctor', 'Doctor'),
+        ('admin', 'Admin'),
     ]
     GENDER_CHOICES = [
         ('male', 'Male'),

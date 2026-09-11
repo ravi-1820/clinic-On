@@ -897,9 +897,9 @@
             {% csrf_token %}
             <!-- Email Field -->
             <div class="glass-form-group">
-              <label class="glass-field-label" for="loginEmail">Email Address</label>
+              <label class="glass-field-label" for="loginEmail">Email Address or Username</label>
               <div class="glass-input-container">
-                <input type="email" name="email" class="glass-input-field" id="loginEmail" placeholder="Enter Email" autocomplete="email">
+                <input type="text" name="email" class="glass-input-field" id="loginEmail" placeholder="Enter Email or Username" autocomplete="username" required>
               </div>
             </div>
 

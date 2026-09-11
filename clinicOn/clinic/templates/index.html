@@ -3,6 +3,272 @@
 
 {% block title %}Clinic On - Next-Gen Healthcare SaaS Platform{% endblock %}
 
+{% block extra_css %}
+<style>
+  /* ==========================================================================
+     Scoped Hero & Reference 4 Feature Cards (Immediate Cache-Bust)
+     ========================================================================== */
+  .hero-gradient-section {
+    position: relative !important;
+    background: radial-gradient(circle at 82% 38%, rgba(20, 184, 166, 0.38) 0%, rgba(6, 182, 212, 0.18) 32%, transparent 65%),
+                linear-gradient(124deg, #0b1f54 0%, #0f3579 26%, #0b5485 55%, #0a848c 82%, #0ea57a 100%) !important;
+    color: #ffffff !important;
+    padding: 8rem 0 0 !important;
+    overflow: visible !important;
+  }
+
+  .hero-geometric-bg {
+    position: absolute !important;
+    inset: 0 !important;
+    overflow: hidden !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+  }
+
+  .hero-content-relative {
+    position: relative !important;
+    z-index: 10 !important;
+  }
+
+  .hero-tag-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.45rem !important;
+    padding: 0.42rem 1.05rem !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.22) !important;
+    border-radius: 50px !important;
+    font-size: 0.76rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.06em !important;
+    text-transform: uppercase !important;
+    color: rgba(255, 255, 255, 0.95) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  .hero-headline {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+    font-size: clamp(2.6rem, 4.4vw, 4rem) !important;
+    font-weight: 800 !important;
+    line-height: 1.12 !important;
+    letter-spacing: -0.035em !important;
+    color: #ffffff !important;
+    margin-bottom: 1.25rem !important;
+    text-shadow: 0 4px 24px rgba(10, 30, 80, 0.25) !important;
+  }
+
+  .hero-lead {
+    color: rgba(255, 255, 255, 0.88) !important;
+    font-size: 1.05rem !important;
+    line-height: 1.65 !important;
+    max-width: 520px !important;
+    font-weight: 400 !important;
+    margin-bottom: 1.75rem !important;
+  }
+
+  .btn-hero-cta-emerald {
+    background: #10b981 !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    padding: 0.72rem 1.75rem !important;
+    border-radius: 50px !important;
+    border: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45) !important;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    text-decoration: none !important;
+  }
+  .btn-hero-cta-emerald:hover {
+    background: #059669 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 10px 25px rgba(16, 185, 129, 0.6) !important;
+    color: #ffffff !important;
+  }
+
+  .btn-hero-cta-white {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    padding: 0.72rem 1.75rem !important;
+    border-radius: 50px !important;
+    border: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12) !important;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    text-decoration: none !important;
+  }
+  .btn-hero-cta-white:hover {
+    background: #f8fafc !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2) !important;
+    color: #0f172a !important;
+  }
+
+  .hero-doctor-wrapper {
+    position: relative !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    max-width: 600px !important;
+    margin: 0 auto !important;
+  }
+
+  .hero-organic-doctor-frame {
+    position: relative !important;
+    width: 100% !important;
+    border-radius: 46% 54% 50% 50% / 36% 44% 56% 64% !important;
+    overflow: hidden !important;
+    background: #ffffff !important;
+    box-shadow: 0 25px 60px -10px rgba(6, 18, 50, 0.5), 0 0 50px rgba(6, 182, 212, 0.35) !important;
+    border: 4px solid rgba(255, 255, 255, 0.65) !important;
+    z-index: 2 !important;
+  }
+
+  .hero-doctor-img {
+    width: 100% !important;
+    height: 420px !important;
+    object-fit: cover !important;
+    object-position: center 12% !important;
+    display: block !important;
+  }
+
+  .hero-ecg-overlay {
+    position: absolute !important;
+    top: 48% !important;
+    left: -5% !important;
+    width: 110% !important;
+    transform: translateY(-50%) !important;
+    pointer-events: none !important;
+    z-index: 6 !important;
+  }
+
+  .hero-ecg-svg {
+    width: 100% !important;
+    height: 90px !important;
+    display: block !important;
+    filter: drop-shadow(0 0 10px rgba(34, 211, 238, 0.95)) !important;
+  }
+
+  /* 4 Floating Overlap Feature Cards */
+  .hero-features-bottom-row {
+    position: relative !important;
+    z-index: 30 !important;
+    margin-bottom: -55px !important;
+    margin-top: 3.5rem !important;
+  }
+
+  .hero-feature-card-ref {
+    background: #ffffff !important;
+    border-radius: 20px !important;
+    padding: 1.2rem 1.3rem !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.95rem !important;
+    box-shadow: 0 14px 35px -5px rgba(8, 28, 72, 0.12), 0 3px 10px rgba(0, 0, 0, 0.04) !important;
+    border: 1px solid rgba(226, 232, 240, 0.9) !important;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease !important;
+    min-height: 98px !important;
+    height: 100% !important;
+  }
+
+  .hero-feature-card-ref:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 20px 42px rgba(8, 28, 72, 0.18) !important;
+    border-color: rgba(16, 185, 129, 0.4) !important;
+  }
+
+  [data-theme="dark"] .hero-feature-card-ref {
+    background: #0f172a !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.35) !important;
+  }
+
+  .hero-feature-icon-ref {
+    width: 52px !important;
+    height: 52px !important;
+    flex-shrink: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .hero-feature-icon-ref svg {
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+  }
+
+  .hero-feature-text-ref {
+    flex: 1 !important;
+    min-width: 0 !important;
+  }
+
+  .hero-feature-title-ref {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 0.98rem !important;
+    color: #0f172a !important;
+    margin-bottom: 0.25rem !important;
+    line-height: 1.25 !important;
+  }
+
+  [data-theme="dark"] .hero-feature-title-ref {
+    color: #f8fafc !important;
+  }
+
+  .hero-feature-sub-ref {
+    font-size: 0.8rem !important;
+    color: #475569 !important;
+    line-height: 1.35 !important;
+    margin-bottom: 0 !important;
+  }
+
+  [data-theme="dark"] .hero-feature-sub-ref {
+    color: #94a3b8 !important;
+  }
+
+  /* Statistics Section directly following Hero */
+  .stats-section-after-hero {
+    position: relative !important;
+    z-index: 5 !important;
+    background: #ffffff !important;
+    padding-top: 5.5rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  [data-theme="dark"] .stats-section-after-hero {
+    background: #0b1329 !important;
+  }
+
+  @media (max-width: 991.98px) {
+    .hero-features-bottom-row {
+      margin-bottom: -40px !important;
+      margin-top: 2rem !important;
+    }
+    .stats-section-after-hero {
+      padding-top: 4.5rem !important;
+    }
+  }
+
+  @media (max-width: 575.98px) {
+    .hero-features-bottom-row {
+      margin-bottom: -30px !important;
+      margin-top: 1.5rem !important;
+    }
+    .stats-section-after-hero {
+      padding-top: 3.5rem !important;
+    }
+  }
+</style>
+{% endblock %}
+
 {% block content %}
 
 <section class="hero-gradient-section">
@@ -41,171 +307,176 @@
   </div>
 
   <div class="container hero-content-relative">
-    <div class="row align-items-center g-4 g-xl-5">
+    <div class="row align-items-center g-4 g-xl-5 mb-5 pb-lg-2">
 
       <!-- Left Hero Copy -->
       <div class="col-lg-6">
-        <!-- Glass Badge -->
-        <div class="glass-badge mb-3">
-          <i class="bi bi-shield-check"></i>
-          <span>2026 Next-Gen Healthcare Platform</span>
+        <!-- Glass Tag Badge -->
+        <div class="hero-tag-badge mb-3">
+          <i class="bi bi-gem text-info me-1.5"></i>
+          <span>2026 NEXT-GEN HEALTHCARE PLATFORM</span>
         </div>
 
-        <h1 class="hero-title mb-3">
-          Better Care. <br>
-          <span class="gradient-text-emerald">Better Every Day.</span>
+        <h1 class="hero-headline mb-3">
+          Better Care.<br>
+          Better Every Day.
         </h1>
 
-        <p class="hero-subtitle mb-4">
-          Book appointments, connect with trusted specialists, manage medical records, and access digital prescriptions
-          — all in one place.
+        <p class="hero-lead mb-4">
+          Book appointments, connect with trusted specialists, manage medical records, and access digital prescriptions — all in one.
         </p>
 
-        <div class="d-flex flex-wrap gap-3 mb-4">
-          <a href="{% url 'patient_book_appointment' %}" class="btn btn-emerald-pill btn-lg px-4 py-2.5">
-            <i class="bi bi-calendar-check me-2"></i>Book Appointment
-          </a>
-          <a href="{% url 'doctors' %}" class="btn btn-glass btn-lg px-4 py-2.5">
-            <i class="bi bi-search me-2"></i>Find a Doctor
-          </a>
-        </div>
-
-        <!-- Trust Indicators -->
-        <div class="d-flex align-items-center gap-3 pt-3 border-top border-white border-opacity-10">
+        <!-- Social Proof Trust -->
+        <div class="d-flex align-items-center gap-3 mb-4">
           <div class="avatar-group">
-            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80"
-              alt="Patient">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80"
-              alt="Patient">
-            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80"
-              alt="Patient">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" alt="Patient">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80" alt="Patient">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80" alt="Patient">
           </div>
           <div>
             <div class="d-flex text-warning fs-8 mb-0.5">
-              <i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i
-                class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill ms-1"></i>
+              <i class="bi bi-star-fill ms-1"></i>
+              <i class="bi bi-star-fill ms-1"></i>
+              <i class="bi bi-star-fill ms-1"></i>
             </div>
-            <span class="text-white-50 fs-8"><strong>4.9/5 Rating</strong> by over 10,000+ patients</span>
+            <span class="text-white-50 fs-8"><strong class="text-white">4.9/5 Rating</strong> by over 10,000+ patients</span>
           </div>
+        </div>
+
+        <!-- 2 Clean CTA Buttons -->
+        <div class="d-flex flex-wrap align-items-center gap-3">
+          <a href="{% url 'patient_book_appointment' %}" class="btn btn-hero-cta-emerald">
+            <i class="bi bi-calendar2-check me-2"></i>Book Appointment
+          </a>
+          <a href="{% url 'doctors' %}" class="btn btn-hero-cta-white">
+            <i class="bi bi-search me-2"></i>Find a Doctor
+          </a>
         </div>
       </div>
 
-      <!-- Right Hero Visual Composition with 4 Options Outside Image -->
+      <!-- Right Hero Visual: Specialist Doctor Team in Organic Glow Frame with Glowing ECG -->
       <div class="col-lg-6">
-        <div class="hero-visual-stage">
-          <!-- Doctor Image Frame (Completely Clean & Unblocked) -->
-          <div class="hero-main-frame mb-3">
-            <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&auto=format&fit=crop&q=80"
-              alt="Doctor Consultation" class="hero-main-img img-fluid">
+        <div class="hero-doctor-wrapper">
+          <div class="hero-organic-doctor-frame">
+            <img src="{% static 'assets/images/hero-doctor-team.jpg' %}" alt="Clinic On Certified Specialist Doctors" class="hero-doctor-img">
           </div>
-
-          <!-- 4 Options Placed Completely OUTSIDE the Image in a Sleek 2x2 Frosted Glass Grid -->
-          <div class="row g-3 w-100 hero-features-outside-grid mx-auto">
-            <!-- Option 1: 24/7 Support -->
-            <div class="col-sm-6">
-              <div class="hero-outside-card">
-                <div class="hero-outside-icon bg-pastel-mint"><i class="bi bi-headset"></i></div>
-                <div>
-                  <div class="fw-bold fs-7 mb-0 text-white">24/7 Support</div>
-                  <small class="text-white-50 fs-8">Always here for care</small>
-                </div>
-              </div>
-            </div>
-
-            <!-- Option 2: 100+ Doctors -->
-            <div class="col-sm-6">
-              <div class="hero-outside-card">
-                <div class="hero-outside-icon bg-pastel-blue"><i class="bi bi-award"></i></div>
-                <div>
-                  <div class="fw-bold fs-7 mb-0 text-white">100+ Doctors</div>
-                  <small class="text-white-50 fs-8">Verified specialists</small>
-                </div>
-              </div>
-            </div>
-
-            <!-- Option 3: 10K+ Patients -->
-            <div class="col-sm-6">
-              <div class="hero-outside-card">
-                <div class="hero-outside-icon bg-pastel-cyan"><i class="bi bi-people"></i></div>
-                <div>
-                  <div class="fw-bold fs-7 mb-0 text-white">10K+ Patients</div>
-                  <small class="text-white-50 fs-8">Happy patient reviews</small>
-                </div>
-              </div>
-            </div>
-
-            <!-- Option 4: Digital Records -->
-            <div class="col-sm-6">
-              <div class="hero-outside-card">
-                <div class="hero-outside-icon bg-pastel-purple"><i class="bi bi-file-earmark-medical"></i></div>
-                <div>
-                  <div class="fw-bold fs-7 mb-0 text-white">Digital Records</div>
-                  <small class="text-white-50 fs-8">Instant RX &amp; reports</small>
-                </div>
-              </div>
-            </div>
+          <!-- Glowing Teal ECG Wave Overlay -->
+          <div class="hero-ecg-overlay">
+            <svg viewBox="0 0 600 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="hero-ecg-svg">
+              <path d="M0 60 H180 L195 15 L210 105 L225 35 L240 75 L250 60 H340 L355 15 L370 105 L385 35 L400 75 L410 60 H600" 
+                    stroke="#22d3ee" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </div>
-
         </div>
       </div>
 
     </div>
-  </div>
-</section>
 
-<!-- ==========================================================================
-       2. Overlapping Feature Cards Section
-       ========================================================================== -->
-<section class="hero-feature-overlap mb-5">
-  <div class="container">
-    <div class="row g-4">
-      <!-- Feature 1 -->
-      <div class="col-md-6 col-lg-3">
-        <div class="glass-feature-box">
-          <div class="pastel-icon-box bg-pastel-blue"><i class="bi bi-calendar-event"></i></div>
-          <h6 class="fw-bold mb-1.5">Easy Appointments</h6>
-          <p class="text-muted fs-7 mb-0">Book specialist appointments in just a few clicks with instant live
-            confirmations.</p>
+    <!-- 4 Bottom Feature Cards Matching Reference Design -->
+    <div class="row g-3 g-xl-4 hero-features-bottom-row">
+      <!-- Card 1: 24/7 Telehealth -->
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="hero-feature-card-ref">
+          <div class="hero-feature-icon-ref">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Laptop screen -->
+              <rect x="7" y="11" width="34" height="23" rx="3.5" stroke="#0f766e" stroke-width="2.2" fill="#f0fdfa"/>
+              <!-- Laptop base -->
+              <path d="M3 34H45C46.1 34 46.8 35.1 46.2 36L44.5 38H3.5L1.8 36C1.2 35.1 1.9 34 3 34Z" fill="#e6fffa" stroke="#0f766e" stroke-width="2"/>
+              <!-- User in screen -->
+              <circle cx="21" cy="20" r="4" stroke="#0f766e" stroke-width="2" fill="#ffffff"/>
+              <path d="M14 29C14 26 17 25 21 25C25 25 28 26 28 29" stroke="#0f766e" stroke-width="2" stroke-linecap="round"/>
+              <!-- Chat message bubble on top right -->
+              <path d="M28 6H39C40.65 6 42 7.35 42 9V15C42 16.65 40.65 18 39 18H35L31 22V18H28C26.35 18 25 16.65 25 15V9C25 7.35 26.35 6 28 6Z" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
+              <line x1="29" y1="10.5" x2="38" y2="10.5" stroke="#059669" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="29" y1="13.5" x2="35" y2="13.5" stroke="#059669" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="hero-feature-text-ref">
+            <h6 class="hero-feature-title-ref">24/7 Telehealth</h6>
+            <p class="hero-feature-sub-ref">Instantly consult with a doctor from anywhere.</p>
+          </div>
         </div>
       </div>
 
-      <!-- Feature 2 -->
-      <div class="col-md-6 col-lg-3">
-        <div class="glass-feature-box">
-          <div class="pastel-icon-box bg-pastel-teal"><i class="bi bi-person-badge"></i></div>
-          <h6 class="fw-bold mb-1.5">Expert Doctors</h6>
-          <p class="text-muted fs-7 mb-0">Consult with highly qualified, board-certified medical doctors and surgeons.
-          </p>
+      <!-- Card 2: Specialist Network -->
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="hero-feature-card-ref">
+          <div class="hero-feature-icon-ref">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Doctor portrait with stethoscope -->
+              <circle cx="20" cy="14" r="6" stroke="#0f172a" stroke-width="2.2" fill="#f8fafc"/>
+              <path d="M8 38C8 30 13 26 20 26C27 26 32 30 32 38" stroke="#0f172a" stroke-width="2.2" fill="#f8fafc"/>
+              <!-- Stethoscope around neck -->
+              <path d="M15 26V30C15 32.8 17.2 35 20 35C22.8 35 25 32.8 25 30V26" stroke="#0284c7" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="20" cy="37" r="2" fill="#10b981" stroke="#0284c7" stroke-width="1.5"/>
+              <!-- Heart with ECG pulse -->
+              <path d="M36 17C36 17 33.5 14 31 16.5C28.5 19 31 22.5 36 27C41 22.5 43.5 19 41 16.5C38.5 14 36 17 36 17Z" fill="#ecfdf5" stroke="#10b981" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M32 20.5H34L35.2 18L36.8 23L38 20.5H40" stroke="#059669" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="hero-feature-text-ref">
+            <h6 class="hero-feature-title-ref">Specialist Network</h6>
+            <p class="hero-feature-sub-ref">Direct access to 100+ verified and rated specialists.</p>
+          </div>
         </div>
       </div>
 
-      <!-- Feature 3 -->
-      <div class="col-md-6 col-lg-3">
-        <div class="glass-feature-box">
-          <div class="pastel-icon-box bg-pastel-cyan"><i class="bi bi-prescription2"></i></div>
-          <h6 class="fw-bold mb-1.5">Digital Prescriptions</h6>
-          <p class="text-muted fs-7 mb-0">Access and download digital prescriptions generated directly by your
-            physician.</p>
+      <!-- Card 3: Comprehensive Checkups -->
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="hero-feature-card-ref">
+          <div class="hero-feature-icon-ref">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Healthcare clinician -->
+              <circle cx="20" cy="14" r="6" stroke="#0f172a" stroke-width="2.2" fill="#f8fafc"/>
+              <path d="M8 38C8 30 13 26 20 26C27 26 32 30 32 38" stroke="#0f172a" stroke-width="2.2" fill="#f8fafc"/>
+              <path d="M16 26L20 31L24 26" stroke="#0ea5e9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Medical Plus badge -->
+              <rect x="29" y="16" width="16" height="16" rx="4" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
+              <path d="M37 20V28M33 24H41" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="hero-feature-text-ref">
+            <h6 class="hero-feature-title-ref">Comprehensive Checkups</h6>
+            <p class="hero-feature-sub-ref">Personalized care plans for your long-term health.</p>
+          </div>
         </div>
       </div>
 
-      <!-- Feature 4 -->
-      <div class="col-md-6 col-lg-3">
-        <div class="glass-feature-box">
-          <div class="pastel-icon-box bg-pastel-mint"><i class="bi bi-shield-check"></i></div>
-          <h6 class="fw-bold mb-1.5">Secure Medical Records</h6>
-          <p class="text-muted fs-7 mb-0">HIPAA compliant 256-bit encrypted medical data and confidential consultation
-            history.</p>
+      <!-- Card 4: Integrated MyHealth Records -->
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="hero-feature-card-ref">
+          <div class="hero-feature-icon-ref">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Medical folder -->
+              <path d="M6 22H16L19 25H41C42.1 25 43 25.9 43 27V39C43 40.1 42.1 41 41 41H6C4.9 41 4 40.1 4 39V24C4 22.9 4.9 22 6 22Z" fill="#f0fdfa" stroke="#0f766e" stroke-width="2"/>
+              <!-- Shield with checkmark -->
+              <path d="M8 9L16 6L24 9V16C24 20.5 16 24 16 24C16 24 8 20.5 8 16V9Z" fill="#ecfdf5" stroke="#10b981" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M12.5 14.5L15 17L19.5 12" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Microscope -->
+              <circle cx="34" cy="11" r="2.5" stroke="#0284c7" stroke-width="1.8"/>
+              <path d="M34 13.5V20" stroke="#0284c7" stroke-width="2"/>
+              <path d="M30.5 16.5H37.5" stroke="#0284c7" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M30 22C30 20 37 20 37 22" stroke="#0284c7" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="hero-feature-text-ref">
+            <h6 class="hero-feature-title-ref">Integrated MyHealth Records</h6>
+            <p class="hero-feature-sub-ref">Instant access to test results and histories.</p>
+          </div>
         </div>
       </div>
     </div>
+
   </div>
 </section>
 
 <!-- ==========================================================================
        3. Statistics Section
        ========================================================================== -->
-<section class="py-4 my-3">
+<section class="stats-section-after-hero py-4">
   <div class="container">
     <div class="stats-strip-container">
       <div class="row g-4 text-center align-items-center">
@@ -446,7 +717,7 @@
           <div class="col-md-6 col-lg-4">
             <div class="card card-hover h-100 overflow-hidden border-0 shadow-sm">
               <div class="position-relative">
-                <img src="${doc.image}" alt="${doc.name}" style="height:210px; object-fit:cover; width:100%;" class="card-img-top">
+                <img src="${doc.image}" onerror="this.onerror=null; this.src='/static/assets/images/doctor-emily-wong.jpg';" alt="${doc.name}" style="height:210px; object-fit:cover; width:100%;" class="card-img-top">
                 <span class="position-absolute top-0 end-0 m-3 badge bg-white text-dark shadow-sm fs-8 fw-bold">
                   <i class="bi bi-star-fill text-warning me-1"></i>${doc.rating}
                 </span>
